@@ -1,0 +1,68 @@
+MINI-PROJET :
+Thème :
+---------------------------Digitalisation de la Presence----------------------------------------
+
+1-Introduction :
+    a)Presentation des membres de groupes
+    b)C'est quoi digitalisation de la Presence? (Explication) 
+    c)Matériel Primordial (Scanneur) ?
+    d)Buts & Interêts & Avantages ?
+    
+2-Développement :
+    a)Introduction des technologies utilisés pour la réalisation du projet (Pourquoi ces technos ??)
+    b)Etapes de la réalisation de l'apk :
+    	-Front-End
+    	-Back-End (API,Base de donnée,...)
+    c)Démonstrations
+    d)Problématique & Inconvénient du projet?
+    
+3)Conclusion :
+
+
+
+--------------------------------------------------------------------------------------------------
+
+1-
+a)Présentation des membres de groupes
+
+b)Digitaliser la Présence : 
+
+Il s'agit en effet de réaliser, de rendre la présence ,que ce soit en classe, 
+dans le travail, en un peu plus technologique (c'est-à-dire par la DIGITALISATION).
+
+c)Matériel Primordial (Scanneur) ?
+
+En effet qu'on parle de digitalisation, cela remet en question la technologie.Donc la question 
+suivante se pose : Quels matièriels technologiques nous allons utiliser pour réaliser ce projet?
+Nous allons avoir besoin primordialement besoin d'un téléphone mobile.Le téléphone c'est juste un 
+appareil déjà prêt à être utilise mais l'élèment la plus importante que nous allons creer est l'
+application ===> plus précisément d'un SCANNEUR.
+
+Pourquoi un SCANNEUR ?
+   Comme nous le savons tous un scanneur c'est une application mobile servant à scanner soit un CODE BARRE
+   soit un CODE QR, mais ici celui qui nous interesse le plus c'est le SCANNEUR CODE QR, puisqu'ici chaque 
+   étudiant possède déjà un badge contenant un CODE QR.
+   
+d)Buts & Interêts & Avantages ?
+-Faciliter la présence
+-Moins de dépenses
+-Enregistrement de la présence (Données enregistrer à jamais)
+-Présence non falsifiable (transparence de la présence)
+
+2-
+a) Pour la création de l'application mobile plus précisément application android 
+nous avons pris la décision d'utiliser ANDROID STUDIO pour faciliter le dévéloppement de l'
+application en implémentant JAVA comme language de programmation.
+Nous avons choisit JAVA personnelement car ici à l'école nous nous initialisons aussi à l'introduction
+à ce langage donc pour renforcer notre connaissance et pour faciliter la réalisation du projet nous avons 
+pris la décision d'utiliser JAVA. Pour ce modèle de début nous avons pris l'initiative de développer une 
+application locale c'est-à-dire une base de donnée locale donc encore sans API pour ce début.
+Pour ce base de donnée locale nous avons pensé à SQLITE car il est plutôt facile à utiliser pour cet exemplaire 
+de modèle.
+   
+
+   
+
+
+       
+   

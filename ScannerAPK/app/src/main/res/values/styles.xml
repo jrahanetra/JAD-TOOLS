@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomEditTextStyle">
+        <item name="android:background">@drawable/bordure</item>
+        <!-- Autres attributs pour le style de texte, la couleur, etc. -->
+    </style>
+</resources>
