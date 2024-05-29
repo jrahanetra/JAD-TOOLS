@@ -1,4 +1,4 @@
-package com.jad.jadapi.Students;
+package com.jad_team.jad_api.Students;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

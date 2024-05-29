@@ -1,0 +1,16 @@
+Parcours: id[COUNTER], nom
+
+Contient, 1N Parcours, 1N Niveau
+
+Niveau: id [COUNTER], nom
+Appartenir, 11 Etudiant, 1N Niveau
+Etudiant: id [COUNTER], nom, prenom, adresse, email, numeroTel
+Assister, 1N Etudiant, 1N Cours: presence [BOOLEAN]
+
+Contenir, 1N Niveau, 11 Matiere
+Matiere: id [COUNTER], nom, nbHeure
+S'effectuer, 1N Matiere, 11 Cours
+Cours: date [DATE], _heureDebut [TIME], heureFin [TIME]
+
+Professeur: id [COUNTER], nom, prenom
+Enseigner, 11 Matiere, 1N Professeur

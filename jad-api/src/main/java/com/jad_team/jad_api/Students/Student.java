@@ -1,4 +1,4 @@
-package com.jad.jadapi.Students;
+package com.jad_team.jad_api.Students;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
  * Student
  */
 @Entity
-@Table(name = "students")
+@Table(name = "student")
 public class Student {
 
     @Id
