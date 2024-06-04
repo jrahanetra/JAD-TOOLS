@@ -1,4 +1,4 @@
-package com.jad_team.jad_api;
+package com.jadteam.jadapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
