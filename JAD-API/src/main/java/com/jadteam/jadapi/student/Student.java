@@ -1,4 +1,4 @@
-package com.jadteam.jadapi.students;
+package com.jadteam.jadapi.student;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
