@@ -1,8 +1,12 @@
 package com.jadteam.jadapi.level;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "level")
 public class Level {
 
     @Id
@@ -11,6 +15,7 @@ public class Level {
     private String name;
     
     public Level() {
+
     }
 
     public Level(Integer id, String name) {
