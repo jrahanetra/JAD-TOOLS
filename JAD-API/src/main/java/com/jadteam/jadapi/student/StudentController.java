@@ -34,7 +34,7 @@ public class StudentController {
         return studentService.findAllStudents();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Student findStudentbyId(@PathVariable("id") Integer id) {
         return studentService.findStudentbyId(id);
     }
@@ -44,7 +44,7 @@ public class StudentController {
         return studentService.updateStudent(id, student);
     }
     
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteStudentById(@PathVariable("id") Integer id) {
         studentService.deleteStudentById(id);;
     }
