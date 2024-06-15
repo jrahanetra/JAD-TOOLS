@@ -1,5 +1,6 @@
 package com.jadteam.jadapi.student;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -15,20 +16,20 @@ public class Student {
     @Id
     @GeneratedValue
     private Integer id;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     private String address;
+    @Column(unique = true)
     private String email;
     private String phoneNumber;
 
     
     public Student() {}
 
-    public Student(Integer id, String firstName, String lastName, 
+    public Student(String firstname, String lastname, 
         String address, String email, String phoneNumber) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -38,24 +39,20 @@ public class Student {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setFirstname(String firstName) {
+        this.firstname = firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastName) {
+        this.lastname = lastName;
     }
 
     public String getAddress() {

@@ -39,8 +39,8 @@ public class StudentService {
         if (findStudentbyId(id).equals(new Student()))
             throw new NullPointerException("The student do not exist or has been deleted.");
         studentRepository.updateStudent(id,
-                                        student.getFirstName(),
-                                        student.getLastName(),
+                                        student.getFirstname(),
+                                        student.getLastname(),
                                         student.getAddress(),
                                         student.getEmail(),
                                         student.getPhoneNumber());

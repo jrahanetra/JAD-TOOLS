@@ -38,4 +38,9 @@ public class LevelService {
     public List<Level> findAllLevel() {
         return levelRepository.findAll();
     }
+
+    public Level findLevelById(Integer id) {
+        return levelRepository.findById(id).orElse(null);
+    }
+    
 }
