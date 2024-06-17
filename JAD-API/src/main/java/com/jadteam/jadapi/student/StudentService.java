@@ -1,6 +1,5 @@
 package com.jadteam.jadapi.student;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,21 +10,9 @@ import org.springframework.stereotype.Service;
 public class StudentService {
 
     private StudentRepository studentRepository;
-    private static List<Student> studentList = new ArrayList<>();
-    
-    static {
-        Student s1 = new Student("Antsa", "Rafanomezantsoa", "Ambohimamory", "antsa@email.com", "034 71 720 97");
-        Student s2 = new Student("Jason", "Rahanetra", "Ambatoroka", "jason@email.com", "038 77 667 97");
-        Student s3 = new Student("Dihariniaina", "Rabearimanana", "Andranomena", "dihary@mail.com", "034 09 241 65");
-        studentList.add(s1);
-        studentList.add(s2);
-        studentList.add(s3);
-    }
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
-        for (var student: studentList)
-            this.studentRepository.save(student);
     }
 
     public Student saveStudent(Student student) throws Exception {

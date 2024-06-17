@@ -1,9 +1,14 @@
 package com.jadteam.jadapi.student;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.jadteam.jadapi.level.Level;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -19,10 +24,15 @@ public class Student {
     private String firstname;
     private String lastname;
     private String address;
+
     @Column(unique = true)
     private String email;
     private String phoneNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "level_id")
+    @JsonBackReference
+    private Level level;
     
     public Student() {}
 
@@ -77,6 +87,14 @@ public class Student {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
 }
