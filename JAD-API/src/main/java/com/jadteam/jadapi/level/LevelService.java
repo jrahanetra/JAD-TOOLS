@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LevelService {
 
-    private LevelRepository levelRepository;
+    private final LevelRepository levelRepository;
     private static List<Level> levelList = new ArrayList<>();
 
     static {
