@@ -9,18 +9,18 @@ import jakarta.persistence.Table;
  * major
  */
 @Entity
-@Table(name = "major")
-public class major {
+@Table
+public class Major {
     
 	@Id
     @GeneratedValue
     private Integer id;
     private String name;
 
-    public major() {
+    public Major() {
     }
 
-    public major(String name) {
+    public Major(String name) {
         this.name = name;
     }
 

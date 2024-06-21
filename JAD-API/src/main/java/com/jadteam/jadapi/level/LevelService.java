@@ -8,20 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class LevelService {
 
-    private LevelRepository levelRepository;
+    private final LevelRepository levelRepository;
     private static List<Level> levelList = new ArrayList<>();
 
     static {
-        Level l1 = new Level();
-        l1.setName("L1");
-        Level l2 = new Level();
-        l2.setName("L2");
-        Level l3 = new Level();
-        l3.setName("L3");
-        Level m1 = new Level();
-        m1.setName("M1");
-        Level m2 = new Level();
-        m2.setName("M2");
+        Level l1 = new Level("L1");
+        Level l2 = new Level("L2");
+        Level l3 = new Level("L3");
+        Level m1 = new Level("M1");
+        Level m2 = new Level("M2");
         levelList.add(l1);
         levelList.add(l2);
         levelList.add(l3);

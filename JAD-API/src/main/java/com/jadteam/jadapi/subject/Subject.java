@@ -1,11 +1,15 @@
 package com.jadteam.jadapi.subject;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * Subject
  */
+@Entity
+@Table
 public class Subject {
     
 	@Id

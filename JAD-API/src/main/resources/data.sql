@@ -5,8 +5,7 @@ insert into student
         lastname,
         address,
         email,
-        phone_number,
-        level_id
+        phone_number
 )
 values
 (
@@ -15,8 +14,7 @@ values
         'Rafanomezantsoa',
         'Ampitatafika',
         'antsa@mail.com',
-        '034 71 720 97',
-        2
+        '034 71 720 97'
 );
 
 insert into student
@@ -26,8 +24,7 @@ insert into student
         lastname,
         address,
         email,
-        phone_number,
-        level_id
+        phone_number
 )
 values
 (
@@ -36,8 +33,7 @@ values
         'Rahanetra',
         'Ambatoroka',
         'jason@mail.com',
-        '038 77 667 97',
-        2
+        '038 77 667 97'
 );
 
 insert into student
@@ -47,8 +43,7 @@ insert into student
         lastname,
         address,
         email,
-        phone_number,
-        level_id
+        phone_number
 )
 values
 (
@@ -57,6 +52,5 @@ values
         'Rabearimanana',
         'Andranomena',
         'dihary@mail.com',
-        '034 09 241 65',
-        2
+        '034 09 241 65'
 );

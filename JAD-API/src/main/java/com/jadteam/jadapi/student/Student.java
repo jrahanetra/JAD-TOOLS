@@ -1,21 +1,18 @@
 package com.jadteam.jadapi.student;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jadteam.jadapi.level.Level;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
  * Student
  */
 @Entity
-@Table(name = "student")
+@Table
 public class Student {
 
     @Id
@@ -28,13 +25,9 @@ public class Student {
     @Column(unique = true)
     private String email;
     private String phoneNumber;
-
-    @ManyToOne
-    @JoinColumn(name = "level_id")
-    @JsonBackReference
-    private Level level;
     
-    public Student() {}
+    public Student() {
+    }
 
     public Student(String firstname, String lastname, 
         String address, String email, String phoneNumber) {

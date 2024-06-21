@@ -1,11 +1,15 @@
 package com.jadteam.jadapi.teacher;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * teacher
  */
+@Entity
+@Table
 public class Teacher {
     
 	@Id
