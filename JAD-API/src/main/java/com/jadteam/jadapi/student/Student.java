@@ -1,11 +1,14 @@
 package com.jadteam.jadapi.student;
 
-import com.jadteam.jadapi.level.Level;
+import java.util.List;
+
+import com.jadteam.jadapi.registration.Registration;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -25,6 +28,9 @@ public class Student {
     @Column(unique = true)
     private String email;
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "student")
+    private List<Registration> registration;
     
     public Student() {
     }
@@ -40,6 +46,10 @@ public class Student {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstname() {
@@ -82,12 +92,12 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public Level getLevel() {
-        return level;
+    public List<Registration> getRegistration() {
+        return registration;
     }
 
-    public void setLevel(Level level) {
-        this.level = level;
+    public void setRegistration(List<Registration> registration) {
+        this.registration = registration;
     }
-
+    
 }

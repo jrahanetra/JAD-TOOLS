@@ -1,8 +1,13 @@
 package com.jadteam.jadapi.major;
 
+import java.util.List;
+
+import com.jadteam.jadapi.registration.Registration;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -16,6 +21,9 @@ public class Major {
     @GeneratedValue
     private Integer id;
     private String name;
+
+    @OneToMany(mappedBy = "major")
+    private List<Registration> registration;
 
     public Major() {
     }
@@ -38,6 +46,14 @@ public class Major {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Registration> getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(List<Registration> registration) {
+        this.registration = registration;
     }
 
 }
