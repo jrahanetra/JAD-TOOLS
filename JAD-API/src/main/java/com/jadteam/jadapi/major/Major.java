@@ -2,6 +2,7 @@ package com.jadteam.jadapi.major;
 
 import java.util.List;
 
+import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubject;
 import com.jadteam.jadapi.registration.Registration;
 
 import jakarta.persistence.Entity;
@@ -23,7 +24,10 @@ public class Major {
     private String name;
 
     @OneToMany(mappedBy = "major")
-    private List<Registration> registration;
+    private List<Registration> registrationList;
+
+    @OneToMany(mappedBy = "major")
+    private List<MajorLevelSubject> majorLevelSubjectList;
 
     public Major() {
     }
@@ -48,12 +52,20 @@ public class Major {
         this.name = name;
     }
 
-    public List<Registration> getRegistration() {
-        return registration;
+    public List<Registration> getRegistrationList() {
+        return registrationList;
     }
 
-    public void setRegistration(List<Registration> registration) {
-        this.registration = registration;
+    public void setRegistrationList(List<Registration> registration) {
+        this.registrationList = registration;
+    }
+
+    public List<MajorLevelSubject> getMajorLevelSubjectList() {
+        return majorLevelSubjectList;
+    }
+
+    public void setMajorLevelSubjectList(List<MajorLevelSubject> majorLevelSubjects) {
+        this.majorLevelSubjectList = majorLevelSubjects;
     }
 
 }

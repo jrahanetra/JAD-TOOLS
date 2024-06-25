@@ -3,6 +3,7 @@ package com.jadteam.jadapi.student;
 import java.util.List;
 
 import com.jadteam.jadapi.registration.Registration;
+import com.jadteam.jadapi.studentcourse.StudentCourse;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +21,7 @@ public class Student {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Integer studentId;
     private String firstname;
     private String lastname;
     private String address;
@@ -30,8 +31,11 @@ public class Student {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "student")
-    private List<Registration> registration;
-    
+    private List<Registration> registrationList;
+
+    @OneToMany(mappedBy = "student")
+    private List<StudentCourse> studentCourseList;
+
     public Student() {
     }
 
@@ -44,12 +48,12 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getStudentId() {
+        return studentId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
     }
 
     public String getFirstname() {
@@ -92,12 +96,20 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Registration> getRegistration() {
-        return registration;
+    public List<Registration> getRegistrationList() {
+        return registrationList;
     }
 
-    public void setRegistration(List<Registration> registration) {
-        this.registration = registration;
+    public void setRegistrationList(List<Registration> registrations) {
+        this.registrationList = registrations;
+    }
+
+    public List<StudentCourse> getStudentCourseList() {
+        return studentCourseList;
+    }
+
+    public void setStudentCourseList(List<StudentCourse> studentCourseList) {
+        this.studentCourseList = studentCourseList;
     }
     
 }

@@ -1,6 +1,6 @@
 insert into student
 (
-        id,
+        student_id,
         firstname,
         lastname,
         address,
@@ -19,7 +19,7 @@ values
 
 insert into student
 (
-        id,
+        student_id,
         firstname,
         lastname,
         address,
@@ -38,7 +38,7 @@ values
 
 insert into student
 (
-        id,
+        student_id,
         firstname,
         lastname,
         address,

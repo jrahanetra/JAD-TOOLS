@@ -17,7 +17,7 @@ import jakarta.persistence.MapsId;
 public class Registration {
     
 	@EmbeddedId
-    private RegistrationKey id;
+    private RegistrationId registrationId;
 
     @ManyToOne
     @MapsId("studentId")
@@ -39,22 +39,22 @@ public class Registration {
     public Registration() {
     }
 
-    public Registration(RegistrationKey id, Student student, Major major, Level level, Integer year) {
-        this.id = id;
+    public Registration(RegistrationId registrationId, Student student, Major major, Level level, Integer year) {
+        this.registrationId = registrationId;
         this.student = student;
         this.major = major;
         this.level = level;
         this.year = year;
     }
 
-    public RegistrationKey getId() {
-        return id;
+    public RegistrationId getRegistrationId() {
+        return registrationId;
     }
 
-    public void setId(RegistrationKey id) {
-        this.id = id;
+    public void setRegistrationId(RegistrationId registrationId) {
+        this.registrationId = registrationId;
     }
-
+    
     public Student getStudent() {
         return student;
     }

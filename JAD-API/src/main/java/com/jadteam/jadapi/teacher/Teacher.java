@@ -1,8 +1,13 @@
 package com.jadteam.jadapi.teacher;
 
+import java.util.List;
+
+import com.jadteam.jadapi.subject.Subject;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -17,6 +22,9 @@ public class Teacher {
     private Integer id;
     private String firstname;
     private String lastname;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<Subject> subjects;
 
     public Teacher() {
     }
@@ -48,6 +56,14 @@ public class Teacher {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 
 }

@@ -13,6 +13,10 @@ public class SubjectService {
         this.subjectRepository = subjectRepository;
     }
 
+    public Subject saveSubject(Subject subject) {
+        return subjectRepository.save(subject);
+    }
+
     public List<Subject> findAllSubject() {
         return subjectRepository.findAll();
     }

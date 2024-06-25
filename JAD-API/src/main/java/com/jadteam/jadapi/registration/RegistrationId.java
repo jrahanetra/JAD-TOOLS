@@ -9,7 +9,7 @@ import jakarta.persistence.Embeddable;
  * RegistrationKey
  */
 @Embeddable
-public class RegistrationKey implements Serializable {
+public class RegistrationId implements Serializable {
     
 	@Column(name = "student_id")
     private Integer studentId;
@@ -18,10 +18,10 @@ public class RegistrationKey implements Serializable {
     @Column(name = "level_id")
     private Integer levelId;
 
-    public RegistrationKey() {
+    public RegistrationId() {
     }
 
-    public RegistrationKey(Integer studentId, Integer majorId, Integer levelId) {
+    public RegistrationId(Integer studentId, Integer majorId, Integer levelId) {
         this.studentId = studentId;
         this.majorId = majorId;
         this.levelId = levelId;
@@ -49,16 +49,6 @@ public class RegistrationKey implements Serializable {
 
     public void setLevelId(Integer levelId) {
         this.levelId = levelId;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
 }
