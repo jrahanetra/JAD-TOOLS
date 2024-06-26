@@ -40,11 +40,11 @@ public class StudentCourse {
         this.justificated = justification;
     }
 
-    public StudentCourse getStudentCourseId() {
+    public StudentCourseId getStudentCourseId() {
         return studentCourseId;
     }
 
-    public void setStudentCourseId(StudentCourse studentCourseId) {
+    public void setStudentCourseId(StudentCourseId studentCourseId) {
         this.studentCourseId = studentCourseId;
     }
 
