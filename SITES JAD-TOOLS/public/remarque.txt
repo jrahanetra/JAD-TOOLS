@@ -1,5 +1,0 @@
-Tokony asina espace compte genre se deconnecter, modifier photos, nom, pseudo pour les admins.
-
-Requête base : 
-insert into student(id,address,email,first_name,last_name,phone_number) values (2, "Ampitatafika", "antsavivien@gmail.com", "Antsa", "RAFANOMEZANTSOA","038 11 111 11");
-insert into student(id,address,email,first_name,last_name,phone_number) values (3, "Andranomena", "dihary@gmail.com", "Dihariniaina", "RABEARIMANANA","038 22 222 22");
