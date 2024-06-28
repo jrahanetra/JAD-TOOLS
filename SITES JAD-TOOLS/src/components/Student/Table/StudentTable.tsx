@@ -37,24 +37,24 @@ function TableData(){
             <div className="div-row-table">
                 <table>
                     {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student} onStudentClick={handleStudentClick}/>
+                        <StundentRow key={student.studentId} etudiant={student} onStudentClick={handleStudentClick}/>
                     ))}
                     {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student} onStudentClick={handleStudentClick}/>
+                        <StundentRow key={student.studentId} etudiant={student} onStudentClick={handleStudentClick}/>
                     ))}{etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student} onStudentClick={handleStudentClick}/>
+                        <StundentRow key={student.studentId} etudiant={student} onStudentClick={handleStudentClick}/>
                     ))}
                     {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student} onStudentClick={handleStudentClick}/>
+                        <StundentRow key={student.studentId} etudiant={student} onStudentClick={handleStudentClick}/>
                     ))}
                     {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student} onStudentClick={handleStudentClick}/>
+                        <StundentRow key={student.studentId} etudiant={student} onStudentClick={handleStudentClick}/>
                     ))}
                     {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student} onStudentClick={handleStudentClick}/>
+                        <StundentRow key={student.studentId} etudiant={student} onStudentClick={handleStudentClick}/>
                     ))}
                     {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student} onStudentClick={handleStudentClick}/>
+                        <StundentRow key={student.studentId} etudiant={student} onStudentClick={handleStudentClick}/>
                     ))}
                 </table>
             </div>

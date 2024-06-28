@@ -31,26 +31,23 @@ function TableData(){
             <div className="div-row-table">
                 <table>
                     {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student}/>
+                        <StundentRow key={student.studentId} etudiant={student}/>
                     ))}
                     {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student}/>
-                    ))}
-                    {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student}/>
+                        <StundentRow key={student.studentId} etudiant={student}/>
                     ))} 
                     {etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student}/>
+                        <StundentRow key={student.studentId} etudiant={student}/>
                     ))}{etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student}/>
+                        <StundentRow key={student.studentId} etudiant={student}/>
                     ))}{etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student}/>
+                        <StundentRow key={student.studentId} etudiant={student}/>
                     ))}{etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student}/>
+                        <StundentRow key={student.studentId} etudiant={student}/>
                     ))}{etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student}/>
+                        <StundentRow key={student.studentId} etudiant={student}/>
                     ))}{etudiantList.map(student => (
-                        <StundentRow key={student.id} etudiant={student}/>
+                        <StundentRow key={student.studentId} etudiant={student}/>
                     ))}
                 </table>              
             </div>

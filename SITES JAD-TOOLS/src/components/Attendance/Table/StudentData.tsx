@@ -8,7 +8,7 @@ type Props = {
 function StundentRow({ etudiant }: Props) {
     return (
         <tr>
-            <td>{etudiant.id}</td>
+            <td>{etudiant.studentId}</td>
             <td>{etudiant.lastname}</td>
             <td>{etudiant.firstname}</td>
             <td>{etudiant.address}</td>

@@ -601,8 +601,8 @@ td.td-head{
 .div-container-filter{
     position: fixed;
     width: 300px;
-    top: 25%;
-    left: 1%;
+    top: 23%;
+    left: 0%;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
