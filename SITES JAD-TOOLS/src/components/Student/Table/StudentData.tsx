@@ -19,12 +19,12 @@ function StundentRow({ etudiant, borderColor, onStudentClick}: Props) {
 
     const handleClick = () => {
         // Appeler la fonction de rappel avec l'ID de l'étudiant
-        onStudentClick(etudiant.id);
+        onStudentClick(etudiant.studentId);
     };
 
     return (
         <tr onClick={handleClick} onMouseEnter={showBorder} onMouseLeave={hideBorder} style={{borderBottom: color}}>
-            <td>{etudiant.id}</td>
+            <td>{etudiant.studentId}</td>
             <td>{etudiant.firstname}</td>
             <td>{etudiant.lastname}</td>
             <td>{etudiant.address}</td>
