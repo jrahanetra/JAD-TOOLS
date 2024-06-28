@@ -22,4 +22,8 @@ public class TeacherService {
         return teacherRepository.findById(id).orElse(null);
     }
 
+    public Teacher saveTeacher(Teacher teacher) {
+        return teacherRepository.save(teacher);
+    }
+
 }

@@ -34,5 +34,9 @@ public class MajorService {
     public Major findMajorById(Integer id) {
         return majorRepository.findById(id).orElse(null);
     }
+
+    public Major saveMajor(Major major) {
+        return majorRepository.save(major);
+    }
     
 }
