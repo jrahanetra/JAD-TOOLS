@@ -34,3 +34,6 @@ HELP.md
 
 **/.projectile
 **/*.bkp
+**node_modules
+**package-lock.json
+**build

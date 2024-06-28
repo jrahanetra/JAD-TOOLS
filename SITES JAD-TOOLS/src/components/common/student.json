@@ -1,0 +1,28 @@
+{
+    "students":[
+        {
+            "id": 1,
+            "firstname": "Fanasina Jason",
+            "lastname": "RAHANETRA",
+            "address": "Ambatoroka",
+            "email": "jrahanetra@gmail.com",
+            "phoneNumber": "038 77 667 97"
+        },
+        {
+            "id": 2,
+            "firstname": "Antsa Vivien",
+            "lastname": "RAFANOMEZANTSOA",
+            "address": "Ampitatafika",
+            "email": "antsavivien@gmail.com",
+            "phoneNumber": "034 71 720 97"
+        },
+        {
+            "id": 3,
+            "firstname": "Dihariniaina",
+            "lastname": "RABEARIMANANA",
+            "address": "Andranomena",
+            "email": "dihariniaina@gmail.com",
+            "phoneNumber": "034 11 111 11"
+        }
+    ]
+}
