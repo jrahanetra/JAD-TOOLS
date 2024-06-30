@@ -12,31 +12,35 @@ import org.springframework.stereotype.Service;
 public class MajorService {
     
     private final MajorRepository majorRepository;
-    private static List<Major> majorList = new ArrayList<>();
-
-    static {
-        Major major1 = new Major("Infrastructures cloud et devops");
-        Major major2 = new Major("Développement web et application mobile");
-        Major major3 = new Major("Intelligence artificielle et big data");
-        majorList.add(major1);
-        majorList.add(major2);
-        majorList.add(major3);
-    }
 
     public MajorService(MajorRepository majorRepository) {
         this.majorRepository = majorRepository;
     }
 
-    public List<Major> findAllMajor() {
-        return majorRepository.findAll();
+    public MajorDto toMajorDto(Major major) {
+        if (major == null)
+            throw new NullPointerException("L'objet parcours est null.");
+        MajorDto majorDto = new MajorDto(major.getMajorId(), major.getMajorName());
+        return majorDto;
+    }
+
+    public MajorDto saveMajor(Major major) {
+        if (major == null)
+            throw new NullPointerException("Les informations du parcours sont invalides.");
+        majorRepository.save(major);
+        return toMajorDto(major);
+    }
+
+    public List<MajorDto> findAllMajor() {
+        List<Major> majors = majorRepository.findAll();
+        List<MajorDto> majorDtos = new ArrayList<>();
+        for (var major: majors)
+            majorDtos.add(toMajorDto(major));
+        return majorDtos;
     }
 
     public Major findMajorById(Integer id) {
         return majorRepository.findById(id).orElse(null);
-    }
-
-    public Major saveMajor(Major major) {
-        return majorRepository.save(major);
     }
     
 }

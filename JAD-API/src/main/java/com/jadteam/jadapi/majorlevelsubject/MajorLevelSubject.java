@@ -1,5 +1,7 @@
 package com.jadteam.jadapi.majorlevelsubject;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jadteam.jadapi.level.Level;
 import com.jadteam.jadapi.major.Major;
 import com.jadteam.jadapi.subject.Subject;
@@ -9,11 +11,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
 
 /**
  * MajorLevelSubject
  */
 @Entity
+@Table
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "majorLevelSubjectId")
 public class MajorLevelSubject {
     
     @EmbeddedId

@@ -1,5 +1,6 @@
 package com.jadteam.jadapi.student;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,19 +16,33 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Student saveStudent(Student student) throws Exception {
-        if (student.equals(null)) 
+    public StudentDto toStudentDto(Student student) {
+        if (student == null)
+            throw new NullPointerException("Les informations de l'étudiant sont invalides.");
+        StudentDto studentDto = new StudentDto(student.getStudentId(), student.getFirstname(), student.getLastname(),
+                student.getAddress(), student.getEmail(), student.getPhoneNumber());
+        return studentDto;
+    }
+
+    public StudentDto saveStudent(Student student) throws Exception {
+        if (student == null) 
             throw new NullPointerException("The student should not be null.");
         String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(student.getEmail());
         if (!matcher.matches())
             throw new Exception("Invalid email.");
-        return studentRepository.save(student);
+        studentRepository.save(student);
+        return toStudentDto(student);
     }
 
-    public List<Student> findAllStudents() {
-        return studentRepository.findAll();
+    public List<StudentDto> findAllStudents() {
+        List<Student> students = studentRepository.findAll();
+        List<StudentDto> studentDtos = new ArrayList<>();
+        for (var student : students) {
+            studentDtos.add(toStudentDto(student));
+        }
+        return studentDtos;
     }
 
     public Student findStudentbyId(Integer id) {

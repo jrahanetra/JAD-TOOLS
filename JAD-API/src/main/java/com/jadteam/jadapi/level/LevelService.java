@@ -9,29 +9,24 @@ import org.springframework.stereotype.Service;
 public class LevelService {
 
     private final LevelRepository levelRepository;
-    private static List<Level> levelList = new ArrayList<>();
-
-    static {
-        Level l1 = new Level("L1");
-        Level l2 = new Level("L2");
-        Level l3 = new Level("L3");
-        Level m1 = new Level("M1");
-        Level m2 = new Level("M2");
-        levelList.add(l1);
-        levelList.add(l2);
-        levelList.add(l3);
-        levelList.add(m1);
-        levelList.add(m2);
-    }
 
     public LevelService(LevelRepository levelRepository) {
         this.levelRepository = levelRepository;
-        for (var level: levelList)
-            this.levelRepository.save(level);
     }
 
-    public List<Level> findAllLevel() {
-        return levelRepository.findAll();
+    public LevelDto toLevelDto(Level level) {
+        if (level == null)
+            throw new NullPointerException("L'objet niveau est null.");
+        LevelDto levelDto = new LevelDto(level.getLevelId(), level.getLevelName());
+        return levelDto;
+    }
+
+    public List<LevelDto> findAllLevel() {
+        List<Level> levels = levelRepository.findAll();
+        List<LevelDto> levelDtos = new ArrayList<>();
+        for (var level: levels)
+            levelDtos.add(toLevelDto(level));
+        return levelDtos;
     }
 
     public Level findLevelById(Integer id) {

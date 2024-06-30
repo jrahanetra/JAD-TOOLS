@@ -2,6 +2,9 @@ package com.jadteam.jadapi.subject;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jadteam.jadapi.course.Course;
 import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubject;
 import com.jadteam.jadapi.teacher.Teacher;
@@ -19,12 +22,15 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "subjectId")
 public class Subject {
     
 	@Id
     @GeneratedValue
-    private Integer id;
-    private String name;
+    private Integer subjectId;
+    private String subjectName;
     private Integer hourNumber;
 
     @OneToMany(mappedBy = "subject")
@@ -32,6 +38,7 @@ public class Subject {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
+    @JsonBackReference
     private Teacher teacher;
 
     @OneToMany(mappedBy = "subject")
@@ -41,24 +48,24 @@ public class Subject {
     }
 
     public Subject(String name, Integer hourNumber) {
-        this.name = name;
+        this.subjectName = name;
         this.hourNumber = hourNumber;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getSubjectId() {
+        return subjectId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSubjectId(Integer id) {
+        this.subjectId = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSubjectName(String name) {
+        this.subjectName = name;
     }
 
     public Integer getHourNumber() {

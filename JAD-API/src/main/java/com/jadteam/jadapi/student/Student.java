@@ -2,6 +2,8 @@ package com.jadteam.jadapi.student;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jadteam.jadapi.registration.Registration;
 import com.jadteam.jadapi.studentcourse.StudentCourse;
 
@@ -17,6 +19,9 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "studentId")
 public class Student {
 
     @Id
@@ -39,13 +44,15 @@ public class Student {
     public Student() {
     }
 
-    public Student(String firstname, String lastname, 
-        String address, String email, String phoneNumber) {
+    public Student(String firstname, String lastname, String address, String email, String phoneNumber,
+            List<Registration> registrationList, List<StudentCourse> studentCourseList) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.registrationList = registrationList;
+        this.studentCourseList = studentCourseList;
     }
 
     public Integer getStudentId() {

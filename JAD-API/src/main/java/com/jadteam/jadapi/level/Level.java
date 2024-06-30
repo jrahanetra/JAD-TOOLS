@@ -1,6 +1,8 @@
 package com.jadteam.jadapi.level;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubject;
 import com.jadteam.jadapi.registration.Registration;
 
@@ -12,12 +14,15 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "levelId")
 public class Level {
 
     @Id
     @GeneratedValue
-    private Integer id;
-    private String name;
+    private Integer levelId;
+    private String levelName;
 
     @OneToMany(mappedBy = "level")
     private List<Registration> registrationList;
@@ -26,35 +31,28 @@ public class Level {
     private List<MajorLevelSubject> majorLevelSubjectList;
 
     public Level() {
-
     }
 
-    public Level(String name) {
-        this.name = name;
+    public Level(String levelName, List<Registration> registrationList, List<MajorLevelSubject> majorLevelSubjectList) {
+        this.levelName = levelName;
+        this.registrationList = registrationList;
+        this.majorLevelSubjectList = majorLevelSubjectList;
     }
 
-    public Integer getId() {
-        return id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
+    public String getLevelName() {
+        return levelName;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
     }
 
     public List<Registration> getRegistrationList() {
         return registrationList;
     }
 
-    public void setRegistrationList(List<Registration> registration) {
-        this.registrationList = registration;
+    public void setRegistrationList(List<Registration> registrationList) {
+        this.registrationList = registrationList;
     }
 
     public List<MajorLevelSubject> getMajorLevelSubjectList() {
@@ -63,6 +61,14 @@ public class Level {
 
     public void setMajorLevelSubjectList(List<MajorLevelSubject> majorLevelSubjects) {
         this.majorLevelSubjectList = majorLevelSubjects;
+    }
+
+    public Integer getLevelId() {
+        return levelId;
+    }
+
+    public void setLevelId(Integer levelId) {
+        this.levelId = levelId;
     }
 
 }

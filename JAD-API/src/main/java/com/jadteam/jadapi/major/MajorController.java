@@ -22,20 +22,19 @@ public class MajorController {
         this.majorService = majorService;
     }
 
+    @PostMapping("")
+    public MajorDto addMajor(@RequestBody Major major) {
+        return majorService.saveMajor(major);
+    }
+
 	@GetMapping("")
-    public List<Major> findAllLevel() {
+    public List<MajorDto> findAllLevel() {
         return majorService.findAllMajor();
     }
 
     @GetMapping("/{id}")
-    public Major findLevelById(@PathVariable("id") Integer id) {
+    public Major findMajorById(@PathVariable("id") Integer id) {
         return majorService.findMajorById(id);
-    }
-
-    @PostMapping("")
-    public Major addMajor(@RequestBody Major major) {
-        return majorService.saveMajor(major);
-    }
-    
+    }    
 
 }

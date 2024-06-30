@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jadteam.jadapi.studentcourse.StudentCourse;
 import com.jadteam.jadapi.subject.Subject;
 
@@ -20,6 +22,9 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "courseId")
 public class Course {
     
 	@Id

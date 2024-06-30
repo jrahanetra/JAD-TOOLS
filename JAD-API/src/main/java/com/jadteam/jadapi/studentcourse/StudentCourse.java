@@ -1,5 +1,7 @@
 package com.jadteam.jadapi.studentcourse;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jadteam.jadapi.course.Course;
 import com.jadteam.jadapi.student.Student;
 
@@ -8,11 +10,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
 
 /**
  * StudentCourse
  */
 @Entity
+@Table
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "studentCourseId")
 public class StudentCourse {
     
 	@EmbeddedId

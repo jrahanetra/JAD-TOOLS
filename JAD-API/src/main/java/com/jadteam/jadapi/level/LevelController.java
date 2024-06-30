@@ -19,7 +19,7 @@ public class LevelController {
     }
 
     @GetMapping("")
-    public List<Level> findAllLevel() {
+    public List<LevelDto> findAllLevel() {
         return levelService.findAllLevel();
     }
 
