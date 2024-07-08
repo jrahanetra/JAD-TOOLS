@@ -25,12 +25,12 @@ public class StudentController {
     }
 
     @PostMapping("")
-    public Student registerStudent(@RequestBody Student student) throws Exception {
+    public StudentDto registerStudent(@RequestBody Student student) throws Exception {
         return studentService.saveStudent(student);
     }
 
     @GetMapping("")
-    public List<Student> findAllStudents() {
+    public List<StudentDto> findAllStudents() {
         return studentService.findAllStudents();
     }
 
