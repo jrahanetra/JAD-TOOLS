@@ -59,6 +59,14 @@ public class RegistrationService {
         return regDto;
     }
 
+    public List<RegistrationDto> findAllRegistrations() {
+        List<Registration> registrations = registrationRepository.findAll();
+        List<RegistrationDto> registrationDtos = new ArrayList<>();
+        for (var registration: registrations)
+            registrationDtos.add(toRegistrationDto(registration));
+        return registrationDtos;
+    }
+
     public List<RegistrationDto> findAllRegistrationsByMajorAndLevel(Integer majorId, Integer levelId) {
         Major major = majorService.findMajorById(majorId);
         Level level = levelService.findLevelById(levelId);

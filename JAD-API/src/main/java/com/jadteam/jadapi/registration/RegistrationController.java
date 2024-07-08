@@ -28,6 +28,11 @@ public class RegistrationController {
     }
 
     @GetMapping("")
+    public List<RegistrationDto> findAllRegistrations() {
+        return registrationService.findAllRegistrations();
+    }
+
+    @GetMapping("/s")
     public List<RegistrationDto> findAllRegistrationsByMajorAndLevel(@RequestParam("majorId") Integer majorId, @RequestParam("levelId") Integer levelId) {
         return registrationService.findAllRegistrationsByMajorAndLevel(majorId, levelId);
     }
@@ -41,6 +46,5 @@ public class RegistrationController {
     public List<RegistrationDto> findAllRegistrationByLevel(@PathVariable("levelId") Integer levelId, @RequestParam("year") Integer year) {
         return registrationService.findAllRegistrationsByLevel(levelId, year);
     }
-    
-    
+
 }
