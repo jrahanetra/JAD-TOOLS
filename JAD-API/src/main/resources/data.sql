@@ -126,3 +126,42 @@ values (
        5,
        "M2"
 );
+
+insert into registration (
+       student_id,
+       major_id,
+       level_id,
+       year
+)
+values (
+       1,
+       3,
+       2,
+       2024
+);
+
+insert into registration (
+       student_id,
+       major_id,
+       level_id,
+       year
+)
+values (
+       2,
+       2,
+       2,
+       2024
+);
+
+insert into registration (
+       student_id,
+       major_id,
+       level_id,
+       year
+)
+values (
+       3,
+       3,
+       2,
+       2024
+);
