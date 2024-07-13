@@ -13,9 +13,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RegistrationRepository extends JpaRepository<Registration, RegistrationId> {
     
     public List<Registration> findAllByMajorAndLevel(Major major, Level level);
-
-    public List<Registration> findAllByMajor(Major major);
-
-    public List<Registration> findAllByLevel(Level level);
-
 }

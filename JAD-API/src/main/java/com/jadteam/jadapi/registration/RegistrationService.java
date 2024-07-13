@@ -68,45 +68,17 @@ public class RegistrationService {
     }
 
     public List<RegistrationDto> findAllRegistrationsByMajorAndLevel(Integer majorId, Integer levelId) {
+        if (majorId == null)
+            throw new NullPointerException("L'ID du parcours est invalide.");
+        if (levelId == null)
+            throw new NullPointerException("L'ID du niveau est invalide.");
         Major major = majorService.findMajorById(majorId);
         Level level = levelService.findLevelById(levelId);
         if (major == null || level == null)
-            throw new NullPointerException("L'un des informations fournies est incorrecte.");
+            return new ArrayList<>();
         List<Registration> registrations = registrationRepository.findAllByMajorAndLevel(major, level);
         List<RegistrationDto> registrationDtos = new ArrayList<>();
         for (var registration: registrations)
-            registrationDtos.add(toRegistrationDto(registration));
-        return registrationDtos;
-    }
-
-    public List<RegistrationDto> findAllRegistrationsByMajor(Integer majorId, Integer year) {
-        if (majorId == null || year == null)
-            throw new NullPointerException("Une ou plusieurs information(s) fournie(s) est/sont nulle(s).");
-        Major major = majorService.findMajorById(majorId);
-        if (major == null)
-            throw new NullPointerException("Il n'y a aucun parcours avec cet ID.");
-        List<Registration> registrations = registrationRepository.findAllByMajor(major);
-        List<Registration> filteredRegistrations = registrations.stream()
-            .filter(reg -> reg.getYear().equals(year))
-            .toList();
-        List<RegistrationDto> registrationDtos = new ArrayList<>();
-        for (var registration: filteredRegistrations)
-            registrationDtos.add(toRegistrationDto(registration));
-        return registrationDtos;
-    }
-
-    public List<RegistrationDto> findAllRegistrationsByLevel(Integer levelId, Integer year) {
-        if (levelId == null || year == null)
-            throw new NullPointerException("Une ou plusieurs information(s) fournie(s) est/sont nulle(s)");
-        Level level = levelService.findLevelById(levelId);
-        if (level == null)
-            throw new NullPointerException("Il n'y a aucun niveau avec cet ID.");
-        List<Registration> registrations = registrationRepository.findAllByLevel(level);
-        List<Registration> filteredRegistrations = registrations.stream()
-            .filter(reg -> reg.getYear().equals(year))
-            .toList();
-        List<RegistrationDto> registrationDtos = new ArrayList<>();
-        for (var registration: filteredRegistrations)
             registrationDtos.add(toRegistrationDto(registration));
         return registrationDtos;
     }

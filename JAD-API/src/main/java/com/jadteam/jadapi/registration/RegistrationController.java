@@ -23,7 +23,10 @@ public class RegistrationController {
     }
 
     @PostMapping("")
-    public RegistrationDto addRegistration(@RequestParam("studentId") Integer studentId, @RequestParam("majorId") Integer majorId, @RequestParam("levelId") Integer levelId, @RequestParam("year") Integer year) {
+    public RegistrationDto addRegistration(@RequestParam("studentId") Integer studentId,
+                                           @RequestParam("majorId") Integer majorId,
+                                           @RequestParam("levelId") Integer levelId,
+                                           @RequestParam("year") Integer year) {
         return registrationService.saveRegistration(studentId, majorId, levelId, year);
     }
 
@@ -33,18 +36,9 @@ public class RegistrationController {
     }
 
     @GetMapping("/s")
-    public List<RegistrationDto> findAllRegistrationsByMajorAndLevel(@RequestParam("majorId") Integer majorId, @RequestParam("levelId") Integer levelId) {
+    public List<RegistrationDto> findAllRegistrationsByMajorAndLevel(@RequestParam("majorId") Integer majorId,
+                                                                     @RequestParam("levelId") Integer levelId) {
         return registrationService.findAllRegistrationsByMajorAndLevel(majorId, levelId);
-    }
-
-    @GetMapping("/majors/{majorId}")
-    public List<RegistrationDto> findAllRegistrationsByMajor(@PathVariable("majorId") Integer majorId, @RequestParam("year") Integer year) {
-        return registrationService.findAllRegistrationsByMajor(majorId, year);
-    }
-
-    @GetMapping("/levels/{levelId}")
-    public List<RegistrationDto> findAllRegistrationByLevel(@PathVariable("levelId") Integer levelId, @RequestParam("year") Integer year) {
-        return registrationService.findAllRegistrationsByLevel(levelId, year);
     }
 
 }

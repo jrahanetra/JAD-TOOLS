@@ -23,17 +23,17 @@ public class SubjectController {
     }
 
     @PostMapping("")
-    public Subject addSubject(@RequestBody Subject subject) {
+    public SubjectDto addSubject(@RequestBody Subject subject) {
         return subjectService.saveSubject(subject);
     }
 
     @GetMapping("")
-    public List<Subject> findAllSubjects() {
+    public List<SubjectDto> findAllSubjects() {
         return subjectService.findAllSubject();
     }
 
     @GetMapping("/{id}")
-    public Subject findSubjectById(@PathVariable("id") Integer id) {
+    public SubjectDto findSubjectById(@PathVariable("id") Integer id) {
         return subjectService.findSubjectById(id);
     }
 

@@ -1,6 +1,5 @@
 package com.jadteam.jadapi.registration;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.jadteam.jadapi.level.Level;

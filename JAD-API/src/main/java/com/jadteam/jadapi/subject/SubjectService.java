@@ -1,5 +1,6 @@
 package com.jadteam.jadapi.subject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,16 +14,31 @@ public class SubjectService {
         this.subjectRepository = subjectRepository;
     }
 
-    public Subject saveSubject(Subject subject) {
-        return subjectRepository.save(subject);
+    public SubjectDto toSubjectDto(Subject subject) {
+        if (subject == null)
+            throw new NullPointerException("L'objet subject est null.");
+        SubjectDto subjectDto = new SubjectDto(subject.getSubjectId(), subject.getSubjectName(), subject.getHourNumber(), subject.getTeacher());
+        return subjectDto;
     }
 
-    public List<Subject> findAllSubject() {
-        return subjectRepository.findAll();
+    public SubjectDto saveSubject(Subject subject) {
+        if (subject == null)
+            throw new NullPointerException("L'objet subject est null.");
+        subjectRepository.save(subject);
+        return toSubjectDto(subject);
     }
 
-    public Subject findSubjectById(Integer id) {
-        return subjectRepository.findById(id).orElse(null);
+    public List<SubjectDto> findAllSubject() {
+        List<Subject> subjects = subjectRepository.findAll();
+        List<SubjectDto> subjectDtos = new ArrayList<>();
+        for (var subject: subjects)
+            subjectDtos.add(toSubjectDto(subject));
+        return subjectDtos;
+    }
+
+    public SubjectDto findSubjectById(Integer id) {
+        Subject subject = subjectRepository.findById(id).orElse(new Subject());
+        return toSubjectDto(subject);
     }
     
 }
