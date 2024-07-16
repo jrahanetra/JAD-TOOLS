@@ -18,7 +18,9 @@ function Graph(){
 function DisplayReport(){
     return (
         <div className="container-attend">
-            <h1>Report</h1>
+            <div className="container-title">
+                <h1>Report</h1>
+            </div>
             <div className="container-report">
                 <ShowAllDash />
                 <Graph />

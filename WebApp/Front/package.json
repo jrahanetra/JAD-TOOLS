@@ -11,7 +11,11 @@
         "lint": "eslint 'src/**/*.{ts,tsx}'"
     },
     "dependencies": {
+        "@emotion/react": "^11.11.4",
+        "@emotion/styled": "^11.11.5",
         "@material-tailwind/react": "^2.1.9",
+        "@mui/icons-material": "^5.16.4",
+        "@mui/material": "^5.16.4",
         "@react-three/fiber": "^8.16.8",
         "chart.js": "^4.1.1",
         "chartjs-plugin-datalabels": "^2.2.0",
@@ -23,6 +27,7 @@
         "react-router-dom": "^6.23.1",
         "react-scripts": "^5.0.1",
         "react-simple-typewriter": "^5.0.1",
+        "react-toastify": "^10.0.5",
         "three": "^0.165.0",
         "typescript": "^4.5.4"
     },

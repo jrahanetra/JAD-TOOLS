@@ -6,6 +6,7 @@ import Header from './components/common/header';
 import Student from './pages/Student';
 import DisplayStudent from './pages/InfoStudent';
 import DisplayReport from './pages/Report';
+import Registration from './pages/Registration';
 
 function HeaderAndAttend(){
     return(
@@ -48,6 +49,15 @@ function HeaderAndReport(){
     </div>
   )
 }
+
+function HeaderAndRegistration(){
+  return(
+    <div>
+      <Header />
+      <Registration />
+    </div>
+  )
+}
 function App() {    
   return (
     <Router>
@@ -58,7 +68,7 @@ function App() {
             <Route path="/attendance" element={<HeaderAndAttend/>} />
             <Route path="/student" element={<HeaderAndStudent/>} />
             <Route path="/student/:idStudent" element={<HeaderAndInfoStudentWrapper />} />
-            <Route path="/registration" element={<Header />} />
+            <Route path="/registration" element={<HeaderAndRegistration />} />
         </Routes>
     </Router>
   );

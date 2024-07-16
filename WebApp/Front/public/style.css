@@ -388,13 +388,23 @@ h1.student-info{
     align-items: center;
     justify-items: center;
 }
+.container-title{
+    display: flex;
+    margin: 1% 0 1% 0;
+    width: 100%;
+}
 h1{
     /* Attendance List */
+    width: 16%;
+    height: 70px;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
     line-height: 38px;
+    align-content: center;
+    text-align: center;
+    margin: 0 21% 0 45%;
     color: #000000;
 }
 .container-list{

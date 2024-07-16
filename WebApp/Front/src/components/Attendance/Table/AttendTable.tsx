@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import Etudiant from "../../../models/Etudiant";
 import StundentRow from "./StudentData";
 
@@ -6,16 +7,26 @@ function TableData(){
     
     const [etudiantList, setEtudiant] = useState<Etudiant[]>([]);
 
+    const fetchData = async () => {
+        try{
+            const response = await fetch('http://localhost:8080/students');
+            if(!response.ok){
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setEtudiant(data)
+        }catch(error){
+            toast.error(`Error : ${error}`)
+        }
+    }
+
     useEffect(() => {
-        fetch('http://localhost:8080/students')
-        .then(response => response.json())
-        .then((student) => {
-            setEtudiant(student);
-        })
+        fetchData();
     }, [])
 
     return(
         <div className="container-tab">
+            <ToastContainer />
             <table>
                 <tr>
                     <td className="td-head">Roll no</td>
