@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Etudiant from "../../../models/Etudiant";
+import StudentCustomizeData from "../../../models/StudentCustomizeData";
 
 type Props = {
-    etudiant: Etudiant,
+    etudiant: StudentCustomizeData,
     borderColor?: string,
     onStudentClick: (id: number) => void,  
 }
@@ -19,15 +20,15 @@ function StundentRow({ etudiant, borderColor, onStudentClick}: Props) {
 
     const handleClick = () => {
         // Appeler la fonction de rappel avec l'ID de l'étudiant
-        onStudentClick(etudiant.id);
+        onStudentClick(etudiant.studentDto.studentId);
     };
 
     return (
         <tr onClick={handleClick} onMouseEnter={showBorder} onMouseLeave={hideBorder} style={{borderBottom: color}}>
-            <td>{etudiant.id}</td>
-            <td>{etudiant.firstname}</td>
-            <td>{etudiant.lastname}</td>
-            <td>{etudiant.address}</td>
+            <td>{etudiant.studentDto.studentId}</td>
+            <td>{etudiant.studentDto.lastname}</td>
+            <td>{etudiant.studentDto.firstname}</td>
+            <td>{etudiant.levelDto.levelName}</td>
         </tr>
     );
 }
