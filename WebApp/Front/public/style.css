@@ -634,3 +634,76 @@ td.td-head{
 .h2-filter-by{
     font-size: 20px;
 }
+
+/*--------------------------REGISTRATION PAGE STYLE------------------------------*/
+.container-profilePicture{
+    display: flex;
+    width: 30%;
+    justify-content: center;
+}
+
+.container-textField-profilePicture{
+    display: flex;
+    justify-content: center;
+    height: 35%;
+}
+
+.profile-container1{
+    border: 7px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px; /* Taille du conteneur */
+    height: 300px; /* Taille du conteneur */
+    border-radius: 50%; /* Arrondir les coins pour faire un cercle */
+    overflow: hidden; /* Masquer les débordements pour obtenir un effet de cercle */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajouter une légère ombre */
+    background-color: #fff; /* Couleur de fond */
+    margin: 0 -6% 0 5%;
+}
+
+.container-textFields{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 60%;
+    height: auto;
+}
+.container-textFields1{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: auto;
+}
+
+.container-textField{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+.container-IconEdit{
+    margin: 40% 0 0 0%;
+}
+
+.container-otherTextFields{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5% 0 0 0;
+
+}
+.container-addressTextField{
+    width: 78%;
+    display: flex;
+}
+.container-phoneAndEmailTextField{
+    display: grid;
+    grid-template-columns: 60% 40%; 
+    margin: 4% 0 0 0;
+    width: 78%;
+}   
+.container-button{
+    margin: 3% 0 0 0;
+    width: 78%;
+}
