@@ -1,6 +1,6 @@
 export default class Etudiant{
     // 1. Typage des propiétés d'un étudiant.
-       id: number;
+       studentId    : number;
        address: string;
        email: string;
        firstname: string;
@@ -17,7 +17,7 @@ export default class Etudiant{
            phoneNumber: string = '034 11 185 11'
        ) {
            // 3. Initialisation des propiétés d'un pokémons.
-           this.id = id;
+           this.studentId = id;
            this.address = address;
            this.email = email;
            this.firstname = firstname;

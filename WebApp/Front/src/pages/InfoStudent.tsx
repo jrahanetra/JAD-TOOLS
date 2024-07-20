@@ -8,7 +8,7 @@ type Props = {
 function DisplayStudent({tofetch}:Props){
     const [studentInfo, setStudentInfo] = useState<Etudiant>(
         {
-            "id": 1,
+            "studentId": 1,
             "address": "Ambatoroka",
             "lastname": "RAHANETRA",
             "firstname": "Jason",
