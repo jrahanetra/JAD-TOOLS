@@ -69,7 +69,7 @@ public class MajorLevelSubjectService {
         Level level = levelService.findLevelById(levelId);
         if (major == null || level == null)
             return new ArrayList<>();
-        List<MajorLevelSubject> majorLevelSubjects = majorLevelSubjectRepository.findAllByMajorAndLevel();
+        List<MajorLevelSubject> majorLevelSubjects = majorLevelSubjectRepository.findAllByMajorAndLevel(major, level);
         List<MajorLevelSubjectDto> majorLevelSubjectDtos = new ArrayList<>();
         for (var majorLevelSubject: majorLevelSubjects)
             majorLevelSubjectDtos.add(toMajorLevelSubjectDto(majorLevelSubject));

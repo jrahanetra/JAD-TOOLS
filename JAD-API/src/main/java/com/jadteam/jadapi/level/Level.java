@@ -33,10 +33,8 @@ public class Level {
     public Level() {
     }
 
-    public Level(String levelName, List<Registration> registrationList, List<MajorLevelSubject> majorLevelSubjectList) {
+    public Level(String levelName) {
         this.levelName = levelName;
-        this.registrationList = registrationList;
-        this.majorLevelSubjectList = majorLevelSubjectList;
     }
 
     public String getLevelName() {

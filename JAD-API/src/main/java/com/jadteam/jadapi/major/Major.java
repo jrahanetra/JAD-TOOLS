@@ -37,10 +37,8 @@ public class Major {
     public Major() {
     }
 
-    public Major(String majorName, List<Registration> registrationList, List<MajorLevelSubject> majorLevelSubjectList) {
+    public Major(String majorName) {
         this.majorName = majorName;
-        this.registrationList = registrationList;
-        this.majorLevelSubjectList = majorLevelSubjectList;
     }
 
     public Integer getMajorId() {

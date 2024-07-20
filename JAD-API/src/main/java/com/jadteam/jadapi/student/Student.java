@@ -44,15 +44,12 @@ public class Student {
     public Student() {
     }
 
-    public Student(String firstname, String lastname, String address, String email, String phoneNumber,
-            List<Registration> registrationList, List<StudentCourse> studentCourseList) {
+    public Student(String firstname, String lastname, String address, String email, String phoneNumber) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.registrationList = registrationList;
-        this.studentCourseList = studentCourseList;
     }
 
     public Integer getStudentId() {

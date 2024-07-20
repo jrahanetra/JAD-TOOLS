@@ -1,5 +1,6 @@
 package com.jadteam.jadapi.course;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +24,23 @@ public class CourseController {
     }
 
     @PostMapping("")
-    public Course addCourse(@RequestBody Course course) {
+    public CourseDto addCourse(@RequestBody Course course) {
         return courseService.saveCourse(course);
     }
 
     @GetMapping("")
-    public List<Course> findAllCourses() {
+    public List<CourseDto> findAllCourses() {
         return courseService.findAllCourses();
     }
     
     @GetMapping("/{id}")
-    public Course findCourseById(@PathVariable Integer id) {
+    public CourseDto findCourseById(@PathVariable Integer id) {
         return courseService.findCourseById(id);
+    }
+
+    @GetMapping("/d")
+    public List<CourseDto> findAllCoursesByDate(@RequestBody LocalDate date) {
+        return courseService.findAllCoursesByDate(date);
     }
     
 }

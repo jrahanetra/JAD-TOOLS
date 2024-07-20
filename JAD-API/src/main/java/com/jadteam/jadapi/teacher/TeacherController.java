@@ -23,19 +23,18 @@ public class TeacherController {
     }
 
     @GetMapping("")
-    public List<Teacher> findAllLevel() {
+    public List<TeacherDto> findAllLevel() {
         return teacherService.findAllTeacher();
     }
 
     @GetMapping("/{id}")
-    public Teacher findLevelById(@PathVariable("id") Integer id) {
+    public TeacherDto findLevelById(@PathVariable("id") Integer id) {
         return teacherService.findTeacherById(id);
     }
 
     @PostMapping("")
-    public Teacher addTeacher(@RequestBody Teacher teacher) {
+    public TeacherDto addTeacher(@RequestBody Teacher teacher) {
         return teacherService.saveTeacher(teacher);
     }
-    
 
 }
