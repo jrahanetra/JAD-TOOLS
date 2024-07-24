@@ -2,44 +2,58 @@ import React from "react";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 type Props = {
+    nameLabel: string,
+    widthSelect: number,
+    valuesPossible: string[],
     value: string,
     handleChange: (event: SelectChangeEvent<string>) => void,
-    onKeyPress: (event: React.KeyboardEvent<HTMLElement>) => void,
+    onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void,
     inputRef: React.RefObject<HTMLDivElement>,
-    nextInputRef: React.RefObject<HTMLInputElement>,
+    isValid: boolean
 }
 function SelectInputComponent({
+    nameLabel,
+    widthSelect,
+    valuesPossible,
     value,
     handleChange,
     onKeyPress,
     inputRef,
-    nextInputRef
+    isValid
 } : Props){
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-        if (event.key === 'Enter' || event.key === 'ArrowRight') {
-            event.preventDefault();
-            nextInputRef.current?.focus(); // Focus sur l'input suivant
-        }
-        onKeyPress(event);
-    };
+    const valuePossible = valuesPossible
 
-    const valuePossible = ['Masculin','Féminin']
     return(
         <div className="container-textField">
-            <InputLabel htmlFor="demo-simple-select-filled-label" sx={{margin:'5px 0 5px 0',color:'black'}}>SEX</InputLabel>
+            <InputLabel htmlFor="demo-simple-select-filled-label" sx={{margin:'5px 0 5px 0',color:'black'}}>
+                {nameLabel} : 
+                <span className={ isValid? "valid" : "hide"}>
+                    <FontAwesomeIcon 
+                        icon={faCheck}
+                        style={
+                            {
+                                margin: "0 0 0 10px",
+                                color: "#1fd61b",
+                                fontSize: "1.5rem"
+                            }
+                        }/>
+                </span>
+            </InputLabel>
             <FormControl>
                 <Select
                     value={value}
                     onChange={handleChange}
-                    onKeyDown={handleKeyDown} // Utilisez handleKeyDown ici
                     inputRef={inputRef}
+                    onKeyDownCapture={onKeyPress}
                     displayEmpty
                     sx={
                         { 
-                            width: '70%',
+                            width: `${widthSelect}%`,
                             borderBottom: '1.90px solid #8b8b8b', 
                         }
                     }

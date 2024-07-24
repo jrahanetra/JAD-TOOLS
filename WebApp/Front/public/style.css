@@ -168,7 +168,7 @@ h3{
     color: #000000;
 }
 .h5-connexion-chess{
-    color: red;
+    color: #CF2E2E;
     width: 100%;
 }
 .container-image{
@@ -681,8 +681,8 @@ td.td-head{
     justify-content: center;
     width: 100%;
 }
-.container-IconEdit{
-    margin: 40% 0 0 0%;
+.container-IconCam{
+    margin: 42% 0 0 -2%;
 }
 
 .container-otherTextFields{
@@ -706,4 +706,13 @@ td.td-head{
 .container-button{
     margin: 3% 0 0 0;
     width: 78%;
+}
+.hide{
+    display: none;
+}
+.borderBlue.MuiOutlinedInput-root.Mui-focused fieldset{
+    border-color: #257DE4;
+}
+.borderRed.MuiOutlinedInput-root.Mui-focused fieldset{
+    border-color: #EE2449;
 }
