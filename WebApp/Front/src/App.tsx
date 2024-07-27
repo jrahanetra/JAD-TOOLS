@@ -7,6 +7,7 @@ import Student from './pages/Student';
 import DisplayStudent from './pages/InfoStudent';
 import DisplayReport from './pages/Report';
 import Registration from './pages/Registration';
+import WorkingTime from './pages/WorkingTime';
 
 function HeaderAndAttend(){
     return(
@@ -58,6 +59,15 @@ function HeaderAndRegistration(){
     </div>
   )
 }
+
+function HeaderAndWorkingTime(){
+  return(
+    <div>
+      <Header />
+      <WorkingTime />
+    </div>
+  )
+}
 function App() {    
   return (
     <Router>
@@ -69,6 +79,8 @@ function App() {
             <Route path="/student" element={<HeaderAndStudent/>} />
             <Route path="/student/:idStudent" element={<HeaderAndInfoStudentWrapper />} />
             <Route path="/registration" element={<HeaderAndRegistration />} />
+            <Route path="/workingTime" element={<HeaderAndWorkingTime />} />
+
         </Routes>
     </Router>
   );

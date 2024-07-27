@@ -17,7 +17,7 @@ type Props = {
     isValid: boolean,
     isWithLabel: boolean
 }
-function SelectInputComponent({
+function SelectFilterComponent({
     nameLabel,
     widthSelect,
     valuesPossible,
@@ -46,11 +46,16 @@ function SelectInputComponent({
                     </span>
                 </InputLabel>
             }
-            <FormControl>
-                {widthSelect && <InputLabel id="demo-simple-select-label">{nameLabel}</InputLabel>}
+            <FormControl
+                variant="standard"
+                sx={{
+                    m: 1,
+                }}
+            >
+                <InputLabel id="demo-simple-select-label">{nameLabel}</InputLabel>
                 <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
                     value={value}
                     onChange={handleChange}
                     inputRef={inputRef}
@@ -72,4 +77,4 @@ function SelectInputComponent({
     )
 }
 
-export default SelectInputComponent;
+export default SelectFilterComponent;

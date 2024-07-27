@@ -37,7 +37,7 @@ function ContainerRegistration(){
         }
     };
 
-    const NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+    const NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_ ]{3,23}$/;
     const ADDRESS_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ !@#$%]).{4,24}$/;
     const EMAIL_REGEX = /^[a-zA-Z][a-zA-z0-9-_]{4,24}@gmail.com$/
 
@@ -52,23 +52,15 @@ function ContainerRegistration(){
                                         valuePhoneNumber:'',
                                         valueEmail:''});
 
+    // STATES VALIDATION OF SOME FIELDS                                    
     const [validName, setValidName] = useState(false);
-    const [nameField, setNameFieldFocus] = useState(false);
-
     const [validFirstNames, setValidFirstNames] = useState(false);
-    const [firstNamesField, setFirstNamesFieldFocus] = useState(false);
-
     const [validSex, setValidSex] = useState(false);
-    const [sexField, setSexFieldFocus] = useState(false);
-
     const [validLevel, setValidLevel] = useState(false);
-    const [levelField, setLevelFieldFocus] = useState(false);
-
     const [validAddress, setValidAddress] = useState(false);
-    const [addressField, setAddressFieldFocus] = useState(false);
-
     const [validEmail, setValidEmail] = useState(false);
 
+    // TEST VALIDATION OF FIELDS
     useEffect(() => {
         const result = NAME_REGEX.test(values.valueName);
         setValidName(result);
@@ -269,7 +261,8 @@ function ContainerRegistration(){
                                 handleChange={handleChangeValue('valueSex')}
                                 onKeyPress={handleKeyPress(fieldBirthday, fieldFirstNames)}
                                 inputRef={fieldSex}
-                                isValid={validSex}/>
+                                isValid={validSex}
+                                isWithLabel/>
                             <DateFieldComponent 
                                 value={values.valueBirthday}
                                 onChange={handleChangeValue('valueBirthday')}
@@ -285,7 +278,8 @@ function ContainerRegistration(){
                             handleChange={handleChangeValue('valueLevel')}
                             onKeyPress={handleKeyPress(fieldAddress, fieldBirthday)}
                             inputRef={fieldLevel}
-                            isValid={validLevel}/>             
+                            isValid={validLevel}
+                            isWithLabel/>             
                     </div>
                 </div>
                 <div className="container-otherTextFields">

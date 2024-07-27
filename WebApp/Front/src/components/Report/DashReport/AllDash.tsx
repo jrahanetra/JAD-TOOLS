@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import BoxDash from "./Common";
 import VectorYear from "../../../assets/vectorYear";
 import VectorStudent from "../../../assets/vectorStudent";
 import VectorWoman from "../../../assets/vectorWoman";
 import VectorMan from "../../../assets/vectorMan";
+import StudentCustomizeData from "../../../models/StudentCustomizeData";
+import FecthRegistration from "../../../fecthAPI/FetchRegistrations";
 
 function ShowAllDash(){
+    const [studentCustomizeData, setCustomizeData] = useState<StudentCustomizeData[]>([]);
+
+    FecthRegistration(studentCustomizeData, setCustomizeData)
+
     return (
         <div className="div-dashs-container">
             <BoxDash 
@@ -15,7 +21,7 @@ function ShowAllDash(){
                 vector={VectorYear}/>
             <BoxDash 
                 name="Étudiants" 
-                number={250} 
+                number={studentCustomizeData.length} 
                 color="#CF2E2E"
                 vector={VectorStudent}/>
             <BoxDash 

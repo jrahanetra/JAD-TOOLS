@@ -1,28 +1,112 @@
 {
-    "students":[
+    "workingtime":[
         {
             "id": 1,
-            "firstname": "Fanasina Jason",
-            "lastname": "RAHANETRA",
-            "address": "Ambatoroka",
-            "email": "jrahanetra@gmail.com",
-            "phoneNumber": "038 77 667 97"
+            "name": "semaine du lundi 21 juillet 2024",
+            "data": [
+                {
+                    "id": 1,
+                    "day": "lundi",
+                    "subjectsPerHours": [
+                        {
+                            "id": 1,
+                            "subject": "maths",
+                            "prof": "Mr Tsinto",
+                            "hours": "08h-10h"
+                        },
+                        {
+                            "id": 2,
+                            "subject": "Algo",
+                            "prof": "Mr Tolotra",
+                            "hours": "13h-16h"
+                        },
+                        {
+                            "id": 3,
+                            "subject": "Frs",
+                            "prof": "Mr Henri",
+                            "hours": "16h-17h"
+                        }
+                    ] 
+                },
+                {
+                    "id": 2,
+                    "day": "mardi",
+                    "subjectsPerHours": [
+                        {
+                            "id": 1,
+                            "subject": "anglais",
+                            "prof": "Mr Aurélie",
+                            "hours": "08h-10h"
+                        },
+                        {
+                            "id": 2,
+                            "subject": "Dev Mobile",
+                            "prof": "Mr Arnaud",
+                            "hours": "13h-16h"
+                        },
+                        {
+                            "id": 3,
+                            "subject": "Frs",
+                            "prof": "Mr Henri",
+                            "hours": "16h-17h"
+                        }
+                    ] 
+                }
+            ]
         },
         {
             "id": 2,
-            "firstname": "Antsa Vivien",
-            "lastname": "RAFANOMEZANTSOA",
-            "address": "Ampitatafika",
-            "email": "antsavivien@gmail.com",
-            "phoneNumber": "034 71 720 97"
-        },
-        {
-            "id": 3,
-            "firstname": "Dihariniaina",
-            "lastname": "RABEARIMANANA",
-            "address": "Andranomena",
-            "email": "dihariniaina@gmail.com",
-            "phoneNumber": "034 11 111 11"
+            "name": "semaine du lundi 28 juillet 2024",
+            "data": [
+                {
+                    "id": 1,
+                    "day": "lundi",
+                    "subjectsPerHours": [
+                        {
+                            "id": 1,
+                            "subject": "maths",
+                            "prof": "Mr Tsinto",
+                            "hours": "08h-10h"
+                        },
+                        {
+                            "id": 2,
+                            "subject": "Algo",
+                            "prof": "Mr Tolotra",
+                            "hours": "13h-16h"
+                        },
+                        {
+                            "id": 3,
+                            "subject": "Frs",
+                            "prof": "Mr Henri",
+                            "hours": "16h-17h"
+                        }
+                    ] 
+                },
+                {
+                    "id": 2,
+                    "day": "mardi",
+                    "subjectsPerHours": [
+                        {
+                            "id": 1,
+                            "subject": "anglais",
+                            "prof": "Mr Aurélie",
+                            "hours": "08h-10h"
+                        },
+                        {
+                            "id": 2,
+                            "subject": "Dev Mobile",
+                            "prof": "Mr Arnaud",
+                            "hours": "13h-16h"
+                        },
+                        {
+                            "id": 3,
+                            "subject": "Frs",
+                            "prof": "Mr Henri",
+                            "hours": "16h-17h"
+                        }
+                    ] 
+                }
+            ]
         }
     ]
 }

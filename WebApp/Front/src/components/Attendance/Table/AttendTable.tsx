@@ -28,43 +28,24 @@ function TableData(){
         <div className="container-tab">
             <ToastContainer />
             <table>
-                <tr>
-                    <td className="td-head">Roll no</td>
-                    <td className="td-head">Name</td>
-                    <td className="td-head">Year</td>
-                    <td className="td-head">Semester</td>
-                    <td className="td-head">Course</td>
-                    <td className="td-head">Date</td>
-                    <td className="td-head">Hour</td>
-                    <td className="td-head">Attend</td>
-                </tr>
-            </table>
-            <div className="div-row-table">
-                <table>
-                    {etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))}
-                    {etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))}
-                    {etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))} 
-                    {etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))}{etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))}{etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))}{etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))}{etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))}{etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))}
-                </table>              
-            </div>
+                <thead>
+                    <tr>
+                        <td className="td-head">Roll no</td>
+                        <td className="td-head">Name</td>
+                        <td className="td-head">Year</td>
+                        <td className="td-head">Semester</td>
+                        <td className="td-head">Course</td>
+                        <td className="td-head">Date</td>
+                        <td className="td-head">Hour</td>
+                        <td className="td-head">Attend</td>
+                    </tr>
+                </thead> 
+                <tbody>
+                        {etudiantList.map(student => (
+                            <StundentRow key={student.studentId} etudiant={student}/>
+                        ))}
+                </tbody>     
+            </table>         
         </div>
     )
 }
