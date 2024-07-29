@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jadteam.jadapi.subject.Subject;
 import com.jadteam.jadapi.subject.SubjectDto;
 import com.jadteam.jadapi.subject.SubjectService;
 
@@ -26,7 +27,8 @@ public class CourseService {
     public CourseDto toCourseDto(Course course) {
         if (course == null)
             throw new NullPointerException("L'objet Course est invalide.");
-        SubjectDto subjectDto = subjectService.toSubjectDto(course.getSubject());
+        Subject subject = subjectService.findSubjectById(course.getSubject().getSubjectId());
+        SubjectDto subjectDto = subjectService.toSubjectDto(subject);
         CourseDto courseDto = new CourseDto(course.getCourseId(),
                                             course.getCourseDate(),
                                             course.getCourseBeginTime(),

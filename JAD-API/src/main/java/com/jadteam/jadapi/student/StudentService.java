@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class StudentService {
 
     private StudentRepository studentRepository;
-    private static List<Student> students = new ArrayList<>();
+    public static List<Student> students = new ArrayList<>();
 
     static {
         Student student1 = new Student("Antsa", "Rafanomezantsoa", "Ampitatafika", "antsa@email.com", "032 71 720 97");
@@ -58,13 +58,13 @@ public class StudentService {
         return studentDtos;
     }
 
-    public Student findStudentbyId(Integer id) {
+    public Student findStudentById(Integer id) {
         return studentRepository.findById(id)
         .orElse(new Student());
     }
 
     public Student updateStudent(Integer id, Student student) {
-        if (findStudentbyId(id).equals(new Student()))
+        if (findStudentById(id).equals(new Student()))
             throw new NullPointerException("The student do not exist or has been deleted.");
         studentRepository.updateStudent(id,
                                         student.getFirstname(),
@@ -76,7 +76,7 @@ public class StudentService {
     }
 
     public void deleteStudentById(Integer id) {
-        if (findStudentbyId(id).equals(new Student()))
+        if (findStudentById(id).equals(new Student()))
             throw new NullPointerException("The student do not exist or has already been deleted.");
         studentRepository.deleteById(id);
     }

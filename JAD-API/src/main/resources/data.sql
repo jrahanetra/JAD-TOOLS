@@ -129,41 +129,87 @@
 
 -- Insertion inscriptions
 
-insert into registration (
-       student_id,
-       major_id,
-       level_id,
-       year
-)
-values (
-       1,
-       3,
-       2,
-       2024
-);
+-- insert into registration (
+--        student_id,
+--        major_id,
+--        level_id,
+--        year
+-- )
+-- values (
+--        1,
+--        3,
+--        2,
+--        2024
+-- );
 
-insert into registration (
-       student_id,
-       major_id,
-       level_id,
-       year
-)
-values (
-       2,
-       2,
-       2,
-       2024
-);
+-- insert into registration (
+--        student_id,
+--        major_id,
+--        level_id,
+--        year
+-- )
+-- values (
+--        2,
+--        2,
+--        2,
+--        2024
+-- );
 
-insert into registration (
-       student_id,
-       major_id,
-       level_id,
-       year
-)
-values (
-       3,
-       3,
-       2,
-       2024
-);
+-- insert into registration (
+--        student_id,
+--        major_id,
+--        level_id,
+--        year
+-- )
+-- values (
+--        3,
+--        3,
+--        2,
+--        2024
+-- );
+
+-- -- Insertion MajorLevelSubjects
+-- insert into major_level_subject (
+--        major_id,
+--        level_id,
+--        subject_id
+-- )
+-- values (
+--        1,
+--        2,
+--        1
+-- )
+
+-- insert into major_level_subject (
+--        major_id,
+--        level_id,
+--        subject_id
+-- )
+-- values (
+--        1,
+--        2,
+--        2
+-- )
+
+-- insert into major_level_subject (
+--        major_id,
+--        level_id,
+--        subject_id
+-- )
+-- values (
+--        1,
+--        2,
+--        3
+-- )
+
+-- insert into major_level_subject (
+--        major_id,
+--        level_id,
+--        subject_id
+-- )
+-- values (
+--        1,
+--        2,
+--        4
+-- )
+

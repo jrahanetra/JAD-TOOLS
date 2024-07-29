@@ -33,8 +33,8 @@ public class MajorController {
     }
 
     @GetMapping("/{id}")
-    public Major findMajorById(@PathVariable("id") Integer id) {
-        return majorService.findMajorById(id);
+    public MajorDto findMajorById(@PathVariable("id") Integer id) {
+        return majorService.findMajorDtoById(id);
     }    
 
 }

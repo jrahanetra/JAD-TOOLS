@@ -23,13 +23,13 @@ public class TeacherController {
     }
 
     @GetMapping("")
-    public List<TeacherDto> findAllLevel() {
+    public List<TeacherDto> findAllTeachers() {
         return teacherService.findAllTeacher();
     }
 
     @GetMapping("/{id}")
-    public TeacherDto findLevelById(@PathVariable("id") Integer id) {
-        return teacherService.findTeacherById(id);
+    public TeacherDto findTeacherById(@PathVariable("id") Integer id) {
+        return teacherService.findTeacherDtoById(id);
     }
 
     @PostMapping("")

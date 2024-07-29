@@ -36,7 +36,7 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public Student findStudentbyId(@PathVariable("id") Integer id) {
-        return studentService.findStudentbyId(id);
+        return studentService.findStudentById(id);
     }
 
     @PutMapping("/{id}")

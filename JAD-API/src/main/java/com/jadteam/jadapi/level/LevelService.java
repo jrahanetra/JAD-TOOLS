@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class LevelService {
 
     private final LevelRepository levelRepository;
-    private static List<Level> levels = new ArrayList<>();
+    public static List<Level> levels = new ArrayList<>();
 
     static {
         Level l1 = new Level("L1");
@@ -44,6 +44,11 @@ public class LevelService {
         for (var level: levels)
             levelDtos.add(toLevelDto(level));
         return levelDtos;
+    }
+
+    public LevelDto findLevelDtoById(Integer id) {
+        Level level = levelRepository.findById(id).orElse(null);
+        return toLevelDto(level);
     }
 
     public Level findLevelById(Integer id) {

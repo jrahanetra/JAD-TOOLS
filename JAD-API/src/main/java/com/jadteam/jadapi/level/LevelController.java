@@ -24,8 +24,8 @@ public class LevelController {
     }
 
     @GetMapping("/{id}")
-    public Level findLevelById(@PathVariable("id") Integer id) {
-        return levelService.findLevelById(id);
+    public LevelDto findLevelById(@PathVariable("id") Integer id) {
+        return levelService.findLevelDtoById(id);
     }
 
 }

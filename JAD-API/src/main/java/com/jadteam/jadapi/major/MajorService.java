@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class MajorService {
     
     private final MajorRepository majorRepository;
-    private static List<Major> majors = new ArrayList<>();
+    public static List<Major> majors = new ArrayList<>();
 
     static {
         Major m1 = new Major("Infrastructure cloud et devops");
@@ -50,6 +50,11 @@ public class MajorService {
         for (var major: majors)
             majorDtos.add(toMajorDto(major));
         return majorDtos;
+    }
+
+    public MajorDto findMajorDtoById(Integer id) {
+        Major major = majorRepository.findById(id).orElse(null);
+        return toMajorDto(major);
     }
 
     public Major findMajorById(Integer id) {

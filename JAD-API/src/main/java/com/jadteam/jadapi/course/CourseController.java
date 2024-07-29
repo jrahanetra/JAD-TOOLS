@@ -2,6 +2,7 @@ package com.jadteam.jadapi.course;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +40,8 @@ public class CourseController {
     }
 
     @GetMapping("/d")
-    public List<CourseDto> findAllCoursesByDate(@RequestBody LocalDate date) {
+    public List<CourseDto> findAllCoursesByDate(@RequestBody Map<String, LocalDate> dateMap) {
+        LocalDate date = dateMap.get("date");
         return courseService.findAllCoursesByDate(date);
     }
     

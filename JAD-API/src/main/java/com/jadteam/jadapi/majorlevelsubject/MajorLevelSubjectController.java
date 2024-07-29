@@ -1,6 +1,7 @@
 package com.jadteam.jadapi.majorlevelsubject;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +24,11 @@ public class MajorLevelSubjectController {
     }
 
     @PostMapping("")
-    public MajorLevelSubjectDto addMajorLevelSubject(@RequestBody MajorLevelSubject majorLevelSubject) {
-        return majorLevelSubjectService.saveMajorLevelSubject(majorLevelSubject);
+    public MajorLevelSubjectDto addMajorLevelSubject(@RequestBody Map<String, Integer> map) {
+        Integer majorId = map.get("majorId");
+        Integer levelId = map.get("levelId");
+        Integer subjectId = map.get("subjectId");
+        return majorLevelSubjectService.saveMajorLevelSubject(majorId, levelId, subjectId);
     }
 
     @GetMapping("")
