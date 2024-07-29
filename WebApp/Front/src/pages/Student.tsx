@@ -1,62 +1,118 @@
-import React from "react";
-import IconButton from '@mui/material/IconButton';
-import FilledInput from '@mui/material/FilledInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import FilterComponent from "../components/Student/Filtering/filter";
+import React, { useEffect, useRef, useState } from "react";
+import { SelectChangeEvent } from "@mui/material";
 import TableData from "../components/Student/Table/StudentTable";
+import InputSearch from "../components/common/inputSearch";
+import SelectFilterComponent from "../components/common/selectInputForFilter";
 
+type ValuesFilter = {
+    level: string,
+    name: string,
+    attend: string
+}
+type ValidationValuesFilter = {
+    validLevel: boolean,
+    validName: boolean,
+    validAttend: boolean
+}
+function Student() {
+    const [searchFilterValue, setSearchFilterValue] = useState<string>("");
 
-function Student(){
-    const [showPassword, setShowPassword] = React.useState(false);
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-    
-    return(
+    const [valuesFilter, setValuesFilter] = useState<ValuesFilter>({
+        level: '',
+        name: '',
+        attend: ''
+    });
+    const [validValuesFilter, setValidValuesFilter] = useState<ValidationValuesFilter>({
+        validLevel: false,
+        validName: false,
+        validAttend: false
+    });
+
+    const handleChangeValue = (selectFilter: string) => (event: SelectChangeEvent<string>) => {
+        setValuesFilter({
+            ...valuesFilter,
+            [selectFilter]: event.target.value,
+        });
+    }
+
+    const handleChangeValueSearchInput = () => (event : React.ChangeEvent<HTMLInputElement>) => {
+        setSearchFilterValue(event.target.value);
+    }
+
+    const fieldLevel = useRef<HTMLDivElement>(null)
+    const fieldName = useRef<HTMLDivElement>(null)
+    const fieldAttend = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const result = (valuesFilter.attend !== '')
+        setValidValuesFilter({
+            ...validValuesFilter,
+            validAttend: result,
+        })
+    }, [valuesFilter.attend])
+    useEffect(() => {
+        const result = (valuesFilter.level !== '')
+        setValidValuesFilter({
+            ...validValuesFilter,
+            validLevel: result,
+        })
+    }, [valuesFilter.attend])
+    useEffect(() => {
+        const result = (valuesFilter.name !== '')
+        setValidValuesFilter({
+            ...validValuesFilter,
+            validName: result,
+        })
+    }, [valuesFilter.attend])
+    return (
         <div className="container-attend">
             <div className="container-title">
-                <h1>Student</h1>
-                <FormControl 
-                    sx={{ 
-                        m: 1, 
-                        width: '28ch', 
-                        backgroundColor: '#FFFFFF'  // Change this to your desired background color
-                    }} 
-                    variant="filled"
-                >
-                    <InputLabel htmlFor="filled-adornment-password">Enter keywords</InputLabel>
-                    <FilledInput
-                        id="filled-adornment-password"
-                        type={showPassword ? 'text' : 'password'}
-                        endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                            >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                        }
+                <div className="container-filter">
+                    <SelectFilterComponent
+                        nameLabel="Level"
+                        widthSelect={90}
+                        valuesPossible={['L2', 'L1']} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
+                        value={valuesFilter.level}
+                        handleChange={handleChangeValue("level")}
+                        onKeyPress={() => { }}
+                        inputRef={fieldLevel}
+                        isValid={validValuesFilter.validLevel}
+                        isWithLabel={false}
                     />
-                </FormControl>
+                    <SelectFilterComponent
+                        nameLabel="Name"
+                        widthSelect={90}
+                        valuesPossible={['↓A', '↑B']} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
+                        value={valuesFilter.name}
+                        handleChange={handleChangeValue("name")}
+                        onKeyPress={() => { }}
+                        inputRef={fieldName}
+                        isValid={validValuesFilter.validName}
+                        isWithLabel={false}
+                    />
+                    <SelectFilterComponent
+                        nameLabel="Attend"
+                        widthSelect={90}
+                        valuesPossible={['YES', 'NO']} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
+                        value={valuesFilter.attend}
+                        handleChange={handleChangeValue("attend")}
+                        onKeyPress={() => { }}
+                        inputRef={fieldAttend}
+                        isValid={validValuesFilter.validAttend}
+                        isWithLabel={false}
+                    />
+                </div>
+                <InputSearch 
+                    searchValue={searchFilterValue}
+                    handleChange={handleChangeValueSearchInput()}
+                />
             </div>
             <div className="container-list">
                 <div className="div-refresh">
                     <a href="/" className="a-refresh">Refresh</a>
                 </div>
                 <div className="div-container-tabFilter">
-                    <TableData />
-                    <FilterComponent />
+                    <TableData keyWordToFilter={searchFilterValue}/>
                 </div>
             </div>
         </div>

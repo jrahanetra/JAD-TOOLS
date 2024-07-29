@@ -168,7 +168,7 @@ h3{
     color: #000000;
 }
 .h5-connexion-chess{
-    color: red;
+    color: #CF2E2E;
     width: 100%;
 }
 .container-image{
@@ -417,8 +417,10 @@ h1{
     border-radius: 2%;
 }
 
-.container-tab{
-    margin: 0% 0 0 16%;
+.container-filter{
+    width: 30%;
+    margin: 0 13% 0 39%;
+    display: flex;
 }
 
 table{
@@ -463,6 +465,7 @@ td.td-head{
 }
 .div-container-tabFilter{
     display: flex;
+    justify-content: center;
     flex-direction: row;
     margin: 3% 0 0 0;
 }
@@ -681,8 +684,8 @@ td.td-head{
     justify-content: center;
     width: 100%;
 }
-.container-IconEdit{
-    margin: 40% 0 0 0%;
+.container-IconCam{
+    margin: 42% 0 0 -2%;
 }
 
 .container-otherTextFields{
@@ -706,4 +709,72 @@ td.td-head{
 .container-button{
     margin: 3% 0 0 0;
     width: 78%;
+}
+.hide{
+    display: none;
+}
+.borderBlue.MuiOutlinedInput-root.Mui-focused fieldset{
+    border-color: #257DE4;
+}
+.borderRed.MuiOutlinedInput-root.Mui-focused fieldset{
+    border-color: #EE2449;
+}
+
+/*--------------------------WORKING TIME PAGE STYLE------------------------------*/
+.container-tableEDT{
+    border: 2px solid black;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr) ;
+    margin: 3% 0 0 10%;
+
+}
+
+.containerColumn{
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid black;
+}
+
+/* .column1{
+}
+.column2{
+    border-right: 2px solid black;
+}
+.column3{
+    border-right: 2px solid black;
+}
+.column4{
+    border-right: 2px solid black;
+}
+.column5{
+    border-right: 2px solid black;
+}
+.column6{
+    border-right: 2px solid black;
+}*/
+.column8{
+    border-right: 0px solid black;
+} 
+
+.containerColumn1{
+    height: 100%;
+    width: 100%;
+
+}
+.headerEdt{
+    border-bottom: 2px solid black ;
+    border-top: 0px solid black ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.h1-edtItem {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
 }

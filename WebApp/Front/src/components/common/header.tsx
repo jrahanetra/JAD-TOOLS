@@ -11,6 +11,7 @@ function Header(){
                 <nav className="nav">
                     <ul>
                         <li><a href="/report">Report</a></li>
+                        <li><a href="/workingTime">Schedule</a></li>
                         <li><a href="/attendance">Attendance</a></li>
                         <li><a href="/student">Students</a></li>
                         <li><a href="/registration">Registration</a></li>
