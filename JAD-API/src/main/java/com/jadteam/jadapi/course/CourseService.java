@@ -123,10 +123,10 @@ public class CourseService {
         if (!beginDate.isBefore(endDate))
             throw new DateTimeException("L'intervalle est invalide.");
         List<CourseDto> courses = new ArrayList<>();
-        while (!endDate.isEqual(beginDate)) {
+        do {
             courses.addAll(findAllCoursesByDate(beginDate));
             beginDate = beginDate.plusDays(1);
-        }
+        } while (!endDate.isEqual(beginDate));
         return courses;
     }
 
