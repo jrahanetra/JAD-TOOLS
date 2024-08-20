@@ -41,8 +41,9 @@ public class CourseController {
 
     @GetMapping("/d")
     public List<CourseDto> findAllCoursesByDate(@RequestBody Map<String, LocalDate> dateMap) {
-        LocalDate date = dateMap.get("date");
-        return courseService.findAllCoursesByDate(date);
+        LocalDate beginDate = dateMap.get("beginDate");
+        LocalDate endDate = dateMap.get("endDate");
+        return courseService.findAllCoursesBetweenDates(beginDate, endDate);
     }
     
 }
