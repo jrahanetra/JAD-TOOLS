@@ -7,9 +7,10 @@ import StudentCustomizeData from "../../../models/StudentCustomizeData";
 import FecthRegistration from "../../../fecthAPI/FetchRegistrations";
 
 type Props = {
-    keyWordToFilter: string
+    keyWordToFilter: string,
+    filterByName: string,
 }
-function TableData({ keyWordToFilter }: Props) {
+function TableData({ keyWordToFilter, filterByName}: Props) {
 
     const [studentCustomizeData, setCustomizeData] = useState<StudentCustomizeData[]>([]);
 
@@ -23,6 +24,18 @@ function TableData({ keyWordToFilter }: Props) {
         // navigate to other route for infoStudent
         navigate(`${currentPath}/${studentId}`)
     };
+    if (filterByName !== ""){
+        switch (filterByName){
+            case "↓A":
+                setCustomizeData(studentCustomizeData.sort((a,b) => a.studentDto.lastname.localeCompare(b.studentDto.lastname)))
+                break
+            case "↑Z":
+                setCustomizeData(studentCustomizeData.sort((a,b) => b.studentDto.lastname.localeCompare(a.studentDto.lastname)))
+                break
+            default: 
+                break
+        }
+    }
 
     return (
         <div className="container-tab">

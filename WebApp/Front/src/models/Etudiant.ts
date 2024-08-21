@@ -7,7 +7,7 @@ export default class Etudiant{
        lastname: string;
        phoneNumber: string;
        
-       // 2. Définition des valeurs par défaut des propriétés d'un pokémon.
+       // 2. Définition des valeurs par défaut .
        constructor(
            id: number,
            address: string = 'addresse',

@@ -41,9 +41,9 @@ function TableData(){
                     </tr>
                 </thead> 
                 <tbody>
-                        {etudiantList.map(student => (
-                            <StundentRow key={student.studentId} etudiant={student}/>
-                        ))}
+                    {etudiantList.map(student => (
+                        <StundentRow key={student.studentId} etudiant={student}/>
+                    ))}
                 </tbody>     
             </table>         
         </div>
