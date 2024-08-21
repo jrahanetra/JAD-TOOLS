@@ -47,10 +47,20 @@ public class SubjectService {
 
     public SubjectDto toSubjectDto(Subject subject) {
         if (subject == null)
-            throw new NullPointerException("L'objet subject est null.");
+            throw new NullPointerException("The Subject is null.");
         TeacherDto teacherDto = teacherService.toTeacherDto(subject.getTeacher());
         SubjectDto subjectDto = new SubjectDto(subject.getSubjectId(), subject.getSubjectName(), subject.getHourNumber(), teacherDto);
         return subjectDto;
+    }
+
+    public Subject toSubject(SubjectDto subjectDto) {
+        if (subjectDto == null)
+            throw new NullPointerException("The SubjectDto is null.");
+        Teacher teacher = teacherService.toTeacher(subjectDto.teacherDto());
+        Subject subject = new Subject(subjectDto.subjectName(), subjectDto.hourNumber());
+        subject.setSubjectId(subjectDto.subjectId());
+        subject.setTeacher(teacher);
+        return subject;
     }
 
     public SubjectDto saveSubject(Subject subject) {

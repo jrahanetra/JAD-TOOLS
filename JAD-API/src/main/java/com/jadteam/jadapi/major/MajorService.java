@@ -32,9 +32,17 @@ public class MajorService {
 
     public MajorDto toMajorDto(Major major) {
         if (major == null)
-            throw new NullPointerException("L'objet parcours est null.");
+            throw new NullPointerException("The Major is null.");
         MajorDto majorDto = new MajorDto(major.getMajorId(), major.getMajorName());
         return majorDto;
+    }
+
+    public Major toMajor(MajorDto majorDto) {
+        if(majorDto == null)
+            throw new NullPointerException("The MajorDto is null.");
+        Major major = new Major(majorDto.majorName());
+        major.setMajorId(majorDto.majorId());
+        return major;
     }
 
     public MajorDto saveMajor(Major major) {

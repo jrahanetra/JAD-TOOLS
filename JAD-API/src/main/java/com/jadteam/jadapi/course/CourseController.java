@@ -2,6 +2,7 @@ package com.jadteam.jadapi.course;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,10 +44,20 @@ public class CourseController {
     }
 
     @GetMapping("/d")
-    public List<CourseDto> findAllCoursesByDate(@RequestParam String beginDate, @RequestParam String endDate) {
+    public List<CourseDto> findAllCoursesByDate(@RequestParam String beginDate,
+                                                @RequestParam String endDate) {
         LocalDate beginLocalDate = LocalDate.parse(beginDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         LocalDate endLocalDate = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         return courseService.findAllCoursesBetweenDates(beginLocalDate, endLocalDate);
     }
+
+    @GetMapping("/s")
+    public List<CourseDto> findAllCoursesByLevelMajorDate(@RequestParam String beginDate,
+                                                          @RequestParam Integer levelId,
+                                                          @RequestParam Integer majorId) {
+        LocalDate beginLocalDate = LocalDate.parse(beginDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return courseService.findAllCoursesByDateAndLevelIdAndMajorId(beginLocalDate, levelId, majorId);
+    }
+    
     
 }

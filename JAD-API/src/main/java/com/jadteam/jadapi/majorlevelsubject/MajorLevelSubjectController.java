@@ -37,9 +37,8 @@ public class MajorLevelSubjectController {
     }
 
     @GetMapping("/s")
-    public List<MajorLevelSubjectDto> getAllMajorLevelSubjectByMajorAndLevel(@RequestParam("majorId") Integer majorId,
-                                                                             @RequestParam("levelId") Integer levelId) {
-        return majorLevelSubjectService.findAllMajorLevelSubjectByMajorAndLevel(majorId, levelId);
+    public List<MajorLevelSubjectDto> getAllMajorLevelSubjectByMajorAndLevel(@RequestParam("majorId") Integer majorId, @RequestParam("levelId") Integer levelId) {
+        return majorLevelSubjectService.findAllMajorLevelSubjectByMajorIdAndLevelId(majorId, levelId);
     }
     
 }

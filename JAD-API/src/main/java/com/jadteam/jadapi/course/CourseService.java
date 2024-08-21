@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubject;
+import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubjectDto;
+import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubjectService;
 import com.jadteam.jadapi.subject.Subject;
 import com.jadteam.jadapi.subject.SubjectDto;
 import com.jadteam.jadapi.subject.SubjectService;
@@ -21,6 +24,7 @@ public class CourseService {
     
 	private final CourseRepository courseRepository;
     private final SubjectService subjectService;
+    private final MajorLevelSubjectService majorLevelSubjectService;
     private static List<Course> courses = new ArrayList<>();
 
     static {
@@ -59,9 +63,12 @@ public class CourseService {
         courses.add(c11);
     }
 
-    public CourseService(CourseRepository courseRepository, SubjectService subjectService) {
+    public CourseService(CourseRepository courseRepository,
+                         SubjectService subjectService,
+                         MajorLevelSubjectService majorLevelSubjectService) {
         this.courseRepository = courseRepository;
         this.subjectService = subjectService;
+        this.majorLevelSubjectService = majorLevelSubjectService;
         Random rand = new Random();
         for (var course: courses) {
             course.setSubject(this.subjectService.findSubjectById(rand.nextInt(4)+1));
@@ -115,19 +122,59 @@ public class CourseService {
         return courseDtos;
     }
 
-    public List<CourseDto> findAllCoursesBetweenDates(LocalDate beginDate, LocalDate endDate) {
+    public List<CourseDto> findAllCoursesBetweenDates(LocalDate beginDate,
+                                                      LocalDate endDate) {
         if (beginDate == null)
             throw new NullPointerException("The begin date is invalid.");
         if (endDate == null)
             throw new NullPointerException("The end date is invalid.");
         if (!beginDate.isBefore(endDate))
-            throw new DateTimeException("L'intervalle est invalide.");
+            throw new DateTimeException("The date interval is invalid.");
         List<CourseDto> courses = new ArrayList<>();
         while (!endDate.plusDays(1).isEqual(beginDate)) {
             courses.addAll(findAllCoursesByDate(beginDate));
             beginDate = beginDate.plusDays(1);
         }
         return courses;
+    } 
+
+    public List<CourseDto> findAllCoursesByDateIntervalAndSubject(LocalDate beginDate,
+                                                                  LocalDate endDate,
+                                                                  Subject subject) {
+        if (beginDate == null)
+            throw new NullPointerException("The begin date is invalid.");
+        if (endDate == null)
+            throw new NullPointerException("The end date is invalid.");
+        if (!beginDate.isBefore(endDate))
+            throw new DateTimeException("L'intervalle est invalide.");
+        if (subject == null)
+            throw new NullPointerException("The subject is invalid.");
+        List<CourseDto> courses = new ArrayList<>();
+        courses = findAllCoursesBetweenDates(beginDate, endDate);
+        List<CourseDto> courseOfSubject = courses.stream()
+            .filter(c -> c.subjectDto().equals(subjectService.toSubjectDto(subject)))
+            .toList();
+        return courseOfSubject;
+    }
+
+    public List<CourseDto> findAllCoursesByDateAndLevelIdAndMajorId(LocalDate date,
+                                                                    Integer levelId,
+                                                                    Integer majorId) {
+        if (date == null)
+            throw new NullPointerException("The date is invalid.");
+        if (levelId == null)
+            throw new NullPointerException("The majorId is invalid.");
+        if (majorId == null)
+            throw new NullPointerException("The levelId is invalid.");
+        List<MajorLevelSubjectDto> majorLevelSubjectDtos =
+            majorLevelSubjectService.findAllMajorLevelSubjectByMajorIdAndLevelId(majorId, levelId);
+        List<MajorLevelSubject> majorLevelSubjects = new ArrayList<>();
+        for (var mls: majorLevelSubjectDtos)
+            majorLevelSubjects.add(majorLevelSubjectService.toMajorLevelSubject(mls));
+        List<CourseDto> courseDtos = new ArrayList<>();
+        for (var mls: majorLevelSubjects)
+            courseDtos.addAll(findAllCoursesByDateIntervalAndSubject(date, date.plusDays(6), mls.getSubject()));
+        return courseDtos;
     }
 
 }

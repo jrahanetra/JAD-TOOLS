@@ -33,11 +33,20 @@ public class TeacherService {
 
     public TeacherDto toTeacherDto(Teacher teacher) {
         if (teacher == null)
-            throw new NullPointerException("L'objet Teacher à convertir est invalide.");
+            throw new NullPointerException("The Teacher is invalid.");
         TeacherDto teacherDto = new TeacherDto(teacher.getTeacherId(),
                                                teacher.getFirstname(),
                                                teacher.getLastname());
         return teacherDto;
+    }
+
+    public Teacher toTeacher(TeacherDto teacherDto) {
+        if (teacherDto == null)
+            throw new NullPointerException("The TeacherDto is invalid.");
+        Teacher teacher = new Teacher(teacherDto.firstname(),
+                                      teacherDto.lastname());
+        teacher.setTeacherId(teacherDto.teacherId());
+        return teacher;
     }
     
     public List<TeacherDto> findAllTeacher() {
