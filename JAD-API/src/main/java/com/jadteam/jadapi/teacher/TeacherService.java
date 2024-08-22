@@ -9,26 +9,9 @@ import org.springframework.stereotype.Service;
 public class TeacherService {
 
     private final TeacherRepository teacherRepository;
-    private static List<Teacher> teachers = new ArrayList<>();
-
-    static {
-        Teacher t1 = new Teacher("Tsinto", "Ratiarison");
-        Teacher t2 = new Teacher("Paulson", "Ravomampiandra");
-        Teacher t3 = new Teacher("Aina", "Lucas");
-        Teacher t4 = new Teacher("Houlder", "Rakotoson");
-        Teacher t5 = new Teacher("Tolotra", "Andrianalimanana");
-        teachers.add(t1);
-        teachers.add(t2);
-        teachers.add(t3);
-        teachers.add(t4);
-        teachers.add(t5);
-    }
 
     public TeacherService(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
-
-        for (var teacher: teachers)
-            this.teacherRepository.save(teacher);
     }
 
     public TeacherDto toTeacherDto(Teacher teacher) {

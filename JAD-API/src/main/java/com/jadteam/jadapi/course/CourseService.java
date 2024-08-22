@@ -25,43 +25,6 @@ public class CourseService {
 	private final CourseRepository courseRepository;
     private final SubjectService subjectService;
     private final MajorLevelSubjectService majorLevelSubjectService;
-    private static List<Course> courses = new ArrayList<>();
-
-    static {
-        LocalDate d1 = LocalDate.of(2024, 8, 26);
-        LocalDate d2 = LocalDate.of(2024, 8, 27);
-        LocalDate d3 = LocalDate.of(2024, 8, 28);
-        LocalDate d4 = LocalDate.of(2024, 8, 29);
-        LocalDate d5 = LocalDate.of(2024, 8, 30);
-        LocalTime t1 = LocalTime.of(8, 0);
-        LocalTime t2 = LocalTime.of(10, 0);
-        LocalTime t3 = LocalTime.of(12, 0);
-        LocalTime t4 = LocalTime.of(13, 0);
-        LocalTime t5 = LocalTime.of(15, 0);
-        LocalTime t6 = LocalTime.of(17, 0);
-        Course c1 = new Course(d1, t1, t2);
-        Course c2 = new Course(d1, t4, t5);
-        Course c3 = new Course(d2, t1, t2);
-        Course c4 = new Course(d2, t2, t3);
-        Course c5 = new Course(d2, t4, t5);
-        Course c6 = new Course(d2, t5, t6);
-        Course c7 = new Course(d3, t1, t2);
-        Course c8 = new Course(d3, t2, t3);
-        Course c9 = new Course(d4, t2, t3);
-        Course c10 = new Course(d5, t1, t2);
-        Course c11 = new Course(d5, t4, t5);
-        courses.add(c1);
-        courses.add(c2);
-        courses.add(c3);
-        courses.add(c4);
-        courses.add(c5);
-        courses.add(c6);
-        courses.add(c7);
-        courses.add(c8);
-        courses.add(c9);
-        courses.add(c10);
-        courses.add(c11);
-    }
 
     public CourseService(CourseRepository courseRepository,
                          SubjectService subjectService,
@@ -69,11 +32,6 @@ public class CourseService {
         this.courseRepository = courseRepository;
         this.subjectService = subjectService;
         this.majorLevelSubjectService = majorLevelSubjectService;
-        Random rand = new Random();
-        for (var course: courses) {
-            course.setSubject(this.subjectService.findSubjectById(rand.nextInt(4)+1));
-            this.courseRepository.save(course);
-        }
     }
 
     public CourseDto toCourseDto(Course course) {

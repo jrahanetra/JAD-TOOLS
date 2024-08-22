@@ -2,8 +2,12 @@ package com.jadteam.jadapi.student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.github.javafaker.Faker;
+import com.github.javafaker.service.FakeValuesService;
 
 import org.springframework.stereotype.Service;
 
@@ -11,22 +15,9 @@ import org.springframework.stereotype.Service;
 public class StudentService {
 
     private StudentRepository studentRepository;
-    public static List<Student> students = new ArrayList<>();
-
-    static {
-        Student student1 = new Student("Antsa", "Rafanomezantsoa", "Ampitatafika", "antsa@email.com", "032 71 720 97");
-        Student student2 = new Student("Jason", "Rahanetra", "Ambatoroka", "jason@email.com", "038 77 667 97");
-        Student student3 = new Student("Dihary", "Rabearimanana", "Andranomena", "dihary@email.com", "034 09 241 65");
-        students.add(student1);
-        students.add(student2);
-        students.add(student3);
-    }
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
-
-        for (var student: students)
-            this.studentRepository.save(student);
     }
 
     public StudentDto toStudentDto(Student student) {

@@ -25,37 +25,13 @@ public class RegistrationService {
     private final StudentService studentService;
     private final LevelService levelService;
     private final MajorService majorService;
-    private static List<Registration> registrations = new ArrayList<>();
-
-    static {
-        
-    }
-
+    
     public RegistrationService(RegistrationRepository registrationRepository, StudentService studentService,
             LevelService levelService, MajorService majorService) {
         this.registrationRepository = registrationRepository;
         this.studentService = studentService;
         this.levelService = levelService;
         this.majorService = majorService;
-
-        RegistrationId id1 = new RegistrationId(1, 3, 2);
-        RegistrationId id2 = new RegistrationId(2, 3, 2);
-        RegistrationId id3 = new RegistrationId(3, 2, 2);
-        Student s1 = this.studentService.findStudentById(1);
-        Student s2 = this.studentService.findStudentById(2);
-        Student s3 = this.studentService.findStudentById(3);
-        Major ia = this.majorService.findMajorById(3);
-        Major dev = this.majorService.findMajorById(2);
-        Level l2 = this.levelService.findLevelById(2);
-        Registration reg1 = new Registration(id1, s1, ia, l2, 2024);
-        Registration reg2 = new Registration(id2, s2, ia, l2, 2024);
-        Registration reg3 = new Registration(id3, s3, dev, l2, 2024);
-        registrations.add(reg1);
-        registrations.add(reg2);
-        registrations.add(reg3);
-
-        for (var reg: registrations)
-            this.registrationRepository.save(reg);
     }
 
     public RegistrationDto toRegistrationDto(Registration registration) {
