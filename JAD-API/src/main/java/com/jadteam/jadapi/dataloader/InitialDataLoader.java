@@ -58,7 +58,8 @@ public class InitialDataLoader implements CommandLineRunner {
     private static List<Teacher> teachers = new ArrayList<>();
     private static List<Subject> subjects = new ArrayList<>();
     private static List<MajorLevelSubject> majorLevelSubjects = new ArrayList<>();
-    private static List<Course> courses = new ArrayList<>();
+    private static List<Course> l1Courses = new ArrayList<>();
+    private static List<Course> l2Courses = new ArrayList<>();
     private static Random rand = new Random();
 
     public InitialDataLoader(StudentRepository studentRepository, LevelRepository levelRepository,
@@ -197,14 +198,18 @@ public class InitialDataLoader implements CommandLineRunner {
                 iE = tmp;
             }
             for (int i=iB; i<=iE; i++) {
-                if (!date.getDayOfWeek().equals(DayOfWeek.SATURDAY) && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY))
-                    courses.add(new Course(date, timeRanges.get(i).get(0), timeRanges.get(i).get(1)));
+                if (!date.getDayOfWeek().equals(DayOfWeek.SATURDAY) && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+                    l1Courses.add(new Course(date, timeRanges.get(i).get(0), timeRanges.get(i).get(1)));
+                    l2Courses.add(new Course(date, timeRanges.get(i).get(0), timeRanges.get(i).get(1)));
+                }
             }
         }
-        for (var course: courses)
-            course.setSubject(subjects.get(rand.nextInt(10)));
-        System.out.println(courses.toString());
-        courseRepository.saveAll(courses);
+        for (var course: l1Courses)
+            course.setSubject(subjects.get(rand.nextInt(5)));
+        for (var course: l2Courses)
+            course.setSubject(subjects.get(rand.nextInt(5)+5));
+        courseRepository.saveAll(l1Courses);
+        courseRepository.saveAll(l2Courses);
     }
 	
 }
