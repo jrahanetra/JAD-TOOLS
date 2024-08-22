@@ -760,7 +760,16 @@ td.td-head{
 .containerColumn1{
     height: 100%;
     width: 100%;
-
+    border: 1px solid blue;
+    position: relative;
+}
+.container-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(50px); /* Ceci calcule 100px */
+    border: 1px solid blue;
+    width: 100%;
 }
 .headerEdt{
     border-bottom: 2px solid black ;
@@ -769,6 +778,19 @@ td.td-head{
     justify-content: center;
     align-items: center;
 
+}
+
+.nameSubject{
+    text-align: center;
+    margin: 0;
+}
+.durationSubject{
+    margin: 0;
+    text-align: center;
+}
+.profName{
+    margin: 0;
+    text-align: center;
 }
 
 .h1-edtItem {

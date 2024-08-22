@@ -3,15 +3,16 @@ import Level from "./Level";
 import Parcours from "./Parcours";
 
 export default class StudentCustomizeData{
-    studentDto : Etudiant;
+    studentDto: Etudiant;
     majorDto: Parcours;
     levelDto: Level;
-    year: Number;
+    year: number;
+
     constructor(
         studentDto: Etudiant,
         majorDto: Parcours,
         levelDto: Level,
-        year: Number
+        year: number
     ){
         this.studentDto = studentDto,
         this.majorDto = majorDto,

@@ -82,7 +82,7 @@ function Student() {
                     <SelectFilterComponent
                         nameLabel="Name"
                         widthSelect={90}
-                        valuesPossible={['↓A', '↑B']} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
+                        valuesPossible={['↓A', '↑Z']} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
                         value={valuesFilter.name}
                         handleChange={handleChangeValue("name")}
                         onKeyPress={() => { }}
@@ -112,7 +112,10 @@ function Student() {
                     <a href="/" className="a-refresh">Refresh</a>
                 </div>
                 <div className="div-container-tabFilter">
-                    <TableData keyWordToFilter={searchFilterValue}/>
+                    <TableData 
+                        filterByName={valuesFilter.name} 
+                        keyWordToFilter={searchFilterValue}
+                    />
                 </div>
             </div>
         </div>
