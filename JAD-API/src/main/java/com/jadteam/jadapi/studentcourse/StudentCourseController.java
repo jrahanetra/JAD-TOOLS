@@ -56,8 +56,8 @@ public class StudentCourseController {
     }
 
     @GetMapping("/s")
-    public List<StudentCourseDto> findAllStudentCoursesByStudentId(@RequestParam Integer StudentId) {
-        return studentCourseService.findAllStudentCoursesByStudentId(StudentId);
+    public List<StudentCourseDto> findAllStudentCoursesByStudentId(@RequestParam Integer studentId) {
+        return studentCourseService.findAllStudentCoursesByStudentId(studentId);
     }
     
     
