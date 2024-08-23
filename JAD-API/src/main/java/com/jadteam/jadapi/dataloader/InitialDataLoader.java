@@ -176,9 +176,7 @@ public class InitialDataLoader implements CommandLineRunner {
         LocalDate endDate = LocalDate.now();
         while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
             beginDate = beginDate.minusDays(1);
-        System.out.println(beginDate.toString());
-        while (!endDate.getDayOfWeek().equals(DayOfWeek.SUNDAY))
-            endDate = endDate.plusDays(1);
+        endDate = beginDate.plusDays(14);
         System.out.println(endDate.toString());
         List<LocalDate> dates = beginDate.datesUntil(endDate).collect(Collectors.toList());
         System.out.println(dates.toString());
