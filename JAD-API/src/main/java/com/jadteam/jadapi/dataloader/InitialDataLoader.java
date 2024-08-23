@@ -228,7 +228,7 @@ public class InitialDataLoader implements CommandLineRunner {
         List<Course> l1PastCourses = l1Courses.stream().filter(c -> dates.contains(c.getCourseDate())).toList();
         List<Course> l2PastCourses = l2Courses.stream().filter(c -> dates.contains(c.getCourseDate())).toList();
         List<Student> l1Students = registrations.stream().filter(r -> r.getLevel() == levels.get(0)).map(r -> r.getStudent()).toList();
-        List<Student> l2Students = registrations.stream().filter(r -> r.getLevel() == levels.get(0)).map(r -> r.getStudent()).toList();
+        List<Student> l2Students = registrations.stream().filter(r -> r.getLevel() == levels.get(1)).map(r -> r.getStudent()).toList();
         for (var course: l1PastCourses)
             for (var student: l1Students) {
                 StudentCourseId id = new StudentCourseId(student.getStudentId(), course.getCourseId());
