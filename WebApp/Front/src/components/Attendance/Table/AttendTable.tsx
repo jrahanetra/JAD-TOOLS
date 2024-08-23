@@ -1,52 +1,114 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import styled from "@emotion/styled";
+import Paper from "@mui/material/Paper";
 import Etudiant from "../../../models/Etudiant";
 import StundentRow from "./StudentData";
 
-function TableData(){
-    
-    const [etudiantList, setEtudiant] = useState<Etudiant[]>([]);
+// Créez des composants stylés pour TableCell
+const CustomTableCell = styled(TableCell)(({ theme }) => ({
+  fontSize: "1.1rem",
+}));
 
-    const fetchData = async () => {
-        try{
-            const response = await fetch('http://localhost:8080/students');
-            if(!response.ok){
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            setEtudiant(data)
-        }catch(error){
-            toast.error(`Error : ${error}`)
-        }
+type Props = {
+  keyWordToFilter: string;
+  filterByDate: string;
+  filterByName: string;
+  filterByAttend: string;
+};
+function TableData({
+  keyWordToFilter,
+  filterByDate,
+  filterByName,
+  filterByAttend,
+}: Props) {
+  const [etudiantList, setEtudiant] = useState<Etudiant[]>([]);
+  const [filteredData, setFilteredData] = useState<Etudiant[]>([]);
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/students");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setEtudiant(data);
+    } catch (error) {
+      toast.error(`Error : ${error}`);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const sortedData = [...etudiantList];
+
+    if (filterByName !== "" || filterByAttend !== "") {
+      switch (filterByName) {
+        case "↓A":
+          sortedData.sort((a, b) => a.lastname.localeCompare(b.lastname));
+          break;
+        case "↑Z":
+          sortedData.sort((a, b) => b.lastname.localeCompare(a.lastname));
+          break;
+        default:
+          break;
+      }
+    } else {
+      sortedData.sort((a, b) => a.studentId - b.studentId);
     }
 
-    useEffect(() => {
-        fetchData();
-    }, [])
-
-    return(
-        <div className="container-tab">
-            <ToastContainer />
-            <table>
-                <thead>
-                    <tr>
-                        <td className="td-head">Roll no</td>
-                        <td className="td-head">Name</td>
-                        <td className="td-head">Year</td>
-                        <td className="td-head">Semester</td>
-                        <td className="td-head">Course</td>
-                        <td className="td-head">Date</td>
-                        <td className="td-head">Hour</td>
-                        <td className="td-head">Attend</td>
-                    </tr>
-                </thead> 
-                <tbody>
-                    {etudiantList.map(student => (
-                        <StundentRow key={student.studentId} etudiant={student}/>
-                    ))}
-                </tbody>     
-            </table>         
-        </div>
-    )
+    setFilteredData(
+      sortedData.filter((item) =>
+        keyWordToFilter.toLowerCase() === ""
+          ? true
+          : item.firstname
+              .toLowerCase()
+              .includes(keyWordToFilter.trim().toLowerCase()) ||
+            item.lastname
+              .toLowerCase()
+              .includes(keyWordToFilter.trim().toLowerCase()) ||
+            item.studentId === Number(keyWordToFilter)
+      )
+    );
+  }, [filterByName, filterByAttend, keyWordToFilter, etudiantList]);
+  return (
+    <div className="container-tab">
+      <ToastContainer />
+      <TableContainer
+        component={Paper}
+        style={{ width: "1400px", maxHeight: 700 }}
+      >
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <CustomTableCell>Roll no</CustomTableCell>
+              <CustomTableCell>Lastname</CustomTableCell>
+              <CustomTableCell>Firstname</CustomTableCell>
+              <CustomTableCell>Address</CustomTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredData.map((etudiant) => (
+              <StundentRow
+                key={etudiant.studentId}
+                etudiant={etudiant}
+                filterByDate={filterByDate}
+                filterByAttend={filterByAttend}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  );
 }
 export default TableData;
