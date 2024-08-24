@@ -15,22 +15,22 @@ function ShowAllDash(){
     return (
         <div className="div-dashs-container">
             <BoxDash 
-                name="Année" 
+                name="Level" 
                 number={7} 
                 color="#22BBEA"
                 vector={VectorYear}/>
             <BoxDash 
-                name="Étudiants" 
+                name="Students" 
                 number={studentCustomizeData.length} 
                 color="#CF2E2E"
                 vector={VectorStudent}/>
             <BoxDash 
-                name="Filles" 
+                name="Female" 
                 number={90} 
                 color="#22BBEA"
                 vector={VectorWoman}/>
             <BoxDash 
-                name="Garçons" 
+                name="Masculine" 
                 number={160} 
                 color="#FF9933"
                 vector={VectorMan}/>
