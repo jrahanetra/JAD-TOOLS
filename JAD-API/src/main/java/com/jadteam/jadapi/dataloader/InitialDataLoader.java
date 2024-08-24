@@ -1,8 +1,11 @@
 package com.jadteam.jadapi.dataloader;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,11 +28,14 @@ import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubjectRepository;
 import com.jadteam.jadapi.registration.Registration;
 import com.jadteam.jadapi.registration.RegistrationId;
 import com.jadteam.jadapi.registration.RegistrationRepository;
+import com.jadteam.jadapi.student.Sex;
 import com.jadteam.jadapi.student.Student;
 import com.jadteam.jadapi.student.StudentRepository;
 import com.jadteam.jadapi.studentcourse.StudentCourse;
 import com.jadteam.jadapi.studentcourse.StudentCourseId;
 import com.jadteam.jadapi.studentcourse.StudentCourseRepository;
+import com.jadteam.jadapi.studentimage.StudentImage;
+import com.jadteam.jadapi.studentimage.StudentImageRepository;
 import com.jadteam.jadapi.subject.Subject;
 import com.jadteam.jadapi.subject.SubjectRepository;
 import com.jadteam.jadapi.teacher.Teacher;
@@ -53,6 +59,7 @@ public class InitialDataLoader implements CommandLineRunner {
     private final MajorLevelSubjectRepository majorLevelSubjectRepository;
     private final CourseRepository courseRepository;
     private final StudentCourseRepository studentCourseRepository;
+    private final StudentImageRepository studentImageRepository;
     private static final Faker faker = new Faker(new Locale("fr-FR"));
     private static final FakeValuesService fvs = new FakeValuesService(new Locale("fr-FR"), new RandomService());
     private static List<Student> students = new ArrayList<>();
@@ -69,7 +76,8 @@ public class InitialDataLoader implements CommandLineRunner {
     public InitialDataLoader(StudentRepository studentRepository, LevelRepository levelRepository,
             MajorRepository majorRepository, RegistrationRepository registrationRepository,
             TeacherRepository teacherRepository, SubjectRepository subjectRepository,
-                             MajorLevelSubjectRepository majorLevelSubjectRepository, CourseRepository courseRepository, StudentCourseRepository studentCourseRepository) {
+            MajorLevelSubjectRepository majorLevelSubjectRepository, CourseRepository courseRepository,
+            StudentCourseRepository studentCourseRepository, StudentImageRepository studentImageRepository) {
         this.studentRepository = studentRepository;
         this.levelRepository = levelRepository;
         this.majorRepository = majorRepository;
@@ -79,12 +87,14 @@ public class InitialDataLoader implements CommandLineRunner {
         this.majorLevelSubjectRepository = majorLevelSubjectRepository;
         this.courseRepository = courseRepository;
         this.studentCourseRepository = studentCourseRepository;
+        this.studentImageRepository = studentImageRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         System.out.println("\nInitialisation des données.\n");
         addStudents();
+        addStudentImages();
         addLevels();
         addMajors();
         addRegistrations();
@@ -96,21 +106,36 @@ public class InitialDataLoader implements CommandLineRunner {
     }
 
     public void addStudents() {
-        students.add(new Student("Antsa", "Rafanomezantsoa", "Ampitatafika", "antsa@gmail.com", "032 71 720 97"));
-        students.add(new Student("Jason", "Rahanetra", "Ambatoroka", "jason@gmail.com", "038 77 667 97"));
-        students.add(new Student("Dihary", "Rabearimanana", "Andranomena", "dihary@gmail.com", "034 09 241 65"));
+        students.add(new Student("Antsa", "Rafanomezantsoa", "Ampitatafika", "antsa@gmail.com", "032 71 720 97", Sex.Masculin, LocalDate.of(1999, 1, 6), "Antsa.jpg"));
+        students.add(new Student("Jason", "Rahanetra", "Ambatoroka", "jason@gmail.com", "038 77 667 97", Sex.Masculin, LocalDate.of(2005, 6, 6), "Jason.jpg"));
+        students.add(new Student("Dihary", "Rabearimanana", "Andranomena", "dihary@gmail.com", "034 09 241 65", Sex.Feminin, LocalDate.of(2002, 7, 28), "Dihary.jpg"));
 
         for (int i=0; i<100; i++) {
             String firstname = faker.name().firstName();
             String email = fvs.bothify(firstname+"###@gmail.com");
+            Sex sex = faker.demographic().sex().equals("Male") ? Sex.Masculin : Sex.Feminin;
+            LocalDate birthday = LocalDate.ofInstant(faker.date().birthday(16, 30).toInstant(), ZoneId.systemDefault());
+            System.out.println(faker.demographic().sex());
             Student s = new Student(firstname,
                                     faker.name().lastName(),
                                     faker.address().city(),
                                     email,
-                                    faker.phoneNumber().phoneNumber());
+                                    faker.phoneNumber().phoneNumber(),
+                                    sex,
+                                    birthday,
+                                    "image.jpg");
             students.add(s);
         }
         studentRepository.saveAll(students);
+    }
+
+    public void addStudentImages() throws IOException {
+        for (var imageName: Arrays.asList("Antsa.jpg", "Jason.jpg", "Dihary.jpg", "image.jpg")){
+            // System.out.println(getClass().getResource("/com/jadteam/jadapi/dataloader/"+imageName));
+            InputStream in = getClass().getResourceAsStream("/com/jadteam/jadapi/dataloader/"+imageName);
+            StudentImage si = new StudentImage(imageName, ".jpg", in.readAllBytes());
+            studentImageRepository.save(si);
+        }
     }
 
     public void addLevels() {
@@ -170,7 +195,9 @@ public class InitialDataLoader implements CommandLineRunner {
                 if (i < 5) level = levels.get(0);
                 else level = levels.get(1);
                 Subject subject = subjects.get(i);
-                MajorLevelSubjectId id = new MajorLevelSubjectId(major.getMajorId(), level.getLevelId(), subject.getSubjectId());
+                MajorLevelSubjectId id = new MajorLevelSubjectId(major.getMajorId(),
+                                                                 level.getLevelId(),
+                                                                 subject.getSubjectId());
                 majorLevelSubjects.add(new MajorLevelSubject(id, major, level, subject));
             }
         }
@@ -181,7 +208,7 @@ public class InitialDataLoader implements CommandLineRunner {
         LocalDate beginDate = LocalDate.now();
         if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
             beginDate = beginDate.minusDays(1);
-        while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY) || LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
+        while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
             beginDate = beginDate.minusDays(1);
         LocalDate endDate = beginDate.plusDays(14);
         System.out.println(endDate.toString());
@@ -203,7 +230,8 @@ public class InitialDataLoader implements CommandLineRunner {
                 iE = tmp;
             }
             for (int i=iB; i<=iE; i++) {
-                if (!date.getDayOfWeek().equals(DayOfWeek.SATURDAY) && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+                if (!date.getDayOfWeek().equals(DayOfWeek.SATURDAY)
+                    && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
                     l1Courses.add(new Course(date, timeRanges.get(i).get(0), timeRanges.get(i).get(1)));
                     l2Courses.add(new Course(date, timeRanges.get(i).get(0), timeRanges.get(i).get(1)));
                 }
@@ -224,23 +252,40 @@ public class InitialDataLoader implements CommandLineRunner {
         while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
             beginDate = beginDate.minusDays(1);
         LocalDate endDate = LocalDate.now();
-        List<LocalDate> dates = beginDate.datesUntil(endDate).collect(Collectors.toList());
-        List<Course> l1PastCourses = l1Courses.stream().filter(c -> dates.contains(c.getCourseDate())).toList();
-        List<Course> l2PastCourses = l2Courses.stream().filter(c -> dates.contains(c.getCourseDate())).toList();
-        List<Student> l1Students = registrations.stream().filter(r -> r.getLevel() == levels.get(0)).map(r -> r.getStudent()).toList();
-        List<Student> l2Students = registrations.stream().filter(r -> r.getLevel() == levels.get(1)).map(r -> r.getStudent()).toList();
+        List<LocalDate> dates = beginDate.datesUntil(endDate)
+            .collect(Collectors.toList());
+        List<Course> l1PastCourses = l1Courses.stream()
+            .filter(c -> dates.contains(c.getCourseDate()))
+            .toList();
+        List<Course> l2PastCourses = l2Courses.stream()
+            .filter(c -> dates.contains(c.getCourseDate()))
+            .toList();
+        List<Student> l1Students = registrations.stream()
+            .filter(r -> r.getLevel() == levels.get(0))
+            .map(r -> r.getStudent())
+            .toList();
+        List<Student> l2Students = registrations.stream()
+            .filter(r -> r.getLevel() == levels.get(1))
+            .map(r -> r.getStudent())
+            .toList();
         for (var course: l1PastCourses)
             for (var student: l1Students) {
-                StudentCourseId id = new StudentCourseId(student.getStudentId(), course.getCourseId());
-                StudentCourse studentCourse = new StudentCourse(id, rand.nextBoolean(), false);
+                StudentCourseId id = new StudentCourseId(student.getStudentId(),
+                                                         course.getCourseId());
+                StudentCourse studentCourse = new StudentCourse(id,
+                                                                rand.nextBoolean(),
+                                                                false);
                 studentCourse.setStudent(student);
                 studentCourse.setCourse(course);
                 studentCourseRepository.save(studentCourse);
             }
         for (var course: l2PastCourses)
             for (var student: l2Students) {
-                StudentCourseId id = new StudentCourseId(student.getStudentId(), course.getCourseId());
-                StudentCourse studentCourse = new StudentCourse(id, rand.nextBoolean(), false);
+                StudentCourseId id = new StudentCourseId(student.getStudentId(),
+                                                         course.getCourseId());
+                StudentCourse studentCourse = new StudentCourse(id,
+                                                                rand.nextBoolean(),
+                                                                false);
                 studentCourse.setStudent(student);
                 studentCourse.setCourse(course);
                 studentCourseRepository.save(studentCourse);

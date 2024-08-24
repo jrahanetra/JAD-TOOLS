@@ -1,5 +1,6 @@
 package com.jadteam.jadapi.student;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -34,6 +35,9 @@ public class Student {
     @Column(unique = true)
     private String email;
     private String phoneNumber;
+    private Sex sex;
+    private LocalDate birthday;
+    private String imageName;
 
     @OneToMany(mappedBy = "student")
     private List<Registration> registrationList;
@@ -44,12 +48,15 @@ public class Student {
     public Student() {
     }
 
-    public Student(String firstname, String lastname, String address, String email, String phoneNumber) {
+    public Student(String firstname, String lastname, String address, String email, String phoneNumber, Sex sex, LocalDate birthday, String imageName) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.sex = sex;
+        this.birthday = birthday;
+        this.imageName = imageName;
     }
 
     public Integer getStudentId() {
@@ -114,6 +121,30 @@ public class Student {
 
     public void setStudentCourseList(List<StudentCourse> studentCourseList) {
         this.studentCourseList = studentCourseList;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
     
 }

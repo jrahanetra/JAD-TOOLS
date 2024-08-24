@@ -2,19 +2,15 @@ package com.jadteam.jadapi.student;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.github.javafaker.Faker;
-import com.github.javafaker.service.FakeValuesService;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -24,7 +20,7 @@ public class StudentService {
         if (student == null)
             throw new NullPointerException("Les informations de l'étudiant sont invalides.");
         StudentDto studentDto = new StudentDto(student.getStudentId(), student.getFirstname(), student.getLastname(),
-                student.getAddress(), student.getEmail(), student.getPhoneNumber());
+                                               student.getAddress(), student.getEmail(), student.getPhoneNumber(), student.getSex(), student.getBirthday(), student.getImageName());
         return studentDto;
     }
 
@@ -62,7 +58,10 @@ public class StudentService {
                                         student.getLastname(),
                                         student.getAddress(),
                                         student.getEmail(),
-                                        student.getPhoneNumber());
+                                        student.getPhoneNumber(),
+                                        student.getSex(),
+                                        student.getBirthday(),
+                                        student.getImageName());
         return new Student();
     }
 
