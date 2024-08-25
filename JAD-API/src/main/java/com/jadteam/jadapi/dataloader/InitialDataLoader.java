@@ -130,10 +130,12 @@ public class InitialDataLoader implements CommandLineRunner {
     }
 
     public void addStudentImages() throws IOException {
-        for (var imageName: Arrays.asList("Antsa.jpg", "Jason.jpg", "Dihary.jpg", "image.jpg")){
-            InputStream in = getClass().getResourceAsStream("/com/jadteam/jadapi/dataloader/"+imageName);
+        for (var imageName: Arrays.asList("Antsa.jpg", "Jason.jpg", "Dihary.jpg", "image.jpg")) {
+            String imagePath = "/images/"+imageName;
+            InputStream in = getClass().getResourceAsStream(imagePath);
             StudentImage si = new StudentImage(imageName, ".jpg", in.readAllBytes());
             studentImageRepository.save(si);
+            in.close();
         }
     }
 
