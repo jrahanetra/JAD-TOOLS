@@ -16,14 +16,14 @@ public class LevelService {
 
     public LevelDto toLevelDto(Level level) {
         if (level == null)
-            throw new NullPointerException("The Level is null.");
+            throw new NullPointerException("The Level to convert is null.");
         LevelDto levelDto = new LevelDto(level.getLevelId(), level.getLevelName());
         return levelDto;
     }
 
     public Level toLevel(LevelDto levelDto) {
         if (levelDto == null)
-            throw new NullPointerException("The LevelDto is null.");
+            throw new NullPointerException("The LevelDto to convert is null.");
         Level level = new Level(levelDto.levelName());
         level.setLevelId(levelDto.levelId());
         return level;

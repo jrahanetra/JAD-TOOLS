@@ -36,7 +36,7 @@ public class RegistrationService {
 
     public RegistrationDto toRegistrationDto(Registration registration) {
         if (registration == null)
-            throw new NullPointerException("L'objet inscription est null.");
+            throw new NullPointerException("The Registration to convert is invalid.");
         StudentDto studentDto = studentService.toStudentDto(registration.getStudent());
         LevelDto levelDto = levelService.toLevelDto(registration.getLevel());
         MajorDto majorDto = majorService.toMajorDto(registration.getMajor());
@@ -45,13 +45,19 @@ public class RegistrationService {
     }
 
     public RegistrationDto saveRegistration(Integer studentId, Integer majorId, Integer levelId, Integer year) {
-        if (studentId == null || levelId == null || majorId == null)
-            throw new NullPointerException("No parameter should be null.");
+        if (studentId == null)
+            throw new NullPointerException("The Student ID is invalid.");
+        if (majorId == null)
+            throw new NullPointerException("The Major ID is invalid.");
+        if (levelId == null)
+            throw new NullPointerException("The Level ID is invalid.");
+        if (year == null)
+            throw new NullPointerException("The year is invalid.");
         Student student = studentService.findStudentById(studentId);
         Major major = majorService.findMajorById(majorId);
         Level level = levelService.findLevelById(levelId);
         if (student == null || major == null || level == null)
-            throw new NullPointerException("L'un des informations recherchées n'est pas dans la base de données.");
+            throw new NullPointerException("One of the information required could not be found.");
         RegistrationId id = new RegistrationId(studentId, majorId, levelId);
         Registration reg = new Registration(id, student, major, level, year);
         RegistrationDto regDto = toRegistrationDto(reg);
@@ -69,9 +75,9 @@ public class RegistrationService {
 
     public List<RegistrationDto> findAllRegistrationsByMajorAndLevel(Integer majorId, Integer levelId) {
         if (majorId == null)
-            throw new NullPointerException("L'ID du parcours est invalide.");
+            throw new NullPointerException("The Major ID is invalid.");
         if (levelId == null)
-            throw new NullPointerException("L'ID du niveau est invalide.");
+            throw new NullPointerException("The Level ID is invalid.");
         Major major = majorService.findMajorById(majorId);
         Level level = levelService.findLevelById(levelId);
         if (major == null || level == null)

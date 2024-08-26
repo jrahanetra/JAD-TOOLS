@@ -73,7 +73,7 @@ public class StudentCourseService {
 
     public List<StudentCourseDto> findAllStudentCoursesByDate(LocalDate date) {
         if (date == null)
-            throw new NullPointerException("La date fournie est invalide.");
+            throw new NullPointerException("The date is invalid.");
         List<Course> courses = courseRepository.findAllByCourseDate(date);
         if (courses.isEmpty())
             return new ArrayList<>();
@@ -83,10 +83,10 @@ public class StudentCourseService {
 
     public List<StudentCourseDto> findAllStudentCoursesByStudentId(Integer studentId) {
         if (studentId == null)
-            throw new NullPointerException("The studentId is invalid.");
+            throw new NullPointerException("The Student ID is invalid.");
         Student student = studentRepository.findById(studentId).orElse(null);
         if (student == null)
-            throw new NullPointerException("The student you want do not exist.");
+            throw new NullPointerException("Student not found.");
         List<StudentCourseDto> studentcourses = studentCourseRepository.findAllByStudent(student).stream()
                 .map(s -> toStudentCourseDto(s)).toList();
         return studentcourses;

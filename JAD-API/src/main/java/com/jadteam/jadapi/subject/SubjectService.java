@@ -22,7 +22,7 @@ public class SubjectService {
 
     public SubjectDto toSubjectDto(Subject subject) {
         if (subject == null)
-            throw new NullPointerException("The Subject is null.");
+            throw new NullPointerException("The Subject to convert is invalid.");
         TeacherDto teacherDto = teacherService.toTeacherDto(subject.getTeacher());
         SubjectDto subjectDto = new SubjectDto(subject.getSubjectId(), subject.getSubjectName(), subject.getHourNumber(), teacherDto);
         return subjectDto;
@@ -30,7 +30,7 @@ public class SubjectService {
 
     public Subject toSubject(SubjectDto subjectDto) {
         if (subjectDto == null)
-            throw new NullPointerException("The SubjectDto is null.");
+            throw new NullPointerException("The SubjectDto to convert is invalid.");
         Teacher teacher = teacherService.toTeacher(subjectDto.teacherDto());
         Subject subject = new Subject(subjectDto.subjectName(), subjectDto.hourNumber());
         subject.setSubjectId(subjectDto.subjectId());
@@ -40,7 +40,7 @@ public class SubjectService {
 
     public SubjectDto saveSubject(Subject subject) {
         if (subject == null)
-            throw new NullPointerException("L'objet subject est null.");
+            throw new NullPointerException("The Subject is invalid.");
         subjectRepository.save(subject);
         return toSubjectDto(subject);
     }
@@ -54,11 +54,15 @@ public class SubjectService {
     }
 
     public SubjectDto findSubjectDtoById(Integer id) {
+        if (id == null)
+            throw new NullPointerException("The Subject ID is invalid.");
         Subject subject = subjectRepository.findById(id).orElse(new Subject());
         return toSubjectDto(subject);
     }
 
     public Subject findSubjectById(Integer id) {
+        if (id == null)
+            throw new NullPointerException("The Subject ID is invalid.");
         return subjectRepository.findById(id).orElse(new Subject());
     }
     

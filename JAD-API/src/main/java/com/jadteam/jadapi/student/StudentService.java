@@ -18,7 +18,7 @@ public class StudentService {
 
     public StudentDto toStudentDto(Student student) {
         if (student == null)
-            throw new NullPointerException("Les informations de l'étudiant sont invalides.");
+            throw new NullPointerException("The Student to convert is invalid.");
         StudentDto studentDto = new StudentDto(student.getStudentId(), student.getFirstname(), student.getLastname(),
                                                student.getAddress(), student.getEmail(), student.getPhoneNumber(), student.getSex(), student.getBirthday(), student.getImageName());
         return studentDto;
@@ -26,12 +26,12 @@ public class StudentService {
 
     public StudentDto saveStudent(Student student) throws Exception {
         if (student == null) 
-            throw new NullPointerException("The student should not be null.");
+            throw new NullPointerException("The Student is invalid.");
         String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(student.getEmail());
         if (!matcher.matches())
-            throw new Exception("Invalid email.");
+            throw new Exception("Email is invalid.");
         studentRepository.save(student);
         return toStudentDto(student);
     }
@@ -46,13 +46,19 @@ public class StudentService {
     }
 
     public Student findStudentById(Integer id) {
+        if (id == null)
+            throw new NullPointerException("The Student ID is invalid.");
         return studentRepository.findById(id)
-        .orElse(new Student());
+            .orElse(new Student());
     }
 
     public Student updateStudent(Integer id, Student student) {
+        if (id == null)
+            throw new NullPointerException("The Student ID is invalid.");
+        if (student == null)
+            throw new NullPointerException("The Student is invalid.");
         if (findStudentById(id).equals(new Student()))
-            throw new NullPointerException("The student do not exist or has been deleted.");
+            throw new NullPointerException("Student not found.");
         studentRepository.updateStudent(id,
                                         student.getFirstname(),
                                         student.getLastname(),
@@ -66,8 +72,10 @@ public class StudentService {
     }
 
     public void deleteStudentById(Integer id) {
+        if (id == null)
+            throw new NullPointerException("The Student ID is invalid.");
         if (findStudentById(id).equals(new Student()))
-            throw new NullPointerException("The student do not exist or has already been deleted.");
+            throw new NullPointerException("Student not found.");
         studentRepository.deleteById(id);
     }
 

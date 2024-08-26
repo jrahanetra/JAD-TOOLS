@@ -8,6 +8,5 @@ public class JadApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JadApiApplication.class, args);
-	}
-
+    }
 }

@@ -19,14 +19,14 @@ public class MajorService {
 
     public MajorDto toMajorDto(Major major) {
         if (major == null)
-            throw new NullPointerException("The Major is null.");
+            throw new NullPointerException("The Major to convert is invalid.");
         MajorDto majorDto = new MajorDto(major.getMajorId(), major.getMajorName());
         return majorDto;
     }
 
     public Major toMajor(MajorDto majorDto) {
         if(majorDto == null)
-            throw new NullPointerException("The MajorDto is null.");
+            throw new NullPointerException("The MajorDto to convert is invalid.");
         Major major = new Major(majorDto.majorName());
         major.setMajorId(majorDto.majorId());
         return major;
@@ -34,7 +34,7 @@ public class MajorService {
 
     public MajorDto saveMajor(Major major) {
         if (major == null)
-            throw new NullPointerException("Les informations du parcours sont invalides.");
+            throw new NullPointerException("The Major is invalid.");
         majorRepository.save(major);
         return toMajorDto(major);
     }

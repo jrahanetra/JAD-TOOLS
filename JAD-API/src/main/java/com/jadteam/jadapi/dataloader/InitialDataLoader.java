@@ -61,7 +61,8 @@ public class InitialDataLoader implements CommandLineRunner {
     private final StudentCourseRepository studentCourseRepository;
     private final StudentImageRepository studentImageRepository;
     private static final Faker faker = new Faker(new Locale("fr-FR"));
-    private static final FakeValuesService fvs = new FakeValuesService(new Locale("fr-FR"), new RandomService());
+    private static final FakeValuesService fvs = new FakeValuesService(new Locale("fr-FR"),
+                                                                       new RandomService());
     private static List<Student> students = new ArrayList<>();
     private static List<Level> levels = new ArrayList<>();
     private static List<Major> majors = new ArrayList<>();
@@ -73,11 +74,16 @@ public class InitialDataLoader implements CommandLineRunner {
     private static List<Course> l2Courses = new ArrayList<>();
     private static Random rand = new Random();
 
-    public InitialDataLoader(StudentRepository studentRepository, LevelRepository levelRepository,
-            MajorRepository majorRepository, RegistrationRepository registrationRepository,
-            TeacherRepository teacherRepository, SubjectRepository subjectRepository,
-            MajorLevelSubjectRepository majorLevelSubjectRepository, CourseRepository courseRepository,
-            StudentCourseRepository studentCourseRepository, StudentImageRepository studentImageRepository) {
+    public InitialDataLoader(StudentRepository studentRepository,
+                             LevelRepository levelRepository,
+                             MajorRepository majorRepository,
+                             RegistrationRepository registrationRepository,
+                             TeacherRepository teacherRepository,
+                             SubjectRepository subjectRepository,
+                             MajorLevelSubjectRepository majorLevelSubjectRepository,
+                             CourseRepository courseRepository,
+                             StudentCourseRepository studentCourseRepository,
+                             StudentImageRepository studentImageRepository) {
         this.studentRepository = studentRepository;
         this.levelRepository = levelRepository;
         this.majorRepository = majorRepository;
@@ -106,15 +112,41 @@ public class InitialDataLoader implements CommandLineRunner {
     }
 
     public void addStudents() {
-        students.add(new Student("Antsa", "Rafanomezantsoa", "Ampitatafika", "antsa@gmail.com", "032 71 720 97", Sex.Masculin, LocalDate.of(1999, 1, 6), "Antsa.jpg"));
-        students.add(new Student("Jason", "Rahanetra", "Ambatoroka", "jason@gmail.com", "038 77 667 97", Sex.Masculin, LocalDate.of(2005, 6, 6), "Jason.jpg"));
-        students.add(new Student("Dihary", "Rabearimanana", "Andranomena", "dihary@gmail.com", "034 09 241 65", Sex.Feminin, LocalDate.of(2002, 7, 28), "Dihary.jpg"));
+        students.add(new Student("Antsa",
+                                 "Rafanomezantsoa",
+                                 "Ampitatafika",
+                                 "antsa@gmail.com",
+                                 "032 71 720 97",
+                                 Sex.Male,
+                                 LocalDate.of(1999, 1, 6),
+                                 "Antsa.jpg"));
+        students.add(new Student("Jason",
+                                 "Rahanetra",
+                                 "Ambatoroka",
+                                 "jason@gmail.com",
+                                 "038 77 667 97",
+                                 Sex.Male,
+                                 LocalDate.of(2005, 6, 6),
+                                 "Jason.jpg"));
+        students.add(new Student("Dihary",
+                                 "Rabearimanana",
+                                 "Andranomena",
+                                 "dihary@gmail.com",
+                                 "034 09 241 65",
+                                 Sex.Female,
+                                 LocalDate.of(2002, 7, 28),
+                                 "Dihary.jpg"));
 
         for (int i=0; i<100; i++) {
             String firstname = faker.name().firstName();
             String email = fvs.bothify(firstname+"###@gmail.com");
-            Sex sex = faker.demographic().sex().equals("Male") ? Sex.Masculin : Sex.Feminin;
-            LocalDate birthday = LocalDate.ofInstant(faker.date().birthday(16, 30).toInstant(), ZoneId.systemDefault());
+            Sex sex = faker.demographic().sex()
+                .equals("Male") ? Sex.Male : Sex.Female;
+            LocalDate birthday = LocalDate
+                .ofInstant(faker.date()
+                           .birthday(16, 30)
+                           .toInstant(),
+                           ZoneId.systemDefault());
             System.out.println(faker.demographic().sex());
             Student s = new Student(firstname,
                                     faker.name().lastName(),
@@ -131,11 +163,10 @@ public class InitialDataLoader implements CommandLineRunner {
 
     public void addStudentImages() throws IOException {
         for (var imageName: Arrays.asList("Antsa.jpg", "Jason.jpg", "Dihary.jpg", "image.jpg")) {
-            String imagePath = "/images/"+imageName;
-            InputStream in = getClass().getResourceAsStream(imagePath);
+            InputStream in = getClass().getResourceAsStream("/images/"+imageName);
             StudentImage si = new StudentImage(imageName, ".jpg", in.readAllBytes());
             studentImageRepository.save(si);
-            in.close();
+            // in.close();
         }
     }
 
@@ -159,7 +190,9 @@ public class InitialDataLoader implements CommandLineRunner {
         for (var student: students) {
             Major major = majors.get(rand.nextInt(majors.size()));
             Level level = levels.get(rand.nextInt(2));
-            RegistrationId id = new RegistrationId(student.getStudentId(), major.getMajorId(), level.getLevelId());
+            RegistrationId id = new RegistrationId(student.getStudentId(),
+                                                   major.getMajorId(),
+                                                   level.getLevelId());
             registrations.add(new Registration(id, student, major, level, 2024));
         }
         registrationRepository.saveAll(registrations);
@@ -213,7 +246,8 @@ public class InitialDataLoader implements CommandLineRunner {
             beginDate = beginDate.minusDays(1);
         LocalDate endDate = beginDate.plusDays(14);
         System.out.println(endDate.toString());
-        List<LocalDate> dates = beginDate.datesUntil(endDate).collect(Collectors.toList());
+        List<LocalDate> dates = beginDate.datesUntil(endDate)
+            .collect(Collectors.toList());
         System.out.println(dates.toString());
         List<List<LocalTime>> timeRanges = new ArrayList<>();
         timeRanges.add(Arrays.asList(LocalTime.of(8, 0), LocalTime.of(10, 0)));
@@ -233,8 +267,12 @@ public class InitialDataLoader implements CommandLineRunner {
             for (int i=iB; i<=iE; i++) {
                 if (!date.getDayOfWeek().equals(DayOfWeek.SATURDAY)
                     && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-                    l1Courses.add(new Course(date, timeRanges.get(i).get(0), timeRanges.get(i).get(1)));
-                    l2Courses.add(new Course(date, timeRanges.get(i).get(0), timeRanges.get(i).get(1)));
+                    l1Courses.add(new Course(date,
+                                             timeRanges.get(i).get(0),
+                                             timeRanges.get(i).get(1)));
+                    l2Courses.add(new Course(date,
+                                             timeRanges.get(i).get(0),
+                                             timeRanges.get(i).get(1)));
                 }
             }
         }

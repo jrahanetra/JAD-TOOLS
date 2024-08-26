@@ -2,10 +2,8 @@ package com.jadteam.jadapi.course;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubject;
 import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubjectDto;
@@ -21,7 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CourseService {
-    
+
 	private final CourseRepository courseRepository;
     private final SubjectService subjectService;
     private final MajorLevelSubjectService majorLevelSubjectService;
@@ -36,7 +34,7 @@ public class CourseService {
 
     public CourseDto toCourseDto(Course course) {
         if (course == null)
-            throw new NullPointerException("L'objet Course est invalide.");
+            throw new NullPointerException("The Course to convert is invalid.");
         Subject subject = subjectService.findSubjectById(course.getSubject().getSubjectId());
         SubjectDto subjectDto = subjectService.toSubjectDto(subject);
         CourseDto courseDto = new CourseDto(course.getCourseId(),
@@ -49,7 +47,7 @@ public class CourseService {
 
     public CourseDto saveCourse(Course course) {
         if (course == null)
-            throw new NullPointerException("L'object Course est invalide.");
+            throw new NullPointerException("The Course is invalid.");
         courseRepository.save(course);
         return toCourseDto(course);
     }
@@ -64,7 +62,7 @@ public class CourseService {
 
     public CourseDto findCourseById(Integer id) {
         if (id == null)
-            throw new NullPointerException("L'ID du cours fourni est invalide.");
+            throw new NullPointerException("The ID is invalid.");
         Course course = courseRepository.findById(id).orElse(new Course());
         CourseDto courseDto = toCourseDto(course);
         return courseDto;
@@ -104,7 +102,7 @@ public class CourseService {
         if (endDate == null)
             throw new NullPointerException("The end date is invalid.");
         if (!beginDate.isBefore(endDate))
-            throw new DateTimeException("L'intervalle est invalide.");
+            throw new DateTimeException("The date interval is invalid.");
         if (subject == null)
             throw new NullPointerException("The subject is invalid.");
         List<CourseDto> courses = new ArrayList<>();

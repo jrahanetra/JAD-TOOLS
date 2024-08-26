@@ -37,7 +37,7 @@ public class MajorLevelSubjectService {
 
     public MajorLevelSubjectDto toMajorLevelSubjectDto(MajorLevelSubject majorLevelSubject) {
         if (majorLevelSubject == null)
-            throw new NullPointerException("The MajorLevelSubject is null");
+            throw new NullPointerException("The MajorLevelSubject to convert is invalid.");
         MajorDto majorDto = majorService.toMajorDto(majorLevelSubject.getMajor());
         LevelDto levelDto = levelService.toLevelDto(majorLevelSubject.getLevel());
         SubjectDto subjectDto = subjectService.toSubjectDto(majorLevelSubject.getSubject());
@@ -47,7 +47,7 @@ public class MajorLevelSubjectService {
 
     public MajorLevelSubject toMajorLevelSubject(MajorLevelSubjectDto majorLevelSubjectDto) {
         if (majorLevelSubjectDto == null)
-            throw new NullPointerException("The MajorLevelSubjectDto is null.");
+            throw new NullPointerException("The MajorLevelSubjectDto to convert is invalid.");
         Major major = majorService.toMajor(majorLevelSubjectDto.majorDto());
         Level level = levelService.toLevel(majorLevelSubjectDto.levelDto());
         Subject subject = subjectService.toSubject(majorLevelSubjectDto.subjectDto());
@@ -56,6 +56,12 @@ public class MajorLevelSubjectService {
     }
 
     public MajorLevelSubjectDto saveMajorLevelSubject(Integer majorId, Integer levelId, Integer subjectId) {
+        if (majorId == null)
+            throw new NullPointerException("The Major ID is invalid.");
+        if (levelId == null)
+            throw new NullPointerException("The Level ID is invalid.");
+        if (subjectId == null)
+            throw new NullPointerException("The Subject ID is invalid.");
         MajorLevelSubjectId majorLevelSubjectId = new MajorLevelSubjectId(majorId, levelId, subjectId);
         Major major = majorService.findMajorById(majorId);
         Level level = levelService.findLevelById(levelId);
@@ -76,9 +82,9 @@ public class MajorLevelSubjectService {
     public List<MajorLevelSubjectDto> findAllMajorLevelSubjectByMajorIdAndLevelId(Integer majorId,
                                                                               Integer levelId) {
         if (majorId == null)
-            throw new NullPointerException("L'ID du parcours est invalide.");
+            throw new NullPointerException("The Major ID is invalid.");
         if (levelId == null)
-            throw new NullPointerException("L'ID du niveau est invalide.");
+            throw new NullPointerException("The Level ID is invalid.");
         Major major = majorService.findMajorById(majorId);
         Level level = levelService.findLevelById(levelId);
         if (major == null || level == null)
