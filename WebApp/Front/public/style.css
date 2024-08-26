@@ -51,6 +51,10 @@
   flex-direction: column;
   margin: 0% 15%;
 }
+.container-buttonLogin {
+  margin: 10% 0px 0 0px;
+  text-align: right;
+}
 button {
   /* Boutton */
   width: 63.54px;
@@ -59,11 +63,6 @@ button {
   color: white;
   background-color: #342e37;
 }
-.container-button {
-  text-align: right;
-  margin-bottom: 0%;
-  padding: 0 3px 0% 0px;
-}
 .container-connexion-chess {
   display: flex;
   width: 100%;
@@ -71,7 +70,7 @@ button {
 }
 h3 {
   /* Admin ID */
-  width: 85.27px;
+  width: 205.27px;
   height: 25.99px;
   left: 186px;
   top: 339px;
@@ -94,10 +93,9 @@ h3 {
   width: 100%;
   padding: 10px; /* Ajouté pour plus d'espace intérieur */
   font-size: 20px; /* Taille ajustée pour une meilleure lisibilité */
-  height: auto; /* Ajusté pour s'adapter au contenu */
+  height: 55px; /* Ajusté pour s'adapter au contenu */
   margin: 5% 0;
   background: #fffbfa;
-  border: 1px solid rgba(0, 0, 0, 0.2); /* Bordure plus subtile */
   border-radius: 10px; /* Coins arrondis */
   font-family: "Poppins", sans-serif; /* Police personnalisée */
   color: #333; /* Couleur du texte */
@@ -119,13 +117,13 @@ h3 {
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  height: auto;
+  height: 55px;
   padding: 10px;
   font-size: 20px;
-  margin: 5% 0;
+  margin: 0 5% 0 0;
   background: #fffbfa;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
+  border-radius: 20px;
   font-family: "Poppins", sans-serif;
   color: #333;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -325,20 +323,20 @@ body {
   background-color: #fff; /* Couleur de fond */
 }
 
-.container-nomPrenom{
+.container-nomPrenom {
   display: flex;
   margin: 1% 0 0 0;
   height: 80px;
   align-items: center;
 }
 
-.container-birthdayAndAddress{
+.container-birthdayAndAddress {
   margin: 0;
   display: flex;
   flex-direction: column;
 }
 
-.container-Address{
+.container-Address {
   margin: 10px 0 0 0;
 }
 
@@ -353,7 +351,6 @@ body {
   line-height: 38px;
   width: 100%;
 }
-
 
 .container-picture {
   display: flex;
@@ -491,7 +488,7 @@ td.td-head {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
 }
-.div-container-tab{
+.div-container-tab {
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -503,7 +500,8 @@ td.td-head {
   border-radius: 8px;
 }
 
-th, td {
+th,
+td {
   padding: 8px 12px;
 }
 
@@ -577,10 +575,10 @@ thead {
   text-align: center;
 }
 
-span.nom{
+span.nom {
   margin: 0 5% 0 0;
 }
-span.prenom{
+span.prenom {
   font-size: 35px;
 }
 
@@ -764,6 +762,7 @@ span.prenom{
 .container-button {
   margin: 3% 0 0 0;
   width: 78%;
+  text-align: right;
 }
 .hide {
   display: none;

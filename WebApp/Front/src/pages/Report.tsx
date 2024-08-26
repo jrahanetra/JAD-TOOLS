@@ -25,6 +25,7 @@ function DisplayReport() {
   const freqNbF = calculatePresence("Female") * 100;
   const freqNbL1 = calculatePresencePerLevel("L1") * 100;
   const freqNbFL2 = calculatePresencePerLevel("L2") * 100;
+  console.log(`sum : ${freqNbL1 + freqNbFL2}`)
 
   return (
     <div className="container-attend">
