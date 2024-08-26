@@ -100,7 +100,7 @@ public class InitialDataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("\nInitialisation des données.\n");
         addStudents();
-        addStudentImages();
+        // addStudentImages();
         addLevels();
         addMajors();
         addRegistrations();
@@ -161,14 +161,14 @@ public class InitialDataLoader implements CommandLineRunner {
         studentRepository.saveAll(students);
     }
 
-    public void addStudentImages() throws IOException {
-        for (var imageName: Arrays.asList("Antsa.jpg", "Jason.jpg", "Dihary.jpg", "image.jpg")) {
-            InputStream in = getClass().getResourceAsStream("/images/"+imageName);
-            StudentImage si = new StudentImage(imageName, ".jpg", in.readAllBytes());
-            studentImageRepository.save(si);
-            // in.close();
-        }
-    }
+    // public void addStudentImages() throws IOException {
+    //     for (var imageName: Arrays.asList("Antsa.jpg", "Jason.jpg", "Dihary.jpg", "image.jpg")) {
+    //         InputStream in = getClass().getResourceAsStream("/images/"+imageName);
+    //         StudentImage si = new StudentImage(imageName, ".jpg", in.readAllBytes());
+    //         studentImageRepository.save(si);
+    //         // in.close();
+    //     }
+    // }
 
     public void addLevels() {
         levels.add(new Level("L1"));
