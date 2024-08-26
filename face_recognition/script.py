@@ -1,9 +1,11 @@
 import csv
+import threading
 import cv2
 import face_recognition as fr
 import datetime as dt
 import numpy as np
 import requests
+from models.Student import Student
 from models.Course import Course
 from models.Subject import Subject
 from models.Teacher import Teacher
@@ -20,9 +22,38 @@ def fetch_courses():
     except Exception as error:
         print(f"Error : {error}")
 
+def fetch_students():
+    try:
+        url = f"http://localhost:8080/students"
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise Exception("Network response was not ok")
+        
+        data = response.json()
+        return data
+    except Exception as error:
+        print(f"Error : {error}")
+
+
 dataCourses = fetch_courses()
+dataStudents = fetch_students()
 courses = []
+students = []
 # URL de la caméra ESP32-CAM
+
+for data in dataStudents:
+    student = Student(
+        studentId = data["studentId"],
+        firstname = data["firstname"],
+        lastname = data["lastname"],
+        address = data["address"],
+        email = data["email"],
+        phoneNumber = data["phoneNumber"],
+        sex = data["sex"],
+        birthday = data["birthday"],
+        imageName = data["imageName"]
+    )
+    students.append(student)
 
 for data in dataCourses:
     teacher_data = data['subjectDto']['teacherDto']
@@ -47,17 +78,10 @@ for data in dataCourses:
         courseEndTime=data['courseEndTime'],
         subjectDto=subject
     )
-
     courses.append(course)
 
-print(len(courses))
-for course in courses : 
-    print(course.courseId)
-
-
-'''
 esp32_cam_url = 'http://192.168.131.93:8080/video'
-video_capture = cv2.VideoCapture(esp32_cam_url)
+video_capture = cv2.VideoCapture(0)
 
 
 # Chargement des images de référence et encodage des visages
@@ -82,9 +106,32 @@ face_encodings = []
 face_names = []
 process_this_frame = True
 
+#Méthode pour sélectionner l'étudiant
+def selectStudent(firstname):
+    for student in students :
+        if student.firstname == firstname:
+            return student.studentId
+    return -1
+
+#Méthode pour sélectionner le course à l'instant
+def selectCourse():
+    dateNow       = dt.datetime.today()
+    formatDateNow = dateNow.strftime("%d-%m-%Y")
+
+    for course in courses:
+        courseBeginTime = dt.datetime.strptime(course.courseBeginTime, "%H:%M").time()
+        courseEndTime = dt.datetime.strptime(course.courseEndTime, "%H:%M").time()
+
+        if(course.courseDate == formatDateNow and courseBeginTime <= dt.datetime.now().time() <= courseEndTime):
+            return course.courseId
+    return -1
+
 # Date et fichier CSV pour enregistrer les présences
 now = dt.datetime.now()
 current_date = now.strftime("%Y-%m-%d")
+
+# URL du point de terminaison où la requête POST sera envoyée
+url = "http://localhost:8080/studentcourses"
 
 # Utilisation d'un gestionnaire de contexte pour le fichier CSV
 with open(current_date + ".csv", 'w+', newline='') as f:
@@ -120,6 +167,24 @@ with open(current_date + ".csv", 'w+', newline='') as f:
 
                     if name in known_faces_names and name in soccer:
                         soccer.remove(name)
+                        print(selectStudent(name))
+                        # Données à envoyer dans la requête POST
+                        data = {
+                            "studentId": selectStudent(name),
+                            "courseId": selectCourse(),
+                            "attending": 1,
+                            "justificated": 0
+                        }
+
+                        # Envoyer la requête POST
+                        response = requests.post(url, json=data)
+                        # Vérifier la réponse
+                        if response.status_code == 200:
+                            print("Requête POST réussie!")
+                        else:
+                            print("Erreur lors de la requête POST:", response.status_code)
+                            print("Message:", response.text)
+
                         print(soccer)
                         current_time = dt.datetime.now().strftime("%H-%M-%S")
                         lnwriter.writerow([name, current_time])
@@ -156,4 +221,3 @@ with open(current_date + ".csv", 'w+', newline='') as f:
 # Libération des ressources
 video_capture.release()
 cv2.destroyAllWindows()
-'''

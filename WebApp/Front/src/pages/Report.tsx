@@ -21,8 +21,8 @@ function Graph({ nbFreqM, nbFreqF, nbFreqL1, nbFreqL2 }: Props) {
 }
 
 function DisplayReport() {
-  const freqNbM = calculatePresence("Masculin") * 100;
-  const freqNbF = calculatePresence("Feminin") * 100;
+  const freqNbM = calculatePresence("Male") * 100;
+  const freqNbF = calculatePresence("Female") * 100;
   const freqNbL1 = calculatePresencePerLevel("L1") * 100;
   const freqNbFL2 = calculatePresencePerLevel("L2") * 100;
 
