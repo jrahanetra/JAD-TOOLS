@@ -10,9 +10,6 @@ function Login(){
    
     return (
       <div className="body-login" style={{ backgroundColor: colorBackGround }}>
-        <button type="button" onClick={changeColor}>
-          ChangeThem
-        </button>
         <div className="div-title">
           <svg
             className="logoForLogin"
@@ -118,7 +115,7 @@ function Login(){
               </div>
               <div className="container-connexion-chess">
                 <h5 className="h5-connexion-chess">
-                  Tentative de Connexion Echoué!
+                  .
                 </h5>
               </div>
               <div className="footer-login-section">
@@ -131,7 +128,7 @@ function Login(){
           </div>
           <div className="container-image">
             <img
-              src={`${process.env.PUBLIC_URL}../pictures/Fanasina - Projet - fond blanc.png`}
+              src={`${process.env.PUBLIC_URL}../pictures/etudiant.png`}
               alt="Student"
               className="image"
             />

@@ -23,7 +23,7 @@ function ShowAllDash() {
   let tempNbF = 0;
   let tempNbM = 0;
   studentCustomizeData.forEach((student) => {
-    if (student.studentDto.sex === "Feminin") {
+    if (student.studentDto.sex === "Female") {
       tempNbF += 1;
     } else {
       tempNbM += 1;
@@ -50,7 +50,7 @@ function ShowAllDash() {
         vector={VectorWoman}
       />
       <BoxDash
-        name="Masculine"
+        name="Male"
         number={tempNbM}
         color="#FF9933"
         vector={VectorMan}
