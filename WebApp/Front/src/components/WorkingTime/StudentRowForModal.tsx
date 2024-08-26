@@ -14,15 +14,12 @@ import {
   TableBody,
   TableHead,
 } from "@mui/material";
-import Etudiant from "../../../models/Etudiant";
-import StudentCustomizeDataCourse from "../../../models/StudentCustomizeDataCourses";
-import formatToDate from "../../../utils/FormateToDate";
-import fecthStudentCourses from "../../../fecthAPI/FetchStudentCourses";
+import StudentCustomizeDataCourse from "../../models/StudentCustomizeDataCourses";
+import fecthStudentCourses from "../../fecthAPI/FetchStudentCourses";
+import Etudiant from "../../models/Etudiant";
 
 type Props = {
   etudiant: Etudiant;
-  filterByDate: string;
-  filterByAttend: string;
 };
 
 const StyledTableRow = styled(TableRow)(() => ({
@@ -40,7 +37,7 @@ const CustomTableCell1 = styled(TableCell)(({ theme }) => ({
   fontSize: "1rem",
 }));
 
-function StundentRow({ etudiant, filterByDate, filterByAttend }: Props) {
+function StudentRowForModal({ etudiant }: Props) {
   const [coursesOfStudent, setCourses] = useState<StudentCustomizeDataCourse[]>(
     []
   );
@@ -53,47 +50,6 @@ function StundentRow({ etudiant, filterByDate, filterByAttend }: Props) {
   };
   const params = new URLSearchParams(postData).toString();
   fecthStudentCourses(coursesOfStudent, setCourses, params);
-  useEffect(() => {
-    let sortedData = [...coursesOfStudent];
-    if (filterByDate !== "" || filterByAttend !== "") {
-      switch (filterByDate) {
-        case "↓Recent":
-          sortedData.sort(
-            (a, b) =>
-              formatToDate(b.courseDto.courseDate).getTime() -
-              formatToDate(a.courseDto.courseDate).getTime()
-          );
-          break;
-        case "↑Once":
-          sortedData.sort(
-            (a, b) =>
-              formatToDate(a.courseDto.courseDate).getTime() -
-              formatToDate(b.courseDto.courseDate).getTime()
-          );
-          break;
-        default:
-          break;
-      }
-
-      switch (filterByAttend) {
-        case "YES":
-          sortedData = sortedData.filter((item) => item.attending === true);
-          break;
-        case "NO":
-          sortedData = sortedData.filter((item) => item.attending === false);
-          break;
-        default:
-          break;
-      }
-    } else {
-      sortedData.sort(
-        (a, b) => a.studentDto.studentId - b.studentDto.studentId
-      );
-    }
-
-    setFilteredData(sortedData);
-  }, [filterByDate, filterByAttend, coursesOfStudent]);
-
   return (
     <>
       <StyledTableRow>
@@ -137,7 +93,7 @@ function StundentRow({ etudiant, filterByDate, filterByAttend }: Props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredData.map((course) => (
+                  {coursesOfStudent.map((course) => (
                     <TableRow key={course.courseDto.courseId}>
                       <CustomTableCell1 component="th" scope="row">
                         {course.courseDto.subjectDto.subjectName}
@@ -165,4 +121,4 @@ function StundentRow({ etudiant, filterByDate, filterByAttend }: Props) {
   );
 }
 
-export default StundentRow;
+export default StudentRowForModal;

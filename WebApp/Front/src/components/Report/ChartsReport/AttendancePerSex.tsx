@@ -9,6 +9,10 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
+type Props = {
+    nbM: number
+    nbF: number
+}
 Chart.register(
     BarElement,
     CategoryScale, // x
@@ -17,12 +21,12 @@ Chart.register(
     Legend
 );
 
-function AttendancePerSex() {
+function AttendancePerSex({nbM, nbF}: Props) {
     const data = {
         labels: ['M', 'F'],
         datasets: [{
             label: 'Attendance',
-            data: [95, 80],
+            data: [nbM, nbF],
             backgroundColor: ['#257DE4', '#FBB7F4'],
             barThickness: 60,
             maxBarThickness: 60,

@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import StudentCustomizeData from "../models/StudentCustomizeData";
+import Etudiant from "../models/Etudiant";
 
-function fecthRegistration(
-  studentCustomizeData: StudentCustomizeData[],
-  setCustomizeData: React.Dispatch<React.SetStateAction<StudentCustomizeData[]>>
+function fecthStudent(
+  student: Etudiant[],
+  setEtudiant: React.Dispatch<React.SetStateAction<Etudiant[]>>
 ) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8080/registrations");
+        const response = await fetch("http://localhost:8080/students");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        setCustomizeData(data);
+        setEtudiant(data);
       } catch (error) {
-        toast.error(`Error: ${error}`);
+        toast.error(`Error : ${error}`);
       }
     };
-
     fetchData();
-  }, [setCustomizeData]);
+  }, []);
   return "Success Fetch"; // ou un indicateur de chargement ou un message de succès
 }
 
-export default fecthRegistration;
+export default fecthStudent;

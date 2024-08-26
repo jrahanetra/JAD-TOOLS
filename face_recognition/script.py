@@ -3,21 +3,75 @@ import cv2
 import face_recognition as fr
 import datetime as dt
 import numpy as np
-import threading
+import requests
+from models.Course import Course
+from models.Subject import Subject
+from models.Teacher import Teacher
 
+def fetch_courses():
+    try:
+        url = f"http://localhost:8080/courses"
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise Exception("Network response was not ok")
+        
+        data = response.json()
+        return data
+    except Exception as error:
+        print(f"Error : {error}")
+
+dataCourses = fetch_courses()
+courses = []
 # URL de la caméra ESP32-CAM
-esp32_cam_url = 'http://192.168.88.28:81/stream'
+
+for data in dataCourses:
+    teacher_data = data['subjectDto']['teacherDto']
+    teacher = Teacher(
+        teacherId=teacher_data['teacherId'],
+        firstname=teacher_data['firstname'],
+        lastname=teacher_data['lastname']
+    )
+
+    subject_data = data['subjectDto']
+    subject = Subject(
+        subjectId=subject_data['subjectId'],
+        subjectName=subject_data['subjectName'],
+        hourNumber=subject_data['hourNumber'],
+        teacherDto=teacher
+    )
+
+    course = Course(
+        courseId=data['courseId'],
+        courseDate=data['courseDate'],
+        courseBeginTime=data['courseBeginTime'],
+        courseEndTime=data['courseEndTime'],
+        subjectDto=subject
+    )
+
+    courses.append(course)
+
+print(len(courses))
+for course in courses : 
+    print(course.courseId)
+
+
+'''
+esp32_cam_url = 'http://192.168.131.93:8080/video'
 video_capture = cv2.VideoCapture(esp32_cam_url)
+
 
 # Chargement des images de référence et encodage des visages
 jason_image = fr.load_image_file("image/Jason.jpg")
 jason_encoding = fr.face_encodings(jason_image)[0]
 
+sarobidy_image = fr.load_image_file("image/Sarobidy.jpeg")
+sarobidy_encoding = fr.face_encodings(sarobidy_image)[0]
+
 antsa_image = fr.load_image_file("image/Antsa.jpg")
 antsa_encoding = fr.face_encodings(antsa_image)[0]
 
-known_faces_encoding = [jason_encoding, antsa_encoding]
-known_faces_names = ["Jason", "Antsa"]
+known_faces_encoding = [jason_encoding, antsa_encoding, sarobidy_encoding]
+known_faces_names = ["Jason", "Antsa", "Sarobidy"]
 
 # Liste pour suivre les présences
 soccer = known_faces_names.copy()
@@ -102,3 +156,4 @@ with open(current_date + ".csv", 'w+', newline='') as f:
 # Libération des ressources
 video_capture.release()
 cv2.destroyAllWindows()
+'''

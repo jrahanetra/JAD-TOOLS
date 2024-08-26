@@ -7,12 +7,15 @@ type Props = {
 };
 function DisplayStudent({ tofetch }: Props) {
   const [studentInfo, setStudentInfo] = useState<Etudiant>({
-    studentId: 1,
+    studentId: 2,
     address: "Ambatoroka",
     lastname: "RAHANETRA",
     firstname: "Jason",
     email: "jrahanetra@gmail.com",
     phoneNumber: "038 77 667 97",
+    sex: "masculin",
+    birthday: "06-06-2005",
+    imageName: "Jason.png"
   });
 
   useEffect(() => {
@@ -25,7 +28,9 @@ function DisplayStudent({ tofetch }: Props) {
 
   return (
     <div className="container-attend">
-      <h1>Contain</h1>
+      <div className="container-title">
+        <h1>Contain</h1>
+      </div>
       <InfoStudent std={studentInfo} />
     </div>
   );

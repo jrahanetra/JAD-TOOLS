@@ -8,61 +8,19 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import styled from "@emotion/styled";
 import Paper from "@mui/material/Paper";
-import Etudiant from "../../../models/Etudiant";
-import StundentRow from "./StudentData";
-import fecthStudent from "../../../fecthAPI/FetchStudents";
+import Etudiant from "../../models/Etudiant";
+import fecthStudent from "../../fecthAPI/FetchStudents";
+import StudentRowForModal from "./StudentRowForModal";
 
 // Créez des composants stylés pour TableCell
 const CustomTableCell = styled(TableCell)(({ theme }) => ({
   fontSize: "1.1rem",
 }));
 
-type Props = {
-  keyWordToFilter: string;
-  filterByDate: string;
-  filterByName: string;
-  filterByAttend: string;
-};
-function TableData({
-  keyWordToFilter,
-  filterByDate,
-  filterByName,
-  filterByAttend,
-}: Props) {
+function TableDataModal() {
   const [etudiantList, setEtudiant] = useState<Etudiant[]>([]);
   const [filteredData, setFilteredData] = useState<Etudiant[]>([]);
   fecthStudent(etudiantList, setEtudiant);
-  useEffect(() => {
-    const sortedData = [...etudiantList];
-    if (filterByName !== "" || filterByAttend !== "") {
-      switch (filterByName) {
-        case "↓A":
-          sortedData.sort((a, b) => a.lastname.localeCompare(b.lastname));
-          break;
-        case "↑Z":
-          sortedData.sort((a, b) => b.lastname.localeCompare(a.lastname));
-          break;
-        default:
-          break;
-      }
-    } else {
-      sortedData.sort((a, b) => a.studentId - b.studentId);
-    }
-
-    setFilteredData(
-      sortedData.filter((item) =>
-        keyWordToFilter.toLowerCase() === ""
-          ? true
-          : item.firstname
-              .toLowerCase()
-              .includes(keyWordToFilter.trim().toLowerCase()) ||
-            item.lastname
-              .toLowerCase()
-              .includes(keyWordToFilter.trim().toLowerCase()) ||
-            item.studentId === Number(keyWordToFilter)
-      )
-    );
-  }, [filterByName, filterByAttend, keyWordToFilter, etudiantList]);
   return (
     <div className="container-tab">
       <ToastContainer />
@@ -81,12 +39,10 @@ function TableData({
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredData.map((etudiant) => (
-              <StundentRow
+            {etudiantList.map((etudiant) => (
+              <StudentRowForModal
                 key={etudiant.studentId}
                 etudiant={etudiant}
-                filterByDate={filterByDate}
-                filterByAttend={filterByAttend}
               />
             ))}
           </TableBody>
@@ -95,4 +51,4 @@ function TableData({
     </div>
   );
 }
-export default TableData;
+export default TableDataModal;

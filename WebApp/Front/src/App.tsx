@@ -28,7 +28,7 @@ function HeaderAndStudent(){
 type Props={
   idStudent: string
 }
-function HeaderAndInfoStudent({idStudent}:Props){
+function HeaderAndInfoStudent({ idStudent }:Props){
   return(
     <div>
       <Header />

@@ -1,13 +1,37 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { CardActionArea } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  CardActionArea,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Slide,
+} from "@mui/material";
+import { TransitionProps } from "@mui/material/transitions";
 import DayEDT from "../../../models/DayEDT";
+import Course from "../../../models/Course";
+import Etudiant from "../../../models/Etudiant";
+import fecthStudent from "../../../fecthAPI/FetchStudents";
 
 type Props = {
   dayCourses: DayEDT[];
 };
+
+// Utilisation d'une fonction fléchée pour définir Transition
+const Transition = forwardRef<
+  unknown,
+  TransitionProps & { children: React.ReactElement<any, any> }
+>(({ children, ...rest }, ref) => (
+  <Slide direction="up" ref={ref} {...rest}>
+    {children}
+  </Slide>
+));
+
+Transition.displayName = "Transition";
 
 const heightPerHour = 52; // Hauteur de chaque heure en pixels
 const timeSlots = [
@@ -38,24 +62,31 @@ const calculateHeight = (startTime: string, endTime: string) => {
 };
 
 function JourDataEDT({ dayCourses }: Props) {
-  const navigate = useNavigate(); // Initialiser useNavigate
+  const [course, setCourse] = useState<Course>();
+  const [etudiantList, setEtudiant] = useState<Etudiant[]>([]);
 
-  const handleCardClick = (course: DayEDT) => {
-    // Remplacer 'route-path' par la route où tu veux naviguer
-    navigate(`/course/${course.courseId}`);
+  fecthStudent(etudiantList, setEtudiant);
+  // Pour le dialog
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = (courseParam: Course) => {
+    setCourse(courseParam);
+    setOpen(true);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div className="containerColumn1">
-      {dayCourses?.map((course) => {
-        const topPosition = calculateTopPosition(course.courseBeginTime);
+      {dayCourses?.map((courseItem) => {
+        const topPosition = calculateTopPosition(courseItem.courseBeginTime);
         const height = calculateHeight(
-          course.courseBeginTime,
-          course.courseEndTime
+          courseItem.courseBeginTime,
+          courseItem.courseEndTime
         );
         return (
           <div
-            key={course.courseId}
+            key={courseItem.courseId}
             className="container-item"
             style={{
               position: "absolute",
@@ -74,20 +105,39 @@ function JourDataEDT({ dayCourses }: Props) {
             >
               <CardActionArea
                 style={{ width: "100%", height: "100%" }}
-                onClick={() => handleCardClick(course)}
+                onClick={() => handleClickOpen(courseItem)}
               >
                 <CardContent>
                   <h4 className="nameSubject">
-                    {course.subjectDto.subjectName}
+                    {courseItem.subjectDto.subjectName}
                   </h4>
                   <p className="profName">
-                    Mr {course.subjectDto.teacherDto.firstname}
+                    Mr {courseItem.subjectDto.teacherDto.firstname}
                   </p>
                   <p className="profName">
-                    {course.courseBeginTime} - {course.courseEndTime}
+                    {courseItem.courseBeginTime} - {courseItem.courseEndTime}
                   </p>
                 </CardContent>
               </CardActionArea>
+              <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle>{course?.subjectDto.subjectName}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    Let Google help apps determine location. This means sending
+                    anonymous location data to Google, even when no apps are
+                    running.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Close</Button>
+                </DialogActions>
+              </Dialog>
             </Card>
           </div>
         );
