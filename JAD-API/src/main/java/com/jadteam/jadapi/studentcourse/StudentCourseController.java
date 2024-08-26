@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +46,8 @@ public class StudentCourseController {
         Boolean justificated = jsonNode.get("justificated").asInt() == 1;
         try {
             return ResponseEntity.ok()
-                .body(studentCourseService.saveStudentCourse(studentId, courseId, attending, justificated));
+                .body(studentCourseService
+                      .saveStudentCourse(studentId, courseId, attending, justificated));
         } catch(Exception e) {
             return ResponseEntity.badRequest()
                 .body(new StudentCourse());
@@ -64,10 +64,20 @@ public class StudentCourseController {
         return studentCourseService.findAllStudentCoursesByDate(date);
     }
 
+    @GetMapping("/c")
+    public List<StudentCourseDto> findAllStudentCoursesByCourseId(@RequestParam Integer courseId) {
+        return studentCourseService.findAllStudentCoursesByCourseId(courseId);
+    }
+
     @GetMapping("/s")
     public List<StudentCourseDto> findAllStudentCoursesByStudentId(@RequestParam Integer studentId) {
         return studentCourseService.findAllStudentCoursesByStudentId(studentId);
     }
+
+    @GetMapping("/l")
+    public List<StudentCourseDto> findAllStudentCoursesByLevelId(@RequestParam Integer levelId) {
+        return studentCourseService.findAllStudentCoursesByLevelId(levelId);
+    }
     
-    
+
 }

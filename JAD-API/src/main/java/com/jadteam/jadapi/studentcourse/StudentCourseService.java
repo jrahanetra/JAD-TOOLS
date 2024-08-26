@@ -9,6 +9,7 @@ import com.jadteam.jadapi.course.CourseDto;
 import com.jadteam.jadapi.course.CourseRepository;
 import com.jadteam.jadapi.course.CourseService;
 import com.jadteam.jadapi.level.Level;
+import com.jadteam.jadapi.level.LevelRepository;
 import com.jadteam.jadapi.major.Major;
 import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubject;
 import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubjectRepository;
@@ -33,16 +34,18 @@ public class StudentCourseService {
     private final StudentService studentService;
     private final CourseService courseService;
     private final MajorLevelSubjectRepository majorLevelSubjectRepository;
+    private final LevelRepository levelRepository;
 
     public StudentCourseService(StudentCourseRepository studentCourseRepository, CourseRepository courseRepository,
             StudentRepository studentRepository, StudentService studentService, CourseService courseService,
-            MajorLevelSubjectRepository majorLevelSubjectRepository) {
+            MajorLevelSubjectRepository majorLevelSubjectRepository, LevelRepository levelRepository) {
         this.studentCourseRepository = studentCourseRepository;
         this.courseRepository = courseRepository;
         this.studentRepository = studentRepository;
         this.studentService = studentService;
         this.courseService = courseService;
         this.majorLevelSubjectRepository = majorLevelSubjectRepository;
+        this.levelRepository = levelRepository;
     }
 
     public StudentCourseDto toStudentCourseDto(StudentCourse studentCourse) {
@@ -104,6 +107,17 @@ public class StudentCourseService {
         return studentCourseDtos;
     }
 
+    public List<StudentCourseDto> findAllStudentCoursesByCourseId(Integer courseId) {
+        if (courseId == null)
+            throw new NullPointerException("The Student ID is invalid.");
+        Course course = courseRepository.findById(courseId).orElse(null);
+        if (course == null)
+            throw new NullPointerException("Student not found.");
+        List<StudentCourseDto> studentcourses = studentCourseRepository.findAllByCourse(course).stream()
+                .map(s -> toStudentCourseDto(s)).toList();
+        return studentcourses;
+    }
+
     public List<StudentCourseDto> findAllStudentCoursesByStudentId(Integer studentId) {
         if (studentId == null)
             throw new NullPointerException("The Student ID is invalid.");
@@ -113,6 +127,22 @@ public class StudentCourseService {
         List<StudentCourseDto> studentcourses = studentCourseRepository.findAllByStudent(student).stream()
                 .map(s -> toStudentCourseDto(s)).toList();
         return studentcourses;
+    }
+
+    public List<StudentCourseDto> findAllStudentCoursesByLevelId(Integer levelId) {
+        if (levelId == null)
+            throw new NullPointerException("The Level ID is invalid.");
+        Level level = levelRepository.findById(levelId).orElse(null);
+        if (level == null)
+            throw new NullPointerException("Level not found.");
+        List<Subject> subjects = majorLevelSubjectRepository.findAllByLevel(level).stream().map(m -> m.getSubject()).toList();
+        List<Course> courses = new ArrayList<>();
+        for (var subject: subjects)
+            courses.addAll(courseRepository.findAllBySubject(subject));
+        List<StudentCourseDto> scd = new ArrayList<>();
+        for (var course: courses)
+            scd.addAll(studentCourseRepository.findAllByCourse(course).stream().map(sc -> toStudentCourseDto(sc)).toList());
+        return scd;
     }
     
 }

@@ -16,4 +16,6 @@ public interface MajorLevelSubjectRepository extends JpaRepository<MajorLevelSub
     public List<MajorLevelSubject> findAllByMajorAndLevel(Major major, Level level);
 
     public List<MajorLevelSubject> findAllBySubject(Subject subject);
+
+    public List<MajorLevelSubject> findAllByLevel(Level level);
 }
