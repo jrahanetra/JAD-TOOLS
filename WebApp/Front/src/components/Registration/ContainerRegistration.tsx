@@ -9,6 +9,7 @@ import TextFieldComponent from "./FieldsAndSelect/TextField";
 import SelectInputComponent from "./FieldsAndSelect/SelectInput";
 import DateFieldComponent from "./FieldsAndSelect/DateField";
 import PhoneNumberInputComponent from "./FieldsAndSelect/PhoneNumberInput";
+import Etudiant from "../../models/Etudiant";
 
 interface FormValues {
   valueName: string;
@@ -19,6 +20,7 @@ interface FormValues {
   valueAddress: string;
   valuePhoneNumber: string | undefined;
   valueEmail: string;
+  valueImageName: string;
 }
 
 function ContainerRegistration() {
@@ -54,6 +56,7 @@ function ContainerRegistration() {
     valueAddress: "",
     valuePhoneNumber: "",
     valueEmail: "",
+    valueImageName: "",
   });
 
   // STATES VALIDATION OF SOME FIELDS
@@ -63,6 +66,7 @@ function ContainerRegistration() {
   const [validLevel, setValidLevel] = useState(false);
   const [validAddress, setValidAddress] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
+  const [validImageName, setValidImageName] = useState(false);
 
   // TEST VALIDATION OF FIELDS
   useEffect(() => {
@@ -94,6 +98,11 @@ function ContainerRegistration() {
     const result = EMAIL_REGEX.test(values.valueEmail);
     setValidEmail(result);
   }, [values.valueEmail]);
+
+  useEffect(() => {
+    const result = values.valueImageName !== "";
+    setValidImageName(result);
+  }, [values.valueImageName]);
 
   // HANDLES CHANGES TEXTFIELD InputLabel,
   const handleChangeValue =
@@ -134,6 +143,7 @@ function ContainerRegistration() {
   const fieldAddress = useRef<HTMLInputElement>(null);
   const fieldPhone = useRef<HTMLInputElement>(null);
   const fieldEmail = useRef<HTMLInputElement>(null);
+  const fieldImageName = useRef<HTMLInputElement>(null);
 
   // To pass to the next input
   const handleKeyPress =
@@ -173,38 +183,72 @@ function ContainerRegistration() {
 
   const colorBordureFocus = "257DE4";
   // To submit all values input
-  const submitTheRegistration = () => {
+  const submitTheRegistration = async () => {
     if (areValuesValid(values)) {
       // Construire l'objet des données à envoyer
       const studentData = {
         firstname: values.valueFirstNames,
         lastname: values.valueName,
         sex: values.valueSex,
-        birthday: values.valueBirthday?.toDate(),
+        birthday: values.valueBirthday?.format("DD-MM-YYYY"),
         address: values.valueAddress,
         phoneNumber: values.valuePhoneNumber,
         email: values.valueEmail,
-        // Ajoutez d'autres champs si nécessaire
+        imageName: values.valueImageName,
       };
 
-      // Faire une requête POST au serveur
-      fetch("http://localhost:8080/students", {
-        method: "POST",
-        body: JSON.stringify(studentData),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Erreur lors de l'envoi des données");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("Données envoyées avec succès:", data);
-          // Vous pouvez ajouter des actions supplémentaires ici, comme réinitialiser le formulaire ou afficher un message de succès
-        })
-        .catch((error) => {
-          console.error("Erreur lors de l'envoi des données:", error);
+      try {
+        // Faire une requête POST au serveur
+        const response = await fetch("http://localhost:8080/students", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // Indique que le corps de la requête est en JSON
+          },
+          body: JSON.stringify(studentData),
         });
+
+        if (!response.ok) {
+          throw new Error("Erreur lors de l'envoi des données");
+        }
+
+        const student = await response.json(); // Utilisez await pour obtenir la réponse JSON
+
+        // Construire l'objet des données de registration
+        const registrationData = {
+          studentId: student.studentId,
+          firstname: student.firstname,
+          lastname: student.lastname,
+          sex: student.sex,
+          birthday: student.birthday,
+          address: student.address,
+          phoneNumber: student.phoneNumber,
+          email: student.email,
+          imageName: student.imageName,
+        };
+
+        console.log(student);
+
+        // Envoyer les données de registration
+        const registrationResponse = await fetch(
+          "http://localhost:8080/registrations",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json", // Indique que le corps de la requête est en JSON
+            },
+            body: JSON.stringify(registrationData),
+          }
+        );
+
+        if (!registrationResponse.ok) {
+          throw new Error("Erreur lors de l'envoi des données de registration");
+        }
+
+        const dataRegistration = await registrationResponse.json();
+        console.log("Données envoyées avec succès:", dataRegistration);
+      } catch (error) {
+        console.error("Erreur lors de l'envoi des données:", error);
+      }
     } else {
       switch (checkNullOrEmptyKeys(values)[0]) {
         case "valueName":
@@ -224,6 +268,9 @@ function ContainerRegistration() {
           break;
         case "valueAddress":
           fieldAddress.current?.focus();
+          break;
+        case "valueImageName":
+          fieldImageName.current?.focus();
           break;
         case "valuePhoneNumber":
           fieldPhone.current?.focus();
@@ -302,7 +349,7 @@ function ContainerRegistration() {
               <SelectInputComponent
                 nameLabel="SEX"
                 widthSelect={70}
-                valuesPossible={["Masculin", "Féminin"]}
+                valuesPossible={["Male", "Female"]}
                 value={values.valueSex}
                 handleChange={handleChangeValue("valueSex")}
                 onKeyPress={handleKeyPress(fieldBirthday, fieldFirstNames)}
@@ -335,20 +382,31 @@ function ContainerRegistration() {
             <TextFieldComponent
               placeholderTextField="LOT VK 77 ITAOSY"
               id="address"
-              widthTextField={100}
+              widthTextField={50}
               value={values.valueAddress}
               handleChange={handleChangeValue("valueAddress")}
-              onKeyPress={handleKeyPress(fieldPhone, fieldLevel)}
+              onKeyPress={handleKeyPress(fieldImageName, fieldLevel)}
               inputRef={fieldAddress}
               colorBorder={colorBordureFocus}
               isValid={validAddress}
+            />
+            <TextFieldComponent
+              placeholderTextField="Antsa.jpg"
+              id="imageName"
+              widthTextField={50}
+              value={values.valueImageName}
+              handleChange={handleChangeValue("valueImageName")}
+              onKeyPress={handleKeyPress(fieldPhone, fieldAddress)}
+              inputRef={fieldImageName}
+              colorBorder={colorBordureFocus}
+              isValid={validImageName}
             />
           </div>
           <div className="container-phoneAndEmailTextField">
             <PhoneNumberInputComponent
               valueNumber={values.valuePhoneNumber}
               handleChange={handleChangeValue("valuePhoneNumber")}
-              onKeyPress={handleKeyPress(fieldEmail, fieldAddress)}
+              onKeyPress={handleKeyPress(fieldEmail, fieldImageName)}
               refElement={fieldPhone}
             />
             <TextFieldComponent
