@@ -181,7 +181,6 @@ public class InitialDataLoader implements CommandLineRunner {
             }
         }
     }
->>>>>>> Stashed changes
 
     public void addLevels() {
         levels.add(new Level("L1"));
