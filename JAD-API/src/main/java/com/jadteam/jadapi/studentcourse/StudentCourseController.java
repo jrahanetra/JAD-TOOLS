@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +31,8 @@ public class StudentCourseController {
     }
 
     @PostMapping("")
-    public StudentCourse addStudentCourse(@RequestBody String json) throws JsonProcessingException, JsonMappingException {
+    public ResponseEntity<StudentCourse> addStudentCourse(@RequestBody String json)
+        throws JsonProcessingException, JsonMappingException, Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(json);
         JsonNode jsonNode = objectMapper.readTree(json);
@@ -42,7 +45,13 @@ public class StudentCourseController {
         Integer courseId = jsonNode.get("courseId").asInt();
         Boolean attending = jsonNode.get("attending").asInt() == 1;
         Boolean justificated = jsonNode.get("justificated").asInt() == 1;
-        return studentCourseService.saveStudentCourse(studentId, courseId, attending, justificated);
+        try {
+            return ResponseEntity.ok()
+                .body(studentCourseService.saveStudentCourse(studentId, courseId, attending, justificated));
+        } catch(Exception e) {
+            return ResponseEntity.badRequest()
+                .body(new StudentCourse());
+        }
     }
 
     @GetMapping("")

@@ -19,18 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/students")
-@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
 
     private final StudentService studentService;
 
 	public StudentController(StudentService studentService) {
         this.studentService = studentService;
-    }
-
-    @RequestMapping(method = RequestMethod.OPTIONS)
-    public ResponseEntity<Void> options() {
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("")
@@ -46,6 +40,11 @@ public class StudentController {
     @GetMapping("/{id}")
     public Student findStudentbyId(@PathVariable("id") Integer id) {
         return studentService.findStudentById(id);
+    }
+
+    @GetMapping("/courses/{id}")
+    public List<StudentDto> findAllStudentsByCourseId(@PathVariable("id") Integer courseId) {
+        return studentService.findAllStudentsByCourseId(courseId);
     }
 
     @PutMapping("/{id}")

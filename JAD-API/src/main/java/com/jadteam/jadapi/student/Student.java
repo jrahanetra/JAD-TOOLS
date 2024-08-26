@@ -40,10 +40,10 @@ public class Student {
     private String imageName;
 
     @OneToMany(mappedBy = "student")
-    private List<Registration> registrationList;
+    private List<Registration> registrations;
 
     @OneToMany(mappedBy = "student")
-    private List<StudentCourse> studentCourseList;
+    private List<StudentCourse> studentCourses;
 
     public Student() {
     }
@@ -107,20 +107,20 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Registration> getRegistrationList() {
-        return registrationList;
+    public List<Registration> getRegistrations() {
+        return registrations;
     }
 
-    public void setRegistrationList(List<Registration> registrations) {
-        this.registrationList = registrations;
+    public void setRegistrations(List<Registration> registrations) {
+        this.registrations = registrations;
     }
 
-    public List<StudentCourse> getStudentCourseList() {
-        return studentCourseList;
+    public List<StudentCourse> getStudentCourses() {
+        return studentCourses;
     }
 
-    public void setStudentCourseList(List<StudentCourse> studentCourseList) {
-        this.studentCourseList = studentCourseList;
+    public void setStudentCourses(List<StudentCourse> studentCourseList) {
+        this.studentCourses = studentCourseList;
     }
 
     public Sex getSex() {
