@@ -213,20 +213,30 @@ function ContainerRegistration() {
 
         const student = await response.json(); // Utilisez await pour obtenir la réponse JSON
 
+        let levelID = 1;
+        switch (values.valueLevel) {
+          case "L1":
+            levelID = 1;
+            break
+          case "L2":
+            levelID = 2;
+            break
+          case "L3":
+            levelID = 3;
+            break
+          default:
+            break
+        }
         // Construire l'objet des données de registration
         const registrationData = {
           studentId: student.studentId,
-          firstname: student.firstname,
-          lastname: student.lastname,
-          sex: student.sex,
-          birthday: student.birthday,
-          address: student.address,
-          phoneNumber: student.phoneNumber,
-          email: student.email,
-          imageName: student.imageName,
+          majorId: 1,
+          levelId: levelID,
+          year: 2024,
         };
 
-        console.log(student);
+        console.log("Student : ", student);
+        console.log("registrationData : ", registrationData);
 
         // Envoyer les données de registration
         const registrationResponse = await fetch(
