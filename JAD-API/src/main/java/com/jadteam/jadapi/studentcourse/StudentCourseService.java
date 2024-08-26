@@ -8,10 +8,16 @@ import com.jadteam.jadapi.course.Course;
 import com.jadteam.jadapi.course.CourseDto;
 import com.jadteam.jadapi.course.CourseRepository;
 import com.jadteam.jadapi.course.CourseService;
+import com.jadteam.jadapi.level.Level;
+import com.jadteam.jadapi.major.Major;
+import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubject;
+import com.jadteam.jadapi.majorlevelsubject.MajorLevelSubjectRepository;
+import com.jadteam.jadapi.registration.Registration;
 import com.jadteam.jadapi.student.Student;
 import com.jadteam.jadapi.student.StudentDto;
 import com.jadteam.jadapi.student.StudentRepository;
 import com.jadteam.jadapi.student.StudentService;
+import com.jadteam.jadapi.subject.Subject;
 
 import org.springframework.stereotype.Service;
 
@@ -26,13 +32,17 @@ public class StudentCourseService {
     private final StudentRepository studentRepository;
     private final StudentService studentService;
     private final CourseService courseService;
+    private final MajorLevelSubjectRepository majorLevelSubjectRepository;
 
-    public StudentCourseService(StudentCourseRepository studentCourseRepository, CourseRepository courseRepository, StudentRepository studentRepository, StudentService studentService, CourseService courseService) {
+    public StudentCourseService(StudentCourseRepository studentCourseRepository, CourseRepository courseRepository,
+            StudentRepository studentRepository, StudentService studentService, CourseService courseService,
+            MajorLevelSubjectRepository majorLevelSubjectRepository) {
         this.studentCourseRepository = studentCourseRepository;
         this.courseRepository = courseRepository;
         this.studentRepository = studentRepository;
         this.studentService = studentService;
         this.courseService = courseService;
+        this.majorLevelSubjectRepository = majorLevelSubjectRepository;
     }
 
     public StudentCourseDto toStudentCourseDto(StudentCourse studentCourse) {
@@ -45,7 +55,8 @@ public class StudentCourseService {
         return studentCourseDto;
     }
 
-    public StudentCourse saveStudentCourse(Integer studentId, Integer courseId, Boolean attending, Boolean justification) {
+    public StudentCourse saveStudentCourse(Integer studentId, Integer courseId, Boolean attending, Boolean justification)
+    throws Exception {
         if (studentId == null)
             throw new NullPointerException("The Student ID is invalid.");
         if (courseId == null)
@@ -61,6 +72,18 @@ public class StudentCourseService {
             throw new NullPointerException("Student not found");
         if (course == null)
             throw new NullPointerException("Course not found");
+        Registration studentCurrentRegistration = student.getRegistrations()
+            .stream()
+            .filter(s -> s.getYear() == LocalDate.now().getYear())
+            .toList()
+            .get(0);
+        Subject courseSubject = course.getSubject();
+        List<MajorLevelSubject> courseMajorLevelSubjects = majorLevelSubjectRepository.findAllBySubject(courseSubject);
+        List<Major> courseMajors = courseMajorLevelSubjects.stream().map(m -> m.getMajor()).toList();
+        List<Level> courseLevels = courseMajorLevelSubjects.stream().map(m -> m.getLevel()).toList();
+        if (!courseMajors.contains(studentCurrentRegistration.getMajor()) ||
+            !courseLevels.contains(studentCurrentRegistration.getLevel()))
+            throw new Exception("The student is not subscribed to this course.");
         StudentCourse studentCourse = new StudentCourse(studentCourseId, attending, justification);
         studentCourse.setStudent(student);
         studentCourse.setCourse(course);

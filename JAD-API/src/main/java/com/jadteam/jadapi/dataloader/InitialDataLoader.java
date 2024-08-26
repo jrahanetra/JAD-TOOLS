@@ -147,7 +147,6 @@ public class InitialDataLoader implements CommandLineRunner {
                            .birthday(16, 30)
                            .toInstant(),
                            ZoneId.systemDefault());
-            System.out.println(faker.demographic().sex());
             Student s = new Student(firstname,
                                     faker.name().lastName(),
                                     faker.address().city(),
