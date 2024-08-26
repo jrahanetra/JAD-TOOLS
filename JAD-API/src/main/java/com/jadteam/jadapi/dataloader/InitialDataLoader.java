@@ -161,7 +161,6 @@ public class InitialDataLoader implements CommandLineRunner {
         studentRepository.saveAll(students);
     }
 
-<<<<<<< Updated upstream
     // public void addStudentImages() throws IOException {
     //     for (var imageName: Arrays.asList("Antsa.jpg", "Jason.jpg", "Dihary.jpg", "image.jpg")) {
     //         InputStream in = getClass().getResourceAsStream("/images/"+imageName);
@@ -170,7 +169,7 @@ public class InitialDataLoader implements CommandLineRunner {
     //         // in.close();
     //     }
     // }
-=======
+    
     public void addStudentImages() throws IOException {
         for (var imageName: Arrays.asList("Antsa.jpg", "Jason.jpg", "Dihary.jpg", "image.jpg")){
             InputStream in = getClass().getResourceAsStream("/com/jadteam/jadapi/dataloader/"+imageName);

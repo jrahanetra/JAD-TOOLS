@@ -42,12 +42,14 @@ public class TeacherService {
 
     public TeacherDto findTeacherDtoById(Integer id) {
         if (id == null)
-            throw new NullPointerException("L'ID de l'objet Teacher est invalide.");
+            throw new NullPointerException("The Teacher ID is invalid.");
         Teacher teacher = teacherRepository.findById(id).orElse(new Teacher());
         return toTeacherDto(teacher);
     }
 
     public Teacher findTeacherById(Integer id) {
+        if (id == null)
+            throw new NullPointerException("The Teacher ID is invalid.");
         return teacherRepository.findById(id).orElse(new Teacher());
     }
 
