@@ -250,12 +250,12 @@ public class InitialDataLoader implements CommandLineRunner {
     }
 
     public void addCourses() {
-        LocalDate beginDate = LocalDate.now();
+        LocalDate beginDate = LocalDate.of(2024, 8, 26);
         // if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
         //   beginDate = beginDate.minusDays(1);
-        while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
-            beginDate = beginDate.minusDays(1);
-        LocalDate endDate = beginDate.plusDays(14);
+        // while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
+        //     beginDate = beginDate.minusDays(1);
+        LocalDate endDate = beginDate.of(2024, 9, 15);
         System.out.println(endDate.toString());
         List<LocalDate> dates = beginDate.datesUntil(endDate)
             .collect(Collectors.toList());
@@ -301,7 +301,7 @@ public class InitialDataLoader implements CommandLineRunner {
         //     beginDate = beginDate.minusDays(1);
         // while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
         //     beginDate = beginDate.minusDays(1);
-        LocalDate endDate = LocalDate.of(2024, 9, 15);
+        LocalDate endDate = LocalDate.now().minusDays(1);
         List<LocalDate> dates = beginDate.datesUntil(endDate)
             .collect(Collectors.toList());
         List<Course> l1PastCourses = l1Courses.stream()
