@@ -71,16 +71,16 @@ public class StudentService {
     public List<StudentDto> findAllStudentsByCourseId(Integer courseId) {
         if (courseId == null)
             throw new NullPointerException("The Course ID is invalid.");
-        Subject courseSubject = courseRepository.findById(courseId).orElse(new Course()).getSubject();
-        System.out.println(courseSubject.getSubjectName());
-        List<MajorLevelSubject> courseMls = majorLevelSubjectRepository.findAllBySubject(courseSubject);
-        List<Registration> courseRegistrations = new ArrayList<>();
-        for (var mls : courseMls) {
-            courseRegistrations
+        Subject subject = courseRepository.findById(courseId).orElse(new Course()).getSubject();
+        System.out.println(subject.getSubjectName());
+        List<MajorLevelSubject> mls = majorLevelSubjectRepository.findAllBySubject(subject);
+        List<Registration> registrations = new ArrayList<>();
+        for (var m : mls) {
+            registrations
                     .addAll(registrationRepository
-                            .findAllByMajorAndLevel(mls.getMajor(), mls.getLevel()));
+                            .findAllByMajorAndLevel(m.getMajor(), m.getLevel()));
         }
-        return courseRegistrations.stream().map(r -> toStudentDto(r.getStudent())).toList();
+        return registrations.stream().map(r -> toStudentDto(r.getStudent())).toList();
     }
 
     public Student updateStudent(Integer id, Student student) {

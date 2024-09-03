@@ -78,6 +78,5 @@ public class StudentCourseController {
     public List<StudentCourseDto> findAllStudentCoursesByLevelId(@RequestParam Integer levelId) {
         return studentCourseService.findAllStudentCoursesByLevelId(levelId);
     }
-    
 
 }
