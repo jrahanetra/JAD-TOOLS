@@ -301,7 +301,7 @@ public class InitialDataLoader implements CommandLineRunner {
         //     beginDate = beginDate.minusDays(1);
         // while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
         //     beginDate = beginDate.minusDays(1);
-        LocalDate endDate = LocalDate.now().minusDays(1);
+        LocalDate endDate = LocalDate.now();
         List<LocalDate> dates = beginDate.datesUntil(endDate)
             .collect(Collectors.toList());
         List<Course> l1PastCourses = l1Courses.stream()
