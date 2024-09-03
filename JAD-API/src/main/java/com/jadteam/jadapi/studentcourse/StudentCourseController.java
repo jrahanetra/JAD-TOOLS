@@ -44,14 +44,14 @@ public class StudentCourseController {
         Integer courseId = jsonNode.get("courseId").asInt();
         Boolean attending = jsonNode.get("attending").asInt() == 1;
         Boolean justificated = jsonNode.get("justificated").asInt() == 1;
-        try {
+        // try {
             return ResponseEntity.ok()
                 .body(studentCourseService
                       .saveStudentCourse(studentId, courseId, attending, justificated));
-        } catch(Exception e) {
+        /* } catch(Exception e) {
             return ResponseEntity.badRequest()
                 .body(new StudentCourse());
-        }
+        }*/
     }
 
     @GetMapping("")

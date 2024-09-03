@@ -23,7 +23,6 @@ function getDayOfWeek(dateStr: string): string {
 }
 
 type DayOfWeek =
-  | "Dimanche"
   | "Lundi"
   | "Mardi"
   | "Mercredi"
@@ -37,7 +36,6 @@ function groupByDayOfWeek(data: DayEDT[] | undefined): {
 } {
   // Initialiser l'objet avec tous les jours de la semaine
   const initialGroupedByDay: { [key in DayOfWeek]: DayEDT[] } = {
-    "Dimanche": [],
     "Lundi": [],
     "Mardi": [],
     "Mercredi": [],
@@ -66,7 +64,6 @@ function TableEDT({ edt }: Props) {
     { key: "Jeudi", label: "Thursday" },
     { key: "Vendredi", label: "Friday" },
     { key: "Samedi", label: "Saturday" },
-    { key: "Dimanche", label: "Sunday" },
   ];
   const listTime = [
             "08h-09h",

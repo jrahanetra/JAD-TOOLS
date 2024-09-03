@@ -60,8 +60,8 @@ function WorkingTime() {
 
   const fetchDate = async () => {
     const postLundi = {
-      beginDate: "19-08-2024", // NIVEAU
-      endDate: "26-08-2024", // PARCOURS
+      beginDate: "26-08-2024", // NIVEAU
+      endDate: "02-09-2024", // PARCOURS
     };
     const params1 = new URLSearchParams(postLundi).toString();
     try {
@@ -138,14 +138,18 @@ function WorkingTime() {
             Refresh
           </a>
         </div>
-        {Array.from(sortDateMap(allEDTGroupedByMonday)).map(([key, value]) => (
-          <div key={key} className="container-edt">
-            <h1 className="dateOfWeek">
-              {level} : Schedule of {formatDate(key)}
-            </h1>
-            <TableEDT edt={value} />
-          </div>
-        ))}
+        <div className="div-container-EDT">
+          {Array.from(sortDateMap(allEDTGroupedByMonday)).map(
+            ([key, value]) => (
+              <div key={key} className="container-edt">
+                <h1 className="dateOfWeek">
+                  {level} : Schedule of {formatDate(key)}
+                </h1>
+                <TableEDT edt={value} />
+              </div>
+            )
+          )}
+        </div>
       </div>
     </div>
   );

@@ -5,13 +5,7 @@ function Header(){
     return (
       <div>
         <header className="main-header">
-          <div className="profile-container">
-            <img
-              src={`${process.env.PUBLIC_URL}../pictures/ElonMusk.jpeg`}
-              alt=""
-              className="profile-picture"
-            />
-          </div>
+          <ShowLogo />
           <nav className="nav">
             <ul>
               <li>
@@ -31,7 +25,13 @@ function Header(){
               </li>
             </ul>
           </nav>
-          <ShowLogo />
+          <div className="profile-container">
+            <img
+              src={`${process.env.PUBLIC_URL}../pictures/ElonMusk.jpeg`}
+              alt=""
+              className="profile-picture"
+            />
+          </div>
         </header>
       </div>
     );

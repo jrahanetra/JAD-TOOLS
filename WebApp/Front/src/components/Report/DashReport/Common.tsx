@@ -11,10 +11,10 @@ function BoxDash({name, number, color, vector: Vector} : Props){
     return(
         <div className="div-dash-box"  style={{borderBottom : `10px solid ${color}`}}>
             <div className="div-dash-name">
-                <h1 className="h1-dash-name">{name}</h1>
+                <h1 className="h1-dash-name" style={{ color: `${color}`}}>{name}</h1>
             </div>  
             <div className="div-dash-vector">
-                <div className="div-svg-vector">
+                <div className="div-svg-vector" style={{ backgroundColor: `${color}`}}>
                     <Vector />
                 </div>
             </div>

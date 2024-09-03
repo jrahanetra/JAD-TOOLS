@@ -29,7 +29,7 @@ function DisplayStudent({ tofetch }: Props) {
   return (
     <div className="container-attend">
       <div className="container-title">
-        <h1>Contain</h1>
+        <h1> </h1>
       </div>
       <InfoStudent std={studentInfo} />
     </div>

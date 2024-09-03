@@ -15,7 +15,7 @@ function AttendanceGlobal({nbL1, nbL2}: Props) {
       {
         label: "Poll",
         data: [nbL1, nbL2],
-        backgroundColor: ["#DEE1F4", "#009DE1"],
+        backgroundColor: ["#FF9933", "#b44593"],
         borderWidth: 0, // Thickness of the border
       },
     ],

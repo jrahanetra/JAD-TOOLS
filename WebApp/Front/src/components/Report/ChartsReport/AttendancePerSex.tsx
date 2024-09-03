@@ -23,14 +23,16 @@ Chart.register(
 
 function AttendancePerSex({nbM, nbF}: Props) {
     const data = {
-        labels: ['M', 'F'],
-        datasets: [{
-            label: 'Attendance',
-            data: [nbM, nbF],
-            backgroundColor: ['#257DE4', '#FBB7F4'],
-            barThickness: 60,
-            maxBarThickness: 60,
-        }]
+      labels: ["M", "F"],
+      datasets: [
+        {
+          label: "Attendance",
+          data: [nbM, nbF],
+          backgroundColor: ["#b44593", "#FF9933"],
+          barThickness: 60,
+          maxBarThickness: 60,
+        },
+      ],
     };
 
     const options = {

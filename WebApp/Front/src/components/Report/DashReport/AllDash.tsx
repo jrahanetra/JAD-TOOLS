@@ -34,7 +34,7 @@ function ShowAllDash() {
       <BoxDash
         name="Level"
         number={studentLevels.length}
-        color="#22BBEA"
+        color="#b44593"
         vector={VectorYear}
       />
       <BoxDash
@@ -46,7 +46,7 @@ function ShowAllDash() {
       <BoxDash
         name="Female"
         number={tempNbF}
-        color="#22BBEA"
+        color="#dd5824"
         vector={VectorWoman}
       />
       <BoxDash

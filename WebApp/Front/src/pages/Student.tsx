@@ -105,7 +105,7 @@ function Student() {
             Refresh
           </a>
         </div>
-        <div className="div-container-tabFilter">
+        <div className="div-container-EDT">
           <TableData
             filterByLevel={valuesFilter.level}
             filterByName={valuesFilter.name}

@@ -34,13 +34,11 @@ def fetch_students():
     except Exception as error:
         print(f"Error : {error}")
 
-
 dataCourses = fetch_courses()
 dataStudents = fetch_students()
+
 courses = []
 students = []
-# URL de la caméra ESP32-CAM
-
 for data in dataStudents:
     student = Student(
         studentId = data["studentId"],
@@ -54,7 +52,6 @@ for data in dataStudents:
         imageName = data["imageName"]
     )
     students.append(student)
-
 for data in dataCourses:
     teacher_data = data['subjectDto']['teacherDto']
     teacher = Teacher(
@@ -80,9 +77,9 @@ for data in dataCourses:
     )
     courses.append(course)
 
-esp32_cam_url = 'http://192.168.131.93:8080/video'
-video_capture = cv2.VideoCapture(0)
-
+# URL de la caméra ESP32-CAM
+esp32_cam_url = 'http://192.168.196.60:8080/video'
+video_capture = cv2.VideoCapture(esp32_cam_url)
 
 # Chargement des images de référence et encodage des visages
 jason_image = fr.load_image_file("image/Jason.jpg")
@@ -94,8 +91,11 @@ sarobidy_encoding = fr.face_encodings(sarobidy_image)[0]
 antsa_image = fr.load_image_file("image/Antsa.jpg")
 antsa_encoding = fr.face_encodings(antsa_image)[0]
 
-known_faces_encoding = [jason_encoding, antsa_encoding, sarobidy_encoding]
-known_faces_names = ["Jason", "Antsa", "Sarobidy"]
+dihary_image = fr.load_image_file("image/Dihary.jpg")
+dihary_encoding = fr.face_encodings(dihary_image)[0]
+
+known_faces_encoding = [jason_encoding, antsa_encoding, sarobidy_encoding, dihary_encoding]
+known_faces_names = ["Jason", "Antsa", "Sarobidy", "Dihary"]
 
 # Liste pour suivre les présences
 soccer = known_faces_names.copy()
