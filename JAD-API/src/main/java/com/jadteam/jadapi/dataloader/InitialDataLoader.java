@@ -251,8 +251,8 @@ public class InitialDataLoader implements CommandLineRunner {
 
     public void addCourses() {
         LocalDate beginDate = LocalDate.now();
-        if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
-            beginDate = beginDate.minusDays(1);
+        // if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
+        //     beginDate = beginDate.minusDays(1);
         while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
             beginDate = beginDate.minusDays(1);
         LocalDate endDate = beginDate.plusDays(14);
@@ -297,8 +297,8 @@ public class InitialDataLoader implements CommandLineRunner {
 
     public void addStudentCourse() {
         LocalDate beginDate = LocalDate.now();
-        if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
-            beginDate = beginDate.minusDays(1);
+        // if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
+        //     beginDate = beginDate.minusDays(1);
         while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
             beginDate = beginDate.minusDays(1);
         LocalDate endDate = LocalDate.now();
