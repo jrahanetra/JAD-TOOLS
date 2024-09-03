@@ -137,7 +137,7 @@ public class InitialDataLoader implements CommandLineRunner {
                                  LocalDate.of(2002, 7, 28),
                                  "Dihary.jpg"));
 
-        for (int i=0; i<100; i++) {
+        for (int i=0; i<7; i++) {
             String firstname = faker.name().firstName();
             String email = fvs.bothify(firstname+"###@gmail.com");
             Sex sex = faker.demographic().sex()
@@ -251,10 +251,8 @@ public class InitialDataLoader implements CommandLineRunner {
 
     public void addCourses() {
         LocalDate beginDate = LocalDate.now();
-        if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
-            beginDate = beginDate.minusDays(1);
-        if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.TUESDAY))
-            beginDate = beginDate.minusDays(2);
+        // if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
+        //   beginDate = beginDate.minusDays(1);
         while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
             beginDate = beginDate.minusDays(1);
         LocalDate endDate = beginDate.plusDays(14);
@@ -299,10 +297,8 @@ public class InitialDataLoader implements CommandLineRunner {
 
     public void addStudentCourse() {
         LocalDate beginDate = LocalDate.now();
-        if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
-            beginDate = beginDate.minusDays(1);
-        if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.TUESDAY))
-            beginDate = beginDate.minusDays(2);
+        // if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY))
+        //     beginDate = beginDate.minusDays(1);
         while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
             beginDate = beginDate.minusDays(1);
         LocalDate endDate = LocalDate.now();
