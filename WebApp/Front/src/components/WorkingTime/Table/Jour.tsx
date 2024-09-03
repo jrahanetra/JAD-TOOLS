@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import {
@@ -9,9 +9,18 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Paper,
   Slide,
+  styled,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
+import { toast } from "react-toastify";
 import DayEDT from "../../../models/DayEDT";
 import Course from "../../../models/Course";
 import Etudiant from "../../../models/Etudiant";
@@ -30,6 +39,15 @@ const Transition = forwardRef<
     {children}
   </Slide>
 ));
+
+const CustomTableCell = styled(TableCell)(() => ({
+  fontSize: "1.25rem",
+}));
+
+// Créez des composants stylés pour TableCell
+const CustomTableCell1 = styled(TableCell)(() => ({
+  fontSize: "1rem",
+}));
 
 Transition.displayName = "Transition";
 
@@ -70,6 +88,26 @@ function JourDataEDT({ dayCourses }: Props) {
   const [open, setOpen] = useState(false);
   const handleClickOpen = (courseParam: Course) => {
     setCourse(courseParam);
+    const postData = {
+      courseId: courseParam.courseId.toString(),
+    };
+    const params = new URLSearchParams(postData).toString();
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/students/courses/${params}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setEtudiant(data);
+      } catch (error) {
+        toast.error(`Error : ${error}`);
+      }
+    };
+    fetchData();
     setOpen(true);
   };
 
@@ -120,18 +158,57 @@ function JourDataEDT({ dayCourses }: Props) {
                 </CardContent>
               </CardActionArea>
               <Dialog
+                fullScreen
                 open={open}
-                TransitionComponent={Transition}
-                keepMounted
                 onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description"
+                TransitionComponent={Transition}
               >
                 <DialogTitle>{course?.subjectDto.subjectName}</DialogTitle>
                 <DialogContent>
                   <DialogContentText id="alert-dialog-slide-description">
-                    Let Google help apps determine location. This means sending
-                    anonymous location data to Google, even when no apps are
-                    running.
+                    <TableContainer
+                      component={Paper}
+                      style={{ width: "1500px", maxHeight: 1000}}
+                    >
+                      <Table aria-label="collapsible table">
+                        <TableHead>
+                          <TableRow>
+                            <CustomTableCell>No</CustomTableCell>
+                            <CustomTableCell align="left">Name</CustomTableCell>
+                            <CustomTableCell align="left">
+                              Firstname
+                            </CustomTableCell>
+                            <CustomTableCell align="left">
+                              birthay
+                            </CustomTableCell>
+                            <CustomTableCell align="left">
+                              email
+                            </CustomTableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {etudiantList.map((etudiant) => (
+                            <TableRow key={etudiant.studentId}>
+                              <CustomTableCell1 component="th" scope="row">
+                                {etudiant.studentId}
+                              </CustomTableCell1>
+                              <CustomTableCell1 align="left">
+                                {etudiant.lastname}
+                              </CustomTableCell1>
+                              <CustomTableCell1 align="left">
+                                {etudiant.firstname}
+                              </CustomTableCell1>
+                              <CustomTableCell1 align="left">
+                                {etudiant.birthday}
+                              </CustomTableCell1>
+                              <CustomTableCell1 align="left">
+                                {etudiant.email}
+                              </CustomTableCell1>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>

@@ -4,12 +4,12 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { SelectChangeEvent } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import dayjs, { Dayjs } from "dayjs";
 import TextFieldComponent from "./FieldsAndSelect/TextField";
 import SelectInputComponent from "./FieldsAndSelect/SelectInput";
 import DateFieldComponent from "./FieldsAndSelect/DateField";
 import PhoneNumberInputComponent from "./FieldsAndSelect/PhoneNumberInput";
-import Etudiant from "../../models/Etudiant";
 
 interface FormValues {
   valueName: string;
@@ -180,7 +180,7 @@ function ContainerRegistration() {
       (key) => obj[key] === null || obj[key] === ""
     );
   }
-
+  const navigate = useNavigate();
   const colorBordureFocus = "257DE4";
   // To submit all values input
   const submitTheRegistration = async () => {
@@ -213,20 +213,30 @@ function ContainerRegistration() {
 
         const student = await response.json(); // Utilisez await pour obtenir la réponse JSON
 
+        let levelID = 1;
+        switch (values.valueLevel) {
+          case "L1":
+            levelID = 1;
+            break
+          case "L2":
+            levelID = 2;
+            break
+          case "L3":
+            levelID = 3;
+            break
+          default:
+            break
+        }
         // Construire l'objet des données de registration
         const registrationData = {
           studentId: student.studentId,
-          firstname: student.firstname,
-          lastname: student.lastname,
-          sex: student.sex,
-          birthday: student.birthday,
-          address: student.address,
-          phoneNumber: student.phoneNumber,
-          email: student.email,
-          imageName: student.imageName,
+          majorId: 1,
+          levelId: levelID,
+          year: 2024,
         };
 
-        console.log(student);
+        console.log("Student : ", student);
+        console.log("registrationData : ", registrationData);
 
         // Envoyer les données de registration
         const registrationResponse = await fetch(
@@ -246,8 +256,10 @@ function ContainerRegistration() {
 
         const dataRegistration = await registrationResponse.json();
         console.log("Données envoyées avec succès:", dataRegistration);
+        navigate('/student')
       } catch (error) {
         console.error("Erreur lors de l'envoi des données:", error);
+        navigate("/student");
       }
     } else {
       switch (checkNullOrEmptyKeys(values)[0]) {
@@ -382,7 +394,7 @@ function ContainerRegistration() {
             <TextFieldComponent
               placeholderTextField="LOT VK 77 ITAOSY"
               id="address"
-              widthTextField={50}
+              widthTextField={88}
               value={values.valueAddress}
               handleChange={handleChangeValue("valueAddress")}
               onKeyPress={handleKeyPress(fieldImageName, fieldLevel)}
@@ -391,9 +403,9 @@ function ContainerRegistration() {
               isValid={validAddress}
             />
             <TextFieldComponent
-              placeholderTextField="Antsa.jpg"
+              placeholderTextField="ImageName"
               id="imageName"
-              widthTextField={50}
+              widthTextField={80}
               value={values.valueImageName}
               handleChange={handleChangeValue("valueImageName")}
               onKeyPress={handleKeyPress(fieldPhone, fieldAddress)}
