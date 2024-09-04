@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
-import { toast } from "react-toastify";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Typography from "@mui/material/Typography";
@@ -31,12 +30,12 @@ const StyledTableRow = styled(TableRow)(() => ({
   },
 }));
 
-const CustomTableCell = styled(TableCell)(({ theme }) => ({
+const CustomTableCell = styled(TableCell)(() => ({
   fontSize: "1.25rem",
 }));
 
 // Créez des composants stylés pour TableCell
-const CustomTableCell1 = styled(TableCell)(({ theme }) => ({
+const CustomTableCell1 = styled(TableCell)(() => ({
   fontSize: "1rem",
 }));
 
@@ -57,14 +56,14 @@ function StundentRow({ etudiant, filterByDate, filterByAttend }: Props) {
     let sortedData = [...coursesOfStudent];
     if (filterByDate !== "" || filterByAttend !== "") {
       switch (filterByDate) {
-        case "↓Recent":
+        case "↓Recent date":
           sortedData.sort(
             (a, b) =>
               formatToDate(b.courseDto.courseDate).getTime() -
               formatToDate(a.courseDto.courseDate).getTime()
           );
           break;
-        case "↑Once":
+        case "↑Old date":
           sortedData.sort(
             (a, b) =>
               formatToDate(a.courseDto.courseDate).getTime() -
@@ -76,10 +75,10 @@ function StundentRow({ etudiant, filterByDate, filterByAttend }: Props) {
       }
 
       switch (filterByAttend) {
-        case "YES":
+        case "Present":
           sortedData = sortedData.filter((item) => item.attending === true);
           break;
-        case "NO":
+        case "Absent":
           sortedData = sortedData.filter((item) => item.attending === false);
           break;
         default:
@@ -151,7 +150,7 @@ function StundentRow({ etudiant, filterByDate, filterByAttend }: Props) {
                       <CustomTableCell1 align="right">
                         {course.courseDto.courseEndTime}
                       </CustomTableCell1>
-                      <CustomTableCell1 align="right">{`${course.attending}`}</CustomTableCell1>
+                      <CustomTableCell1 align="right">{course.attending === true? "Present" : "Absent"}</CustomTableCell1>
                       <CustomTableCell1 align="right">{`${course.justificated}`}</CustomTableCell1>
                     </TableRow>
                   ))}

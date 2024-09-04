@@ -6,6 +6,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { SelectChangeEvent } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import dayjs, { Dayjs } from "dayjs";
+import { toast, ToastContainer } from "react-toastify";
 import TextFieldComponent from "./FieldsAndSelect/TextField";
 import SelectInputComponent from "./FieldsAndSelect/SelectInput";
 import DateFieldComponent from "./FieldsAndSelect/DateField";
@@ -235,9 +236,6 @@ function ContainerRegistration() {
           year: 2024,
         };
 
-        console.log("Student : ", student);
-        console.log("registrationData : ", registrationData);
-
         // Envoyer les données de registration
         const registrationResponse = await fetch(
           "http://localhost:8080/registrations",
@@ -253,12 +251,9 @@ function ContainerRegistration() {
         if (!registrationResponse.ok) {
           throw new Error("Erreur lors de l'envoi des données de registration");
         }
-
-        const dataRegistration = await registrationResponse.json();
-        console.log("Données envoyées avec succès:", dataRegistration);
         navigate('/student')
       } catch (error) {
-        console.error("Erreur lors de l'envoi des données:", error);
+        toast.error(`Erreur lors de l'envoi des données: ${error}`);
         navigate("/student");
       }
     } else {
@@ -301,9 +296,10 @@ function ContainerRegistration() {
       <div className="container-title">
         <h1>Registration Student</h1>
       </div>
+      <ToastContainer />
       <div className="container-list">
         <div className="div-refresh">
-          <a href="/" className="a-refresh">
+          <a href="/registration" className="a-refresh">
             Refresh
           </a>
         </div>
@@ -390,11 +386,11 @@ function ContainerRegistration() {
           </div>
         </div>
         <div className="container-otherTextFields">
-          <div className="container-addressTextField">
+          <div className="container-phoneAndEmailTextField">
             <TextFieldComponent
               placeholderTextField="LOT VK 77 ITAOSY"
               id="address"
-              widthTextField={88}
+              widthTextField={73}
               value={values.valueAddress}
               handleChange={handleChangeValue("valueAddress")}
               onKeyPress={handleKeyPress(fieldImageName, fieldLevel)}
@@ -405,7 +401,7 @@ function ContainerRegistration() {
             <TextFieldComponent
               placeholderTextField="ImageName"
               id="imageName"
-              widthTextField={80}
+              widthTextField={100}
               value={values.valueImageName}
               handleChange={handleChangeValue("valueImageName")}
               onKeyPress={handleKeyPress(fieldPhone, fieldAddress)}
@@ -440,7 +436,7 @@ function ContainerRegistration() {
               sx={{
                 backgroundColor: "#1FD61B",
                 width: "250px",
-                height: "55px",
+                height: "45px",
                 fontSize: "19px",
                 "&:hover": {
                   backgroundColor: "#257DE4", // Background color on hover

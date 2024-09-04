@@ -310,6 +310,8 @@ body {
 .container-head {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
+  padding: 10px 0 10px 0;
+  border-radius: 20px 20px 0 0;
   border: 3px solid #bdb9b9;
 }
 
@@ -328,9 +330,10 @@ body {
 
 .container-nomPrenom {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: 1% 0 0 0;
   height: 80px;
-  align-items: center;
 }
 
 .container-birthdayAndAddress {
@@ -410,7 +413,7 @@ body {
   margin: 1% 0 1% 0;
   width: 100%;
 }
-.container-title h1{
+.container-title h1 {
   margin: 0 21% 0 42%;
   color: white;
 }
@@ -435,7 +438,7 @@ h1 {
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border-radius: 2%;
+  border-radius: 20px;
 }
 
 .container-filter {
@@ -498,8 +501,21 @@ td.td-head {
 }
 
 .div-container-EDT {
+  margin: 3% 0% 0 8.5%;
+  border: 2px solid #dbdbdf;
+  height: 700px;
+  width: 1500px;
+  overflow-y: auto; /* Défilement vertical */
+  background: #ffffff;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+
+.div-container-Student {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   margin: 3% 0% 0 8.5%;
   border: 2px solid #dbdbdf;
   height: 700px;
@@ -598,7 +614,7 @@ thead {
 }
 
 span.nom {
-  margin: 0 5% 0 0;
+  margin: 0 1% 0 0;
 }
 span.prenom {
   font-size: 35px;
@@ -608,7 +624,6 @@ span.prenom {
   display: flex;
   width: 1800px;
   height: 1050px;
-  border-radius: 2%;
   flex-direction: column;
   align-items: center;
   /* home dashboard */
@@ -781,7 +796,7 @@ span.prenom {
   width: 78%;
 }
 .container-button {
-  margin: 3% 0 0 0;
+  margin: 3% 0 3% 0;
   width: 78%;
   text-align: right;
 }
@@ -844,7 +859,7 @@ span.prenom {
   width: 100%;
 }
 
-.item8{
+.item8 {
   border-bottom: 0px solid black;
 }
 

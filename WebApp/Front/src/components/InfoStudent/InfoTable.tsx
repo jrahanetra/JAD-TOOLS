@@ -14,7 +14,7 @@ import StudentCustomizeDataCourse from "../../models/StudentCustomizeDataCourses
 import fetchStudentCourses from "../../fecthAPI/FetchStudentCourses";
 
 type Props = {
-  idStudent: number;
+  idStudent: number | undefined;
   setNbYes: React.Dispatch<React.SetStateAction<number>>;
   setNbNo: React.Dispatch<React.SetStateAction<number>>;
 };
@@ -35,7 +35,7 @@ function InfoTable({ idStudent, setNbYes, setNbNo }: Props) {
   let yes = 0;
   let no = 0;
   const postData = {
-    studentId: idStudent.toString(),
+    studentId: idStudent? idStudent.toString() : "1",
   };
   const params = new URLSearchParams(postData).toString();
   fetchStudentCourses(coursesOfStudent, setCourses, params)
@@ -50,6 +50,7 @@ function InfoTable({ idStudent, setNbYes, setNbNo }: Props) {
     setNbNo(no);
     setNbYes(yes);
   }, [coursesOfStudent])
+
   return (
     <div>
       <ToastContainer />
@@ -64,7 +65,7 @@ function InfoTable({ idStudent, setNbYes, setNbNo }: Props) {
               <CustomTableCell align="left">Date</CustomTableCell>
               <CustomTableCell align="left">BeginTime</CustomTableCell>
               <CustomTableCell align="left">EndTime</CustomTableCell>
-              <CustomTableCell align="left">Attend</CustomTableCell>
+              <CustomTableCell align="left">Attendance</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -82,7 +83,7 @@ function InfoTable({ idStudent, setNbYes, setNbNo }: Props) {
                 <CustomTableCell1 align="left">
                   {data.courseDto.courseEndTime}
                 </CustomTableCell1>
-                <CustomTableCell1 align="left">{`${data.attending}`}</CustomTableCell1>
+                <CustomTableCell1 align="left">{ data.attending === true? "Present" : "Absent"}</CustomTableCell1>
               </TableRow>
             ))}
           </TableBody>

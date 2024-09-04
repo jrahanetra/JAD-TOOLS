@@ -44,7 +44,6 @@ function Student() {
 
   const fieldLevel = useRef<HTMLDivElement>(null);
   const fieldName = useRef<HTMLDivElement>(null);
-  const fieldAttend = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const result = valuesFilter.attend !== "";
@@ -85,7 +84,7 @@ function Student() {
           <SelectFilterComponent
             nameLabel="Name"
             widthSelect={90}
-            valuesPossible={["↓A", "↑Z"]} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
+            valuesPossible={["↓By A", "↑By Z"]} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
             value={valuesFilter.name}
             handleChange={handleChangeValue("name")}
             onKeyPress={() => {}}
@@ -105,7 +104,7 @@ function Student() {
             Refresh
           </a>
         </div>
-        <div className="div-container-EDT">
+        <div className="div-container-Student">
           <TableData
             filterByLevel={valuesFilter.level}
             filterByName={valuesFilter.name}

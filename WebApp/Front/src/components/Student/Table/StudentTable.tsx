@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StundentRow from "./StudentData";
 import StudentCustomizeData from "../../../models/StudentCustomizeData";
@@ -32,12 +32,12 @@ function TableData({ keyWordToFilter, filterByName, filterByLevel }: Props) {
 
     if (filterByName !== "" || filterByLevel !== "") {
       switch (filterByName) {
-        case "↓A":
+        case "↓By A":
           sortedData.sort((a, b) =>
             a.studentDto.lastname.localeCompare(b.studentDto.lastname)
           );
           break;
-        case "↑Z":
+        case "↑By Z":
           sortedData.sort((a, b) =>
             b.studentDto.lastname.localeCompare(a.studentDto.lastname)
           );
@@ -89,7 +89,7 @@ function TableData({ keyWordToFilter, filterByName, filterByLevel }: Props) {
       <table>
         <thead>
           <tr>
-            <td className="td-head">Roll no</td>
+            <td className="td-head">Nº</td>
             <td className="td-head">LastName</td>
             <td className="td-head">FirstName</td>
             <td className="td-head">Level</td>
