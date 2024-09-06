@@ -79,7 +79,7 @@ for data in dataCourses:
 
 # URL de la caméra ESP32-CAM
 esp32_cam_url = 'http://192.168.196.60:8080/video'
-video_capture = cv2.VideoCapture(esp32_cam_url)
+video_capture = cv2.VideoCapture(0)
 
 # Chargement des images de référence et encodage des visages
 jason_image = fr.load_image_file("image/Jason.jpg")

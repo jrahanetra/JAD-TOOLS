@@ -54,7 +54,11 @@ function SelectFilterComponent({
           m: 1,
         }}
       >
-        <InputLabel id="demo-simple-select-label">{nameLabel}</InputLabel>
+        <InputLabel id="demo-simple-select-label" sx={{
+          color: "white",
+        }}>
+          {nameLabel}
+        </InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -65,7 +69,8 @@ function SelectFilterComponent({
           label={nameLabel}
           sx={{
             width: `${widthSelect}%`,
-            borderBottom: "1.90px solid #8b8b8b",
+            color: "white",
+            borderBottom: "2px solid white",
           }}
         >
           {valuesPossible.map((sexValue) => (

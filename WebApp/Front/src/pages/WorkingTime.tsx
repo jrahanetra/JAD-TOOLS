@@ -61,7 +61,7 @@ function WorkingTime() {
   const fetchDate = async () => {
     const postLundi = {
       beginDate: "26-08-2024", // NIVEAU
-      endDate: "02-09-2024", // PARCOURS
+      endDate: "09-09-2024", // PARCOURS
     };
     const params1 = new URLSearchParams(postLundi).toString();
     try {

@@ -9,7 +9,7 @@ import formatDate from "../../utils/FormateDate";
 Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 type Props = {
-  std: Etudiant;
+  std: Etudiant | undefined;
 };
 
 function InfoStudent({ std }: Props) {
@@ -17,12 +17,12 @@ function InfoStudent({ std }: Props) {
   const [nbYes, setNbYes] = useState<number>(0);
   const [nbNo, setNbNo] = useState<number>(0);
   const data = {
-    labels: ["Yes", "No"],
+    labels: ["Attend", "Absence"],
     datasets: [
       {
         label: "Poll",
         data: [nbYes, nbNo],
-        backgroundColor: ["#257DE4", "black"],
+        backgroundColor: ["#ee7724", "#b44593"],
         borderWidth: 0, // Thickness of the border
       },
     ],
@@ -42,7 +42,7 @@ function InfoStudent({ std }: Props) {
             color: "black",
             font: {
               size: 10,
-              weight: "bold",
+              weight: "600",
             },
           },
           {
@@ -61,11 +61,11 @@ function InfoStudent({ std }: Props) {
     },
   };
   useEffect(() => {
-    if (std.firstname === "Dihary") {
+    if (std?.firstname === "Dihary") {
       setImageStudent(`${process.env.PUBLIC_URL}../pictures/Dihary.jpg`);
-    } else if (std.firstname === "Antsa") {
+    } else if (std?.firstname === "Antsa") {
       setImageStudent(`${process.env.PUBLIC_URL}../pictures/Antsa.jpg`);
-    } else if(std.firstname === "Jason") {
+    } else if(std?.firstname === "Jason") {
       setImageStudent(`${process.env.PUBLIC_URL}../pictures/jason.jpg`);
     }else {
       setImageStudent(`${process.env.PUBLIC_URL}../pictures/etudiant.jpeg`);
@@ -77,28 +77,24 @@ function InfoStudent({ std }: Props) {
       <div className="container-head">
         <div className="container-picture">
           <div className="student-picture">
-            <img
-              src={imageStudent}
-              alt=""
-              className="profile-picture"
-            />
+            <img src={imageStudent} alt="" className="profile-picture" />
           </div>
         </div>
         <div className="container-student-info">
           <div className="student-info">
             <div className="container-nomPrenom">
               <h2>
-                <span className="nom">{std.lastname}</span>
-                <span className="nom">{std.firstname}</span>
+                <span className="nom">{std?.lastname}</span>
+                <span className="nom">{std?.firstname}</span>
               </h2>
             </div>
             <p
               style={{ width: "100%" }}
               className="container-birthdayAndAddress"
             >
-              {formatDate(std.birthday)}
+              {std && formatDate(std.birthday)}
             </p>
-            <p className="container-Address">{std.address}</p>
+            <p className="container-Address">{std?.address}</p>
           </div>
         </div>
         <div className="doughnut">
@@ -107,7 +103,7 @@ function InfoStudent({ std }: Props) {
       </div>
       <div className="div-container-tab">
         <InfoTable
-          idStudent={std.studentId}
+          idStudent={std?.studentId}
           setNbYes={setNbYes}
           setNbNo={setNbNo}
         />

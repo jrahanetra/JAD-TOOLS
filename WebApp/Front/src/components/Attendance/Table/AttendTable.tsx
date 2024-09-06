@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,7 +13,7 @@ import StundentRow from "./StudentData";
 import fecthStudent from "../../../fecthAPI/FetchStudents";
 
 // Créez des composants stylés pour TableCell
-const CustomTableCell = styled(TableCell)(({ theme }) => ({
+const CustomTableCell = styled(TableCell)(() => ({
   fontSize: "1.1rem",
 }));
 
@@ -36,10 +36,10 @@ function TableData({
     const sortedData = [...etudiantList];
     if (filterByName !== "" || filterByAttend !== "") {
       switch (filterByName) {
-        case "↓A":
+        case "↓By A":
           sortedData.sort((a, b) => a.lastname.localeCompare(b.lastname));
           break;
-        case "↑Z":
+        case "↑By Z":
           sortedData.sort((a, b) => b.lastname.localeCompare(a.lastname));
           break;
         default:
@@ -74,7 +74,7 @@ function TableData({
           <TableHead>
             <TableRow>
               <TableCell />
-              <CustomTableCell>Roll no</CustomTableCell>
+              <CustomTableCell>Nº</CustomTableCell>
               <CustomTableCell>Lastname</CustomTableCell>
               <CustomTableCell>Firstname</CustomTableCell>
               <CustomTableCell>Address</CustomTableCell>

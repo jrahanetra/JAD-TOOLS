@@ -33,7 +33,6 @@ function Attend() {
     };
   const handleChangeValueSearchInput =
     () => (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(event.target.value);
       setValueSearchInput(event?.target.value);
     };
   const [validValuesFilter, setValidValuesFilter] =
@@ -76,7 +75,7 @@ function Attend() {
           <SelectFilterComponent
             nameLabel="↓↑Date"
             widthSelect={90}
-            valuesPossible={["↓Recent", "↑Once"]} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
+            valuesPossible={["↓Recent date", "↑Old date"]} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
             value={valuesFilter.byDate}
             handleChange={handleChangeValue("byDate")}
             onKeyPress={() => {}}
@@ -87,7 +86,7 @@ function Attend() {
           <SelectFilterComponent
             nameLabel="↓↑Name"
             widthSelect={90}
-            valuesPossible={["↓A", "↑Z"]} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
+            valuesPossible={["↓By A", "↑By Z"]} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
             value={valuesFilter.byName}
             handleChange={handleChangeValue("byName")}
             onKeyPress={() => {}}
@@ -96,9 +95,9 @@ function Attend() {
             isWithLabel={false}
           />
           <SelectFilterComponent
-            nameLabel="Attend"
+            nameLabel="Attendance"
             widthSelect={90}
-            valuesPossible={["YES", "NO"]} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
+            valuesPossible={["Present", "Absent"]} // LEVEL POSSIBLE THAT WE'VE TO VERIFY IN THE BASE
             value={valuesFilter.byAttend}
             handleChange={handleChangeValue("byAttend")}
             onKeyPress={() => {}}
@@ -118,7 +117,7 @@ function Attend() {
             Refresh
           </a>
         </div>
-        <div className="div-container-tabFilter">
+        <div className="div-container-Student">
           <TableData
             keyWordToFilter={valueSearchInput}
             filterByDate={valuesFilter.byDate}
