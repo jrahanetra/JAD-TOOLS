@@ -53,12 +53,19 @@ public class StudentCourseService {
             throw new NullPointerException("The Student is invalid.");
         StudentDto studentDto = studentService.toStudentDto(studentCourse.getStudent());
         CourseDto courseDto = courseService.toCourseDto(studentCourse.getCourse());
-        StudentCourseDto studentCourseDto = new StudentCourseDto(studentCourse.getStudentCourseId(), studentDto,
-                courseDto, studentCourse.isAttending(), studentCourse.isJustificated());
+        StudentCourseDto studentCourseDto = new StudentCourseDto(studentCourse.getStudentCourseId(),
+                                                                 studentDto,
+                                                                 courseDto, studentCourse.isAttending(),
+                                                                 studentCourse.isJustificated(),
+                                                                 studentCourse.isOnTime());
         return studentCourseDto;
     }
 
-    public StudentCourse saveStudentCourse(Integer studentId, Integer courseId, Boolean attending, Boolean justification)
+    public StudentCourse saveStudentCourse(Integer studentId,
+                                           Integer courseId,
+                                           Boolean attending,
+                                           Boolean justificated,
+                                           Boolean onTime)
     throws Exception {
         if (studentId == null)
             throw new NullPointerException("The Student ID is invalid.");
@@ -66,11 +73,13 @@ public class StudentCourseService {
             throw new NullPointerException("The Course ID is invalid.");
         if (attending == null)
             throw new NullPointerException("The Attending is invalid.");
-        if (justification == null)
+        if (justificated == null)
             throw new NullPointerException("The justification is invalid.");
+
         StudentCourseId studentCourseId = new StudentCourseId(studentId, courseId);
         Student student = studentRepository.findById(studentId).orElse(null);
         Course course = courseRepository.findById(courseId).orElse(null);
+
         if (student == null)
             throw new NullPointerException("Student not found");
         if (course == null)
@@ -81,13 +90,21 @@ public class StudentCourseService {
             .toList()
             .get(0);
         Subject courseSubject = course.getSubject();
-        List<MajorLevelSubject> courseMajorLevelSubjects = majorLevelSubjectRepository.findAllBySubject(courseSubject);
-        List<Major> courseMajors = courseMajorLevelSubjects.stream().map(m -> m.getMajor()).toList();
-        List<Level> courseLevels = courseMajorLevelSubjects.stream().map(m -> m.getLevel()).toList();
+        List<MajorLevelSubject> courseMajorLevelSubjects = majorLevelSubjectRepository
+            .findAllBySubject(courseSubject);
+        List<Major> courseMajors = courseMajorLevelSubjects.stream()
+            .map(m -> m.getMajor()).toList();
+        List<Level> courseLevels = courseMajorLevelSubjects.stream()
+            .map(m -> m.getLevel()).toList();
+
         if (!courseMajors.contains(studentCurrentRegistration.getMajor()) ||
             !courseLevels.contains(studentCurrentRegistration.getLevel()))
             throw new Exception("The student is not subscribed to this course.");
-        StudentCourse studentCourse = new StudentCourse(studentCourseId, attending, justification);
+
+        StudentCourse studentCourse = new StudentCourse(studentCourseId,
+                                                        attending,
+                                                        justificated,
+                                                        onTime);
         studentCourse.setStudent(student);
         studentCourse.setCourse(course);
         return studentCourseRepository.save(studentCourse);

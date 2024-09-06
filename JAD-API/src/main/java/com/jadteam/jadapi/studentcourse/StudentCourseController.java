@@ -38,16 +38,22 @@ public class StudentCourseController {
         if (jsonNode.get("studentId") == null ||
             jsonNode.get("courseId") == null ||
             jsonNode.get("attending") == null ||
-            jsonNode.get("justificated") == null)
+            jsonNode.get("justificated") == null ||
+            jsonNode.get("onTime") == null)
             throw new NullPointerException("One field in the Json is missing..");
         Integer studentId = jsonNode.get("studentId").asInt();
         Integer courseId = jsonNode.get("courseId").asInt();
         Boolean attending = jsonNode.get("attending").asInt() == 1;
         Boolean justificated = jsonNode.get("justificated").asInt() == 1;
+        Boolean onTime = jsonNode.get("onTime").asInt() == 1;
         // try {
             return ResponseEntity.ok()
                 .body(studentCourseService
-                      .saveStudentCourse(studentId, courseId, attending, justificated));
+                      .saveStudentCourse(studentId,
+                                         courseId,
+                                         attending,
+                                         justificated,
+                                         onTime));
         /* } catch(Exception e) {
             return ResponseEntity.badRequest()
                 .body(new StudentCourse());

@@ -255,7 +255,7 @@ public class InitialDataLoader implements CommandLineRunner {
         //   beginDate = beginDate.minusDays(1);
         // while (!beginDate.getDayOfWeek().equals(DayOfWeek.MONDAY))
         //     beginDate = beginDate.minusDays(1);
-        LocalDate endDate = beginDate.of(2024, 9, 15);
+        LocalDate endDate = LocalDate.of(2024, 9, 15);
         System.out.println(endDate.toString());
         List<LocalDate> dates = beginDate.datesUntil(endDate)
             .collect(Collectors.toList());
@@ -320,22 +320,26 @@ public class InitialDataLoader implements CommandLineRunner {
             .toList();
         for (var course: l1PastCourses)
             for (var student: l1Students) {
+                Boolean attended = rand.nextBoolean();
                 StudentCourseId id = new StudentCourseId(student.getStudentId(),
                                                          course.getCourseId());
                 StudentCourse studentCourse = new StudentCourse(id,
-                                                                rand.nextBoolean(),
-                                                                false);
+                                                                attended,
+                                                                false,
+                                                                attended ? rand.nextBoolean() : false);
                 studentCourse.setStudent(student);
                 studentCourse.setCourse(course);
                 studentCourseRepository.save(studentCourse);
             }
         for (var course: l2PastCourses)
             for (var student: l2Students) {
+                Boolean attended = rand.nextBoolean();
                 StudentCourseId id = new StudentCourseId(student.getStudentId(),
                                                          course.getCourseId());
                 StudentCourse studentCourse = new StudentCourse(id,
-                                                                rand.nextBoolean(),
-                                                                false);
+                                                                attended,
+                                                                false,
+                                                                attended ? rand.nextBoolean() : false);
                 studentCourse.setStudent(student);
                 studentCourse.setCourse(course);
                 studentCourseRepository.save(studentCourse);

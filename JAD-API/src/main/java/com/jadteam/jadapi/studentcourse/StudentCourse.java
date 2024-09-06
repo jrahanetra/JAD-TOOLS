@@ -35,16 +35,18 @@ public class StudentCourse {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    private boolean attending;
-    private boolean justificated;
+    private Boolean attending;
+    private Boolean justificated;
+    private Boolean onTime;
 
     public StudentCourse() {
     }
 
-    public StudentCourse(StudentCourseId studentCourseId, boolean attending, boolean justification) {
+    public StudentCourse(StudentCourseId studentCourseId, boolean attending, boolean justification, boolean onTime) {
         this.studentCourseId = studentCourseId;
         this.attending = attending;
         this.justificated = justification;
+        this.onTime = onTime;
     }
 
     public StudentCourseId getStudentCourseId() {
@@ -85,6 +87,14 @@ public class StudentCourse {
 
     public void setJustificated(boolean justificated) {
         this.justificated = justificated;
+    }
+
+    public boolean isOnTime() {
+        return onTime;
+    }
+
+    public void setOnTime(boolean late) {
+        this.onTime = late;
     }
 
 }
