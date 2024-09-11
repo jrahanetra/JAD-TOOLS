@@ -88,5 +88,4 @@ public class RegistrationService {
             registrationDtos.add(toRegistrationDto(registration));
         return registrationDtos;
     }
-
 }
